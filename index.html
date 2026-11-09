@@ -706,7 +706,7 @@
 
             <!-- 底部输入栏 -->
             <div class="followup-input-bar">
-              <input type="text" id="followup-input" class="followup-input" placeholder="输入追问（如：倒装怎么写？两词区别？）按 Enter 发送..." onkeydown="if(event.key==='Enter') sendFollowupQuestion()">
+              <input type="text" id="followup-input" class="followup-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="输入追问（如：倒装怎么写？两词区别？）按 Enter 发送..." onkeydown="if(event.key==='Enter') sendFollowupQuestion()">
               <button id="followup-send-btn" class="followup-send-btn" onclick="sendFollowupQuestion()">发送</button>
             </div>
           </div>
@@ -1388,6 +1388,8 @@
     let userFollowups = JSON.parse(localStorage.getItem('kaoyan_followups') || '{}');
 
     function renderFollowupChat() {
+      const inputEl = document.getElementById('followup-input');
+      if (inputEl) inputEl.value = '';
       const q = currentQuestions[currentIndex];
       if (!q) return;
       const key = `${currentMode}_${q.id}`;
@@ -1536,7 +1538,7 @@
       triggerAutoSync();
     }
 
-    function submitForAI() {
+    async function submitForAI() {
       const inputVal = document.getElementById('user-input').value.trim();
       if (!inputVal) {
         alert("请先输入您的作答内容！");
