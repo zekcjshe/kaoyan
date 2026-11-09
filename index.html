@@ -620,6 +620,13 @@
         filterSelect.value = savedFilter;
       }
       onCategoryFilterChange();
+      const isNoteOpen = localStorage.getItem('kaoyan_note_open') === '1';
+      const noteBox = document.getElementById('note-box');
+      const noteArrow = document.getElementById('note-arrow');
+      if (noteBox && noteArrow && isNoteOpen) {
+        noteBox.classList.add('open');
+        noteArrow.innerText = '▲ 收起';
+      }
       renderVocabList(vocabCards);
       if (userSettings.githubToken && userSettings.gistId && userSettings.autoSync) {
         pullFromGist(true);
@@ -1022,6 +1029,23 @@
       const recordKey = `${currentMode}_${q.id}`;
       input.value = userRecords[recordKey] ? userRecords[recordKey].input : '';
 
+      // 核心修复：每道题独立专属笔记精准回显（类似不背单词一题一记，绝不全局串题）
+      const noteInput = document.getElementById('note-input');
+      const noteBadge = document.getElementById('note-badge');
+      const noteTip = document.getElementById('note-save-tip');
+      const curNote = userNotes[recordKey] || '';
+
+      if (noteInput) {
+        noteInput.value = curNote;
+      }
+      if (noteBadge) {
+        noteBadge.style.display = curNote.trim() ? 'inline-block' : 'none';
+      }
+      if (noteTip) {
+        noteTip.innerText = curNote.trim() ? '已保存' : '';
+        noteTip.style.color = 'var(--text-muted)';
+      }
+
       if (userRecords[recordKey] && userRecords[recordKey].critique) {
         showSavedResult(userRecords[recordKey]);
       }
@@ -1076,13 +1100,25 @@
     function saveCurrentDraft() {
       const q = currentQuestions[currentIndex];
       if (!q) return;
-      const val = document.getElementById('user-input').value.trim();
-      if (!val) return;
       const recordKey = `${currentMode}_${q.id}`;
-      if (!userRecords[recordKey]) userRecords[recordKey] = {};
-      userRecords[recordKey].input = val;
-      localStorage.setItem('kaoyan_records', JSON.stringify(userRecords));
-        triggerAutoSync();
+      const inputEl = document.getElementById('user-input');
+      const val = inputEl ? inputEl.value.trim() : '';
+      if (val) {
+        if (!userRecords[recordKey]) userRecords[recordKey] = {};
+        userRecords[recordKey].input = val;
+        localStorage.setItem('kaoyan_records', JSON.stringify(userRecords));
+      }
+      const noteEl = document.getElementById('note-input');
+      if (noteEl) {
+        const noteVal = noteEl.value.trim();
+        if (noteVal) {
+          userNotes[recordKey] = noteVal;
+        } else {
+          delete userNotes[recordKey];
+        }
+        localStorage.setItem('kaoyan_notes', JSON.stringify(userNotes));
+      }
+      triggerAutoSync();
     }
 
     function openDrawerModal() {
@@ -1091,12 +1127,14 @@
         const recordKey = `${currentMode}_${q.id}`;
         const hasDone = userRecords[recordKey] && userRecords[recordKey].input;
         const isFav = userFavorites[recordKey];
+        const hasNote = userNotes[recordKey] && userNotes[recordKey].trim();
         const isCurrent = idx === currentIndex;
         let cls = 'bubble';
         if (isCurrent) cls += ' current';
         else if (hasDone) cls += ' done';
         if (isFav) cls += ' fav';
-        return `<div class="${cls}" onclick="selectQuestionFromDrawer(${idx})">${idx + 1}</div>`;
+        const noteIcon = hasNote ? '<span style="font-size:0.65rem; position:absolute; top:1px; right:2px;">✏️</span>' : '';
+        return `<div class="${cls}" style="position:relative;" onclick="selectQuestionFromDrawer(${idx})">${idx + 1}${noteIcon}</div>`;
       }).join('');
       document.getElementById('drawer-modal').classList.add('show');
     }
