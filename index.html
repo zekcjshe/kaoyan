@@ -737,12 +737,12 @@
       background: #1e3a8a;
     }
 
-    /* 原题题目与真题原卷展示卡片 */
+    /* 原题题目与真题原卷左右分栏展示卡片 */
     .exam-prompt-card {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 12px 14px;
+      border-radius: 10px;
+      padding: 14px 16px;
       margin-top: 10px;
     }
     body.dark .exam-prompt-card {
@@ -753,10 +753,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 8px;
+    }
+    body.dark .exam-prompt-header {
+      border-color: #374151;
     }
     .exam-prompt-title {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: #1e40af;
       display: flex;
@@ -766,46 +771,87 @@
     body.dark .exam-prompt-title {
       color: #93c5fd;
     }
+    .exam-prompt-body {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .exam-prompt-col-left {
+      flex: 1 1 54%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .exam-prompt-col-left.full-width {
+      flex: 1 1 100%;
+    }
     .exam-directions-text {
+      flex: 1;
       background: var(--card-bg, #ffffff);
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 10px 12px;
+      border-radius: 8px;
+      padding: 12px 14px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.86rem;
-      line-height: 1.6;
+      font-size: 0.88rem;
+      line-height: 1.65;
       color: var(--text-color, #1f2937);
       white-space: pre-wrap;
-      margin-bottom: 10px;
+      overflow-y: auto;
+      max-height: 480px;
+      box-sizing: border-box;
     }
     body.dark .exam-directions-text {
       background: #1f2937;
       border-color: #4b5563;
       color: #e5e7eb;
     }
-    .exam-img-container {
-      margin-top: 10px;
-      text-align: center;
-      background: #ffffff;
-      padding: 10px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+    .exam-prompt-col-right {
+      flex: 1 1 46%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
-    body.dark .exam-img-container {
+    .exam-img-box {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 280px;
+      max-height: 480px;
+      box-sizing: border-box;
+    }
+    body.dark .exam-img-box {
       background: #18202f;
       border-color: #374151;
     }
     .exam-sheet-img {
       max-width: 100%;
-      max-height: 400px;
+      max-height: 430px;
+      width: auto;
       height: auto;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       cursor: zoom-in;
       transition: transform 0.2s ease;
     }
     .exam-sheet-img:hover {
-      transform: scale(1.01);
+      transform: scale(1.02);
+    }
+    .exam-img-tip {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 6px;
+      text-align: center;
+    }
+    body.dark .exam-img-tip {
+      color: #94a3b8;
     }
     .exam-model-box {
       margin-top: 10px;
@@ -820,6 +866,26 @@
       background: #2e1065;
       border-color: #c084fc;
       color: #e5e7eb;
+    }
+
+    /* 移动端自适应左右分栏 */
+    @media (max-width: 768px) {
+      .exam-prompt-body {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .exam-prompt-col-left, .exam-prompt-col-right {
+        flex: 1 1 100%;
+      }
+      .exam-directions-text {
+        max-height: none;
+      }
+      .exam-img-box {
+        max-height: 380px;
+      }
+      .exam-sheet-img {
+        max-height: 350px;
+      }
     }
 
     /* 三阶段标签栏 */
@@ -1355,21 +1421,31 @@
         <button class="exam-mini-btn" onclick="toggleExamModelEssay()">💡 官方高分范文参考</button>
       </div>
 
-      <!-- 显式呈现：真题题干 Directions & 官方高清原卷图 -->
+      <!-- 左右分栏：真题题干 Directions (左) & 官方高清原卷图 (右) -->
       <div class="exam-prompt-card">
         <div class="exam-prompt-header">
-          <span class="exam-prompt-title">📜 考场原题 Directions (题目指令要求)：</span>
-          <span id="examExtraHint" style="font-size:0.8rem; color:#64748b;"></span>
+          <span class="exam-prompt-title">📜 考场真题原题与图表原卷</span>
+          <span id="examExtraHint" style="font-size:0.82rem; font-weight:600; color:#2563eb;"></span>
         </div>
-        <div id="examDirectionsText" class="exam-directions-text"></div>
         
-        <!-- 大作文高清原卷图 (可点击全屏放大) -->
-        <div id="examImgWrapper" class="exam-img-container" style="display: none;">
-          <img id="examSheetImg" src="" alt="真题原卷写作页" class="exam-sheet-img" onclick="zoomExamImage(this.src)" title="点击查看大图">
-          <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">🔍 点击图片可查看高清大图</div>
+        <div class="exam-prompt-body" id="examPromptBody">
+          <!-- 左栏：题干文字要求 -->
+          <div class="exam-prompt-col-left" id="examPromptColLeft">
+            <div style="font-size:0.8rem; font-weight:700; color:#64748b; margin-bottom:6px;">Directions (考场指令原文)：</div>
+            <div id="examDirectionsText" class="exam-directions-text"></div>
+          </div>
+
+          <!-- 右栏：原卷图片展示 -->
+          <div class="exam-prompt-col-right" id="examImgWrapper" style="display: none;">
+            <div style="font-size:0.8rem; font-weight:700; color:#64748b; margin-bottom:6px;">原卷高清真题图：</div>
+            <div class="exam-img-box">
+              <img id="examSheetImg" src="" alt="真题原卷写作页" class="exam-sheet-img" onclick="zoomExamImage(this.src)" title="点击在全屏查看大图">
+              <div class="exam-img-tip">🔍 点击图片可在新标签页查看原始大图</div>
+            </div>
+          </div>
         </div>
       </div>
-
+      
       <!-- 官方范文参考框 (折叠) -->
       <div id="examModelEssayBox" class="exam-model-box" style="display: none;">
         <div style="font-weight:700; color:#db2777; margin-bottom:6px;">官方高分范文参考（标答）：</div>
@@ -9365,7 +9441,7 @@
           throw new Error("云端 Gist 中未找到 kaoyan_progress.json 文件！");
         }
 
-        const payload = JSON.parse(fileObj.content);
+        const payload = safeJSONParse(fileObj.content, null); if (!payload) throw new Error('云端 Gist 数据格式损坏，解析失败！');
         if (payload.records) Object.assign(userRecords, payload.records);
         if (payload.favorites) Object.assign(userFavorites, payload.favorites);
         if (payload.errors) Object.assign(userErrors, payload.errors);
@@ -9851,10 +9927,12 @@
         // 显式加载 Directions 原文
         if (dirText) dirText.innerText = q.directions || '52. Directions:\nWrite an essay based on the picture/charts below...';
         
-        // 显示高清原卷大图
+        // 显示高清原卷大图并联动左右分栏
+        const colLeft = document.getElementById('examPromptColLeft');
         if (imgWrapper && sheetImg) {
-          imgWrapper.style.display = isImageCollapsed ? 'none' : 'block';
+          imgWrapper.style.display = isImageCollapsed ? 'none' : 'flex';
           sheetImg.src = q.image || `images/${q.year}-写作页.png`;
+          if (colLeft) colLeft.classList.toggle('full-width', isImageCollapsed);
         }
         if (toggleImgBtn) {
           toggleImgBtn.style.display = 'inline-block';
@@ -9872,8 +9950,10 @@
         // 显式加载小作文 Directions (原题信件/任务)
         if (dirText) dirText.innerText = q.directions || '51. Directions:\nWrite an email/letter...';
         
-        // 小作文无原卷图
+        // 小作文无原卷图，左侧栏自适应占满100%
+        const colLeft = document.getElementById('examPromptColLeft');
         if (imgWrapper) imgWrapper.style.display = 'none';
+        if (colLeft) colLeft.classList.add('full-width');
         if (toggleImgBtn) toggleImgBtn.style.display = 'none';
         
         setStage1FormUI('partA');
@@ -9889,8 +9969,10 @@
     function toggleExamImage() {
       isImageCollapsed = !isImageCollapsed;
       const imgWrapper = document.getElementById('examImgWrapper');
+      const colLeft = document.getElementById('examPromptColLeft');
       const toggleImgBtn = document.getElementById('toggleImageBtn');
-      if (imgWrapper) imgWrapper.style.display = isImageCollapsed ? 'none' : 'block';
+      if (imgWrapper) imgWrapper.style.display = isImageCollapsed ? 'none' : 'flex';
+      if (colLeft) colLeft.classList.toggle('full-width', isImageCollapsed);
       if (toggleImgBtn) toggleImgBtn.innerText = isImageCollapsed ? '🖼️ 展开原卷图' : '🖼️ 收起原卷图';
     }
 
