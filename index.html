@@ -308,6 +308,7 @@
       <div class="btn-group" style="margin-bottom:12px;">
         <button class="btn btn-secondary" style="flex:1;" onclick="pullFromGist()">📥 从云端拉取 (Pull)</button>
         <button class="btn btn-secondary" style="flex:1;" onclick="pushToGist()">☁️ 上传到云端 (Push)</button>
+        <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.8rem;" onclick="clearSyncConfig()" title="清空并解绑云端配置">🧹 解绑</button>
       </div>
 
       <hr style="border:none; border-top:1px dashed var(--border); margin:14px 0;">
@@ -1010,10 +1011,44 @@
     }
 
     // GitHub Gist 云同步模块
+    function getLatestSyncConfig() {
+      const tokenInput = document.getElementById('github-token');
+      const gistInput = document.getElementById('github-gist-id');
+      const autoSyncCheck = document.getElementById('github-auto-sync');
+
+      // 优先取输入框中的最新值，若输入框被用户清空则认定为空
+      let token = tokenInput ? tokenInput.value.trim() : (userSettings.githubToken || '');
+      let gistId = gistInput ? gistInput.value.trim() : (userSettings.gistId || '');
+      let autoSync = autoSyncCheck ? autoSyncCheck.checked : !!userSettings.autoSync;
+
+      // 实时同步更新到内存中的 userSettings 与 localStorage
+      userSettings.githubToken = token;
+      userSettings.gistId = gistId;
+      userSettings.autoSync = autoSync;
+      localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
+      updateSyncStatus();
+
+      return { token, gistId, autoSync };
+    }
+
+    function clearSyncConfig() {
+      if (confirm("确定要解绑并清空当前的 GitHub Token 和 Gist ID 吗？\n（本地题目与做题记录不受影响）")) {
+        userSettings.githubToken = '';
+        userSettings.gistId = '';
+        userSettings.autoSync = false;
+        localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
+        if (document.getElementById('github-token')) document.getElementById('github-token').value = '';
+        if (document.getElementById('github-gist-id')) document.getElementById('github-gist-id').value = '';
+        if (document.getElementById('github-auto-sync')) document.getElementById('github-auto-sync').checked = false;
+        updateSyncStatus();
+        alert("✅ 已解绑并清空云端配置！");
+      }
+    }
+
     async function pushToGist(silent = false) {
-      const token = userSettings.githubToken || (document.getElementById('github-token') && document.getElementById('github-token').value.trim());
+      const { token, gistId } = getLatestSyncConfig();
       if (!token) {
-        if (!silent) alert("请先在设置中填写您的 GitHub Token！");
+        if (!silent) alert("请先填写您的 GitHub Token！");
         return;
       }
 
@@ -1028,7 +1063,6 @@
         trans_idx: localStorage.getItem('kaoyan_trans_idx')
       };
 
-      const gistId = userSettings.gistId || (document.getElementById('github-gist-id') && document.getElementById('github-gist-id').value.trim());
       const bodyContent = {
         description: `考研英语实战同步数据 (更新于 ${new Date().toLocaleString()})`,
         files: {
@@ -1040,6 +1074,7 @@
 
       try {
         let resp;
+        let createdNew = false;
         if (gistId) {
           resp = await fetch(`https://api.github.com/gists/${gistId}`, {
             method: 'PATCH',
@@ -1050,7 +1085,23 @@
             },
             body: JSON.stringify(bodyContent)
           });
+
+          // 如果旧 Gist 404 (被用户删除或不存在)，自动重新创建
+          if (resp.status === 404) {
+            createdNew = true;
+            bodyContent.public = false;
+            resp = await fetch('https://api.github.com/gists', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(bodyContent)
+            });
+          }
         } else {
+          createdNew = true;
           bodyContent.public = false;
           resp = await fetch('https://api.github.com/gists', {
             method: 'POST',
@@ -1065,31 +1116,34 @@
 
         if (!resp.ok) {
           const errData = await resp.json().catch(() => ({}));
-          throw new Error(errData.message || `HTTP ${resp.status}`);
+          let errMsg = errData.message || `HTTP ${resp.status}`;
+          if (resp.status === 401 || errMsg.includes('Bad credentials')) {
+            throw new Error(`Token 无效或已失效 (${errMsg})\n排查：请检查是否误删了该 Token，或复制时漏选/多选了字符，务必复制完整的 ghp_...`);
+          } else if (resp.status === 403) {
+            throw new Error(`Token 权限不足 (${errMsg})\n排查：创建 Token 时必须勾选 [gist] 权限`);
+          } else {
+            throw new Error(errMsg);
+          }
         }
 
         const data = await resp.json();
-        if (!userSettings.gistId || userSettings.gistId !== data.id) {
-          userSettings.gistId = data.id;
-          localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
-          if (document.getElementById('github-gist-id')) {
-            document.getElementById('github-gist-id').value = data.id;
-          }
+        userSettings.gistId = data.id;
+        localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
+        if (document.getElementById('github-gist-id')) {
+          document.getElementById('github-gist-id').value = data.id;
         }
         updateSyncStatus();
-        if (!silent) alert(`☁️ 成功备份到 GitHub Gist 云端！
-Gist ID: ${data.id}
-其他设备输入此 Token 与 Gist ID 即可一键拉取。`);
+        if (!silent) {
+          alert(`☁️ 成功备份到 GitHub Gist 云端！\nGist ID: ${data.id}\n${createdNew ? '（已自动为您在 GitHub 生成全新的私有 Gist）\n' : ''}在手机端输入此 Token 与 Gist ID 即可一键拉取。`);
+        }
       } catch(err) {
-        if (!silent) alert(`❌ 上传到云端失败: ${err.message}
-请检查 Token 是否有效，并确保勾选了 gist 权限。`);
+        if (!silent) alert(`❌ 上传到云端失败:\n${err.message}`);
         console.error("Gist push error:", err);
       }
     }
 
     async function pullFromGist(silent = false) {
-      const token = userSettings.githubToken || (document.getElementById('github-token') && document.getElementById('github-token').value.trim());
-      const gistId = userSettings.gistId || (document.getElementById('github-gist-id') && document.getElementById('github-gist-id').value.trim());
+      const { token, gistId } = getLatestSyncConfig();
       
       if (!token || !gistId) {
         if (!silent) alert("请先填写 GitHub Token 和 Gist ID 才能从云端拉取！");
@@ -1107,7 +1161,14 @@ Gist ID: ${data.id}
 
         if (!resp.ok) {
           const errData = await resp.json().catch(() => ({}));
-          throw new Error(errData.message || `HTTP ${resp.status}`);
+          let errMsg = errData.message || `HTTP ${resp.status}`;
+          if (resp.status === 401 || errMsg.includes('Bad credentials')) {
+            throw new Error(`Token 无效或已失效 (${errMsg})\n请检查手机/电脑填写的 Token 是否与 GitHub 一致。`);
+          } else if (resp.status === 404) {
+            throw new Error(`未找到该 Gist ID (${gistId})\n该 Gist 可能已被删除，请先在电脑端清空 Gist ID 重新点【上传云端】生成新 ID。`);
+          } else {
+            throw new Error(errMsg);
+          }
         }
 
         const data = await resp.json();
@@ -1137,7 +1198,7 @@ Gist ID: ${data.id}
         updateSyncStatus();
         if (!silent) alert("📥 成功从云端拉取最新做题进度与笔记！");
       } catch(err) {
-        if (!silent) alert(`❌ 拉取失败: ${err.message}`);
+        if (!silent) alert(`❌ 拉取失败:\n${err.message}`);
         console.error("Gist pull error:", err);
       }
     }
