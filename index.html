@@ -138,6 +138,63 @@
     .vocab-body p { margin-bottom: 8px; }
     .vocab-body ul { margin-left: 18px; margin-bottom: 8px; }
     .vocab-body li { margin-bottom: 4px; }
+    /* 词库与实战双向联动按钮 */
+    .btn-practice-jump {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--card-bg);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: all 0.2s ease;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      line-height: 1.3;
+    }
+    .btn-practice-jump:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-practice-jump:active {
+      transform: scale(0.96);
+    }
+    body.dark .btn-practice-jump {
+      background: var(--block-bg);
+      border-color: #60a5fa;
+      color: #93c5fd;
+    }
+    body.dark .btn-practice-jump:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    #return-vocab-banner {
+      display: none;
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      color: #1d4ed8;
+      padding: 9px 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 0.86rem;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeIn 0.25s ease;
+      box-shadow: 0 2px 4px rgba(59, 130, 246, 0.08);
+    }
+    body.dark #return-vocab-banner {
+      background: #1e293b;
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+
     .vocab-body code { background: var(--code-bg); color: var(--code-text); padding: 2px 5px; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
     .vocab-body hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
     .vocab-body strong { color: var(--text); }
@@ -186,6 +243,14 @@
   <div class="container">
     
     <div id="quiz-view">
+      <!-- 来自词库直达的快捷返回条 -->
+      <div id="return-vocab-banner">
+        <span style="display:flex; align-items:center; gap:6px;">
+          <span>📖</span>
+          <span style="font-weight:600;">正在练习词库直达题目 (练完随时可返回)</span>
+        </span>
+        <button class="btn btn-primary" style="padding:4px 12px; font-size:0.8rem; font-weight:700;" onclick="returnToVocabView()">🔙 返回刚才的词库</button>
+      </div>
       <div class="filter-bar">
         <select class="filter-select" id="category-filter" onchange="onCategoryFilterChange()"></select>
         <div class="jump-box">
@@ -381,6 +446,7 @@
     }
 
     function switchMode(mode) {
+      const banner = document.getElementById('return-vocab-banner'); if (banner) banner.style.display = 'none';
       saveCurrentDraft();
       currentMode = mode;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -895,15 +961,136 @@
         .replace(/\n/gim, '<br>');
     }
 
+    // 词库与实战题目双向联动索引
+    const cnToQidMap = {};
+    function initVocabQidMap() {
+      if (Object.keys(cnToQidMap).length > 0) return;
+      writeQuestions.forEach(q => {
+        if (q.type === 'slot' && q.chinese) {
+          const cleanKey = q.chinese.replace(/[^\u4e00-\u9fa5]/g, '').slice(0, 10);
+          if (cleanKey) cnToQidMap[cleanKey] = q.id;
+        }
+      });
+    }
+
+    function renderVocabBody(bodyText) {
+      initVocabQidMap();
+      // 优化自测区标题说明
+      let processed = bodyText.replace(/### 二、考场定向造句自测区（留白无翻译）/g, '### 二、考场定向实战自测区（点击右侧按钮直达实战题）');
+
+      const lines = processed.split('\n');
+      const newLines = lines.map(line => {
+        if (line.includes('针对') && line.includes('练习')) {
+          const parts = line.split(/[:：]/);
+          if (parts.length > 1) {
+            const cnClean = parts.slice(1).join(':').replace(/[^\u4e00-\u9fa5]/g, '').slice(0, 10);
+            let qid = cnToQidMap[cnClean];
+            if (!qid) {
+              for (let k in cnToQidMap) {
+                if (cnClean.slice(0, 7) === k.slice(0, 7)) {
+                  qid = cnToQidMap[k];
+                  break;
+                }
+              }
+            }
+            if (qid) {
+              return `${line} <button class="btn-practice-jump" onclick="goToPracticeQuestion(${qid}, event)">✍️ 练此题</button>`;
+            }
+          }
+        }
+        return line;
+      });
+
+      return renderMarkdownContent(newLines.join('\n'));
+    }
+
+    let returnToVocabState = null;
+
+    function goToPracticeQuestion(qid, event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+
+      // 记录返回锚点
+      const openCard = event && event.target ? event.target.closest('.vocab-card') : document.querySelector('.vocab-card.open');
+      returnToVocabState = {
+        scrollY: window.scrollY,
+        cardId: openCard ? openCard.id : null
+      };
+
+      // 切换到写作模式
+      currentMode = 'write';
+      currentQuestions = writeQuestions;
+      allCurrentModeQuestions = writeQuestions;
+      setupFilterOptions();
+
+      // 定位到该题
+      const targetIdx = currentQuestions.findIndex(q => q.id === qid);
+      if (targetIdx !== -1) {
+        currentIndex = targetIdx;
+      }
+
+      // 视图切换
+      const quizView = document.getElementById('quiz-view');
+      const vocabView = document.getElementById('vocab-view');
+      quizView.style.display = 'block';
+      vocabView.style.display = 'none';
+
+      // 选项卡状态
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[0].classList.add('active'); // 句子升维按钮
+
+      // 显示顶部高亮浮动条
+      const banner = document.getElementById('return-vocab-banner');
+      if (banner) {
+        banner.style.display = 'flex';
+      }
+
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function returnToVocabView() {
+      saveCurrentDraft();
+
+      const quizView = document.getElementById('quiz-view');
+      const vocabView = document.getElementById('vocab-view');
+      quizView.style.display = 'none';
+      vocabView.style.display = 'block';
+
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[2].classList.add('active'); // 知识宝典按钮
+
+      // 隐藏返回浮动条
+      const banner = document.getElementById('return-vocab-banner');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+
+      // 恢复之前打开的卡片并平滑滚动回原位置
+      if (returnToVocabState) {
+        if (returnToVocabState.cardId) {
+          const card = document.getElementById(returnToVocabState.cardId);
+          if (card && !card.classList.contains('open')) {
+            card.classList.add('open');
+          }
+        }
+        setTimeout(() => {
+          window.scrollTo({ top: returnToVocabState.scrollY, behavior: 'smooth' });
+        }, 60);
+      }
+    }
+
     function renderVocabList(list) {
       const container = document.getElementById('vocab-list');
       container.innerHTML = list.map((item, idx) => `
-        <div class="vocab-card" onclick="this.classList.toggle('open')">
+        <div class="vocab-card" id="vocab-card-${idx}" onclick="this.classList.toggle('open')">
           <div class="vocab-title">
             <span>[${item.part}] ${item.title}</span>
             <span style="font-size:0.8rem; color:var(--primary);">▼ 展开速查</span>
           </div>
-          <div class="vocab-body">${renderMarkdownContent(item.body)}</div>
+          <div class="vocab-body">${renderVocabBody(item.body)}</div>
         </div>
       `).join('');
     }
