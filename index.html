@@ -125,6 +125,25 @@
       background: #451a03;
       color: #fde68a;
     }
+    
+    details.assembly-collapsible summary {
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      list-style: none;
+    }
+    details.assembly-collapsible summary::-webkit-details-marker {
+      display: none;
+    }
+    details.assembly-collapsible summary:hover {
+      opacity: 0.92;
+    }
+    details.assembly-collapsible[open] summary {
+      margin-bottom: 10px;
+      border-bottom: 1px dashed rgba(245, 158, 11, 0.35);
+      padding-bottom: 6px;
+    }
+
     .assembly-grid {
       display: flex;
       flex-direction: column;
@@ -7509,11 +7528,11 @@
         mainDisplay.innerText = q.chinese;
         if (q.assembly) {
           constraint.innerHTML = `
-            <div class="constraint-container">
-              <div class="constraint-title">
-                <span>🛠️ 三维词网装配武器库 (请尝试协同咬合)</span>
-                <span class="constraint-hint">灵活装配提分</span>
-              </div>
+            <details class="constraint-container assembly-collapsible">
+              <summary class="constraint-title">
+                <span>🛠️ 三维词网装配武器库 (点击展开 · 建议先自主思考)</span>
+                <span class="constraint-hint">💡 点击展开提示</span>
+              </summary>
               <div class="assembly-grid">
                 <div class="assembly-row">
                   <span class="assembly-tag tag-verb">🎯 核心动词</span>
@@ -7528,7 +7547,7 @@
                   <span class="assembly-words"><code>${q.assembly.modifier || 'vividly / profound (可选选配)'}</code></span>
                 </div>
               </div>
-            </div>
+            </details>
           `;
         } else {
           constraint.innerHTML = `<div class="constraint-container"><div class="constraint-title"><span>🎯 题目要求</span></div><div>${q.constraint || '请使用高级骨架或对应词块升维表达'}</div></div>`;
