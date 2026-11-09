@@ -426,20 +426,7 @@
       }
     }
 
-    .result-box {
-      margin-top: 0 !important;
-      padding: 14px;
-      border-radius: 8px;
-      background: var(--block-bg);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      min-height: 320px;
-      transition: all 0.2s ease;
-    }
-    .result-box.show {
-      border-color: var(--primary);
-    }
+    
 
     /* 右侧 AI 追问卡片 */
     .followup-box {
@@ -1292,9 +1279,28 @@
         noteTip.style.color = 'var(--text-muted)';
       }
 
+      // 严谨重置批改框状态（彻底解决切题残留与未答题显示旧批改问题）
+      resultBox.classList.remove('show');
+      resultBox.style.display = 'none';
+      const aiScore = document.getElementById('ai-score');
+      const aiCritique = document.getElementById('ai-critique');
+      const aiReasoning = document.getElementById('ai-reasoning');
+      const aiReasoningTitle = document.getElementById('ai-reasoning-title');
+      if (aiScore) aiScore.innerText = '';
+      if (aiCritique) aiCritique.innerHTML = '';
+      if (aiReasoning) {
+        aiReasoning.innerText = '';
+        aiReasoning.style.display = 'none';
+      }
+      if (aiReasoningTitle) aiReasoningTitle.style.display = 'none';
+
+      // 仅当本题确实有批改记录时，才准确展示
       if (userRecords[recordKey] && userRecords[recordKey].critique) {
         showSavedResult(userRecords[recordKey]);
       }
+
+      // 右侧 AI 追问面板同步跟随当前题号精准回显
+      renderFollowupChat();
     }
 
     function toggleContext() {
@@ -1571,6 +1577,7 @@
       const aiReasoningTitle = document.getElementById('ai-reasoning-title');
       const aiCritique = document.getElementById('ai-critique');
 
+      resultBox.style.display = 'block';
       resultBox.classList.add('show');
       aiScore.innerText = "🤖 阅卷老师正在批改中...";
       aiReasoning.style.display = 'none';
@@ -1733,6 +1740,7 @@
 
     function showSavedResult(rec) {
       const resultBox = document.getElementById('result-box');
+      resultBox.style.display = 'block';
       const aiScore = document.getElementById('ai-score');
       const aiReasoning = document.getElementById('ai-reasoning');
       const aiReasoningTitle = document.getElementById('ai-reasoning-title');
