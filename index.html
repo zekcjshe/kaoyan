@@ -614,8 +614,12 @@
       updateThemeButton();
 
       setupFilterOptions();
-      currentIndex = Math.min(parseInt(localStorage.getItem('kaoyan_write_idx') || '0'), currentQuestions.length - 1);
-      renderQuestion();
+      const savedFilter = localStorage.getItem(`kaoyan_filter_${currentMode}`) || 'ALL';
+      const filterSelect = document.getElementById('category-filter');
+      if (filterSelect && filterSelect.querySelector(`option[value="${savedFilter}"]`)) {
+        filterSelect.value = savedFilter;
+      }
+      onCategoryFilterChange();
       renderVocabList(vocabCards);
       if (userSettings.githubToken && userSettings.gistId && userSettings.autoSync) {
         pullFromGist(true);
@@ -650,8 +654,12 @@
         allCurrentModeQuestions = writeQuestions;
         currentQuestions = writeQuestions;
         setupFilterOptions();
-        currentIndex = Math.min(parseInt(localStorage.getItem('kaoyan_write_idx') || '0'), currentQuestions.length - 1);
-        renderQuestion();
+        const savedFilter = localStorage.getItem(`kaoyan_filter_${currentMode}`) || 'ALL';
+        const filterSelect = document.getElementById('category-filter');
+        if (filterSelect && filterSelect.querySelector(`option[value="${savedFilter}"]`)) {
+          filterSelect.value = savedFilter;
+        }
+        onCategoryFilterChange();
       } else if (mode === 'trans') {
         event.target.classList.add('active');
         quizView.style.display = 'block';
@@ -659,8 +667,12 @@
         allCurrentModeQuestions = transQuestions;
         currentQuestions = transQuestions;
         setupFilterOptions();
-        currentIndex = Math.min(parseInt(localStorage.getItem('kaoyan_trans_idx') || '0'), currentQuestions.length - 1);
-        renderQuestion();
+        const savedFilter = localStorage.getItem(`kaoyan_filter_${currentMode}`) || 'ALL';
+        const filterSelect = document.getElementById('category-filter');
+        if (filterSelect && filterSelect.querySelector(`option[value="${savedFilter}"]`)) {
+          filterSelect.value = savedFilter;
+        }
+        onCategoryFilterChange();
       } else if (mode === 'vocab') {
         event.target.classList.add('active');
         quizView.style.display = 'none';
@@ -803,13 +815,19 @@
     }
 
     function onCategoryFilterChange() {
-      const val = document.getElementById('category-filter').value;
+      saveCurrentDraft();
+      const select = document.getElementById('category-filter');
+      const val = select.value;
+      const prevQ = (currentQuestions && currentQuestions.length > currentIndex) ? currentQuestions[currentIndex] : null;
+
       if (val === 'ALL') {
         currentQuestions = allCurrentModeQuestions;
       } else if (val === 'FAV') {
         currentQuestions = allCurrentModeQuestions.filter(q => userFavorites[`${currentMode}_${q.id}`]);
       } else if (val === 'ERR') {
         currentQuestions = allCurrentModeQuestions.filter(q => userErrors[`${currentMode}_${q.id}`]);
+      } else if (val === 'NOTE') {
+        currentQuestions = allCurrentModeQuestions.filter(q => !!(userNotes[`${currentMode}_${q.id}`] && userNotes[`${currentMode}_${q.id}`].trim()));
       } else if (val.startsWith('TAG_')) {
         const tag = val.replace('TAG_', '');
         currentQuestions = allCurrentModeQuestions.filter(q => q.grammar_tags && q.grammar_tags.includes(tag));
@@ -821,11 +839,46 @@
       }
 
       if (currentQuestions.length === 0) {
-        alert("该分类下暂无题目！已切回全部题目。");
-        document.getElementById('category-filter').value = 'ALL';
+        alert("该分类下暂无题目！已自动切回全部题目。");
+        select.value = 'ALL';
         currentQuestions = allCurrentModeQuestions;
       }
-      currentIndex = 0;
+
+      const activeFilterVal = select.value;
+      localStorage.setItem(`kaoyan_filter_${currentMode}`, activeFilterVal);
+
+      // 智能进度恢复：回到该分类上次停留在的题目，避免每次都从第 1 题开始
+      let targetIdx = -1;
+
+      // 1. 如果切换前正在看的题目 (prevQ) 在新分类里依然存在，优先停留在当前题
+      if (prevQ) {
+        const found = currentQuestions.findIndex(q => q.id === prevQ.id);
+        if (found !== -1) targetIdx = found;
+      }
+
+      // 2. 否则读取该分类历史记录的题目 ID
+      if (targetIdx === -1) {
+        const savedQid = localStorage.getItem(`kaoyan_filter_qid_${currentMode}_${activeFilterVal}`);
+        if (savedQid) {
+          const found = currentQuestions.findIndex(q => String(q.id) === String(savedQid));
+          if (found !== -1) targetIdx = found;
+        }
+      }
+
+      // 3. 否则读取该分类历史记录的索引号
+      if (targetIdx === -1) {
+        const savedIdx = parseInt(localStorage.getItem(`kaoyan_filter_idx_${currentMode}_${activeFilterVal}`) || '-1');
+        if (savedIdx >= 0 && savedIdx < currentQuestions.length) {
+          targetIdx = savedIdx;
+        }
+      }
+
+      // 4. 兜底才从第 1 题开始
+      if (targetIdx === -1) {
+        targetIdx = 0;
+      }
+
+      currentIndex = targetIdx;
       renderQuestion();
     }
 
@@ -900,6 +953,10 @@
       jumpTotal.innerText = `/ ${currentQuestions.length} 题`;
 
       updateFavButtonState();
+
+      const curFilter = document.getElementById('category-filter') ? document.getElementById('category-filter').value : 'ALL';
+      localStorage.setItem(`kaoyan_filter_qid_${currentMode}_${curFilter}`, q.id);
+      localStorage.setItem(`kaoyan_filter_idx_${currentMode}_${curFilter}`, currentIndex);
 
       if (currentMode === 'write') {
         localStorage.setItem('kaoyan_write_idx', currentIndex);
