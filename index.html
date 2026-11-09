@@ -588,6 +588,370 @@
       cursor: not-allowed;
     }
 
+
+    /* ===== 模式四：真题全流程带练专属样式 ===== */
+    .exam-header-card {
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    body.dark .exam-header-card {
+      background: #1f2937;
+      border-color: #374151;
+    }
+    .exam-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .exam-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+    }
+    body.dark .exam-badge {
+      color: #93c5fd;
+      background: #1e3a8a;
+    }
+    .exam-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-color, #111827);
+    }
+    .exam-year-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .exam-year-select {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #3b82f6;
+      background: var(--card-bg, #fff);
+      color: var(--text-color, #111);
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }
+    body.dark .exam-year-select {
+      background: #374151;
+      border-color: #60a5fa;
+      color: #f3f4f6;
+    }
+    .exam-meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    body.dark .exam-meta-bar {
+      color: #9ca3af;
+    }
+    .exam-meta-item {
+      background: var(--bg-hover, #f3f4f6);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    body.dark .exam-meta-item {
+      background: #374151;
+      color: #e5e7eb;
+    }
+    .exam-mini-btn {
+      background: none;
+      border: 1px dashed #3b82f6;
+      color: #3b82f6;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .exam-mini-btn:hover {
+      background: #eff6ff;
+    }
+    body.dark .exam-mini-btn:hover {
+      background: #1e3a8a;
+    }
+    .exam-model-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #f8fafc;
+      border-left: 3px solid #3b82f6;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    body.dark .exam-model-box {
+      background: #111827;
+      border-color: #60a5fa;
+      color: #e5e7eb;
+    }
+
+    /* 三阶段平级切换标签栏 */
+    .exam-stages-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 8px;
+      overflow-x: auto;
+    }
+    body.dark .exam-stages-bar {
+      border-color: #374151;
+    }
+    .exam-stage-btn {
+      flex: 1;
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1.5px solid transparent;
+      background: var(--card-bg, #ffffff);
+      color: var(--text-color, #4b5563);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+    body.dark .exam-stage-btn {
+      background: #1f2937;
+      color: #9ca3af;
+    }
+    .exam-stage-btn:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+    body.dark .exam-stage-btn:hover {
+      background: #374151;
+    }
+    .exam-stage-btn.active {
+      border-color: #2563eb;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(37,99,235,0.1);
+    }
+    body.dark .exam-stage-btn.active {
+      background: #1e3a8a;
+      border-color: #60a5fa;
+      color: #bfdbfe;
+    }
+    .stage-num {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+
+    /* 阶段面板与输入项 */
+    .stage-panel {
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    body.dark .stage-panel {
+      background: #1f2937;
+      border-color: #374151;
+    }
+    .stage-desc-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    body.dark .stage-desc-box {
+      background: #064e3b;
+      border-color: #047857;
+      color: #a7f3d0;
+    }
+    .input-field-group {
+      margin-bottom: 14px;
+    }
+    .input-field-group label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-color, #374151);
+      margin-bottom: 6px;
+    }
+    body.dark .input-field-group label {
+      color: #e5e7eb;
+    }
+    .exam-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #d1d5db;
+      background: var(--card-bg, #fff);
+      color: var(--text-color, #111);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .exam-input:focus {
+      border-color: #3b82f6;
+    }
+    body.dark .exam-input {
+      background: #111827;
+      border-color: #4b5563;
+      color: #f3f4f6;
+    }
+    .exam-textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #d1d5db;
+      background: var(--card-bg, #fff);
+      color: var(--text-color, #111);
+      font-family: inherit;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .exam-textarea:focus {
+      border-color: #3b82f6;
+    }
+    body.dark .exam-textarea {
+      background: #111827;
+      border-color: #4b5563;
+      color: #f3f4f6;
+    }
+    .stage-action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    /* 苏格拉底反思提问卡片 (琥珀金) */
+    .socratic-card {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    body.dark .socratic-card {
+      background: #451a03;
+      border-color: #78350f;
+    }
+    .socratic-header {
+      font-weight: 800;
+      color: #b45309;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    body.dark .socratic-header {
+      color: #fde68a;
+    }
+    .socratic-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #92400e;
+      white-space: pre-wrap;
+    }
+    body.dark .socratic-body {
+      color: #fef3c7;
+    }
+
+    /* 三色手术台样式 */
+    .audit-card {
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .audit-red-zone {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      color: #991b1b;
+    }
+    body.dark .audit-red-zone {
+      background: #450a0a;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+    .audit-yellow-zone {
+      background: #fefce8;
+      border: 1.5px solid #fef08a;
+      color: #854d0e;
+    }
+    body.dark .audit-yellow-zone {
+      background: #422006;
+      border-color: #713f12;
+      color: #fef08a;
+    }
+    .audit-green-zone {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      color: #166534;
+    }
+    body.dark .audit-green-zone {
+      background: #052e16;
+      border-color: #14532d;
+      color: #86efac;
+    }
+    .stage-details {
+      margin-top: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      background: #f8fafc;
+    }
+    body.dark .stage-details {
+      background: #111827;
+      border-color: #374151;
+    }
+    .stage-details summary {
+      font-weight: 700;
+      cursor: pointer;
+      color: #3b82f6;
+      user-select: none;
+    }
+    body.dark .stage-details summary {
+      color: #60a5fa;
+    }
+    .stage-diag-body {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
 </style>
 </head>
 <body>
@@ -606,6 +970,7 @@
     <button class="tab-btn active" onclick="switchMode('write', event)">✍️ 句子升维 (350题)</button>
     <button class="tab-btn" onclick="switchMode('trans', event)">🌐 英译汉真题 (85题)</button>
     <button class="tab-btn" onclick="switchMode('vocab', event)">📖 知识与词库宝典</button>
+    <button class="tab-btn" onclick="switchMode('exam', event)">🎯 真题全流程带练 (17年真题)</button>
   </div>
 
   <div class="container">
@@ -732,6 +1097,147 @@
       <input type="text" class="search-bar" id="vocab-search" placeholder="🔍 全局搜索知识点（如 建议信, embody, 举例论证, 竞争）..." oninput="filterVocab()">
       <div id="vocab-list"></div>
     </div>
+
+<!-- ===== 模式四：真题全流程带练工作台 ===== -->
+  <div id="exam-view" style="display: none; width: 100%;">
+    <!-- 1. 真题顶栏：年份选择器与母题信息卡 -->
+    <div class="exam-header-card">
+      <div class="exam-header-top">
+        <div class="exam-title-group">
+          <span class="exam-badge">🎯 考研大作文真题全流程带练</span>
+          <h2 id="examTitle" class="exam-title">2026 年英语一 · 大作文真题</h2>
+        </div>
+        <div class="exam-year-picker">
+          <label for="examYearSelect">切换真题：</label>
+          <select id="examYearSelect" class="exam-year-select" onchange="onExamYearSelectChange(this.value)">
+            <!-- 动态渲染 2026-2010 -->
+          </select>
+        </div>
+      </div>
+      <div class="exam-meta-bar">
+        <span class="exam-meta-item" id="examTheme">📌 题注：养老机器人接受度调查</span>
+        <span class="exam-meta-item" id="examTopic">🏷️ 母题：科技现代生活</span>
+        <button class="exam-mini-btn" onclick="toggleExamModelEssay()">💡 官方高分范文参考</button>
+      </div>
+      <div id="examModelEssayBox" class="exam-model-box" style="display: none;">
+        <div style="font-weight:700; color:#2563eb; margin-bottom:6px;">官方高分范文：</div>
+        <div id="examModelEssayText" style="white-space: pre-wrap;"></div>
+      </div>
+    </div>
+
+    <!-- 2. 三阶段平级切换导航（纯信任·无门禁） -->
+    <div class="exam-stages-bar">
+      <button class="exam-stage-btn active" id="stageBtn1" onclick="switchExamStage(1)">
+        <span class="stage-num">Stage 1</span>
+        <span class="stage-text">立意与逻辑碰撞</span>
+      </button>
+      <button class="exam-stage-btn" id="stageBtn2" onclick="switchExamStage(2)">
+        <span class="stage-num">Stage 2</span>
+        <span class="stage-text">英文起草与升维</span>
+      </button>
+      <button class="exam-stage-btn" id="stageBtn3" onclick="switchExamStage(3)">
+        <span class="stage-num">Stage 3</span>
+        <span class="stage-text">自修与语料沉淀</span>
+      </button>
+    </div>
+
+    <!-- 3. 三个阶段的内容面板容器 -->
+    <div class="exam-stage-content">
+      <!-- ===== Stage 1 面板 ===== -->
+      <div id="stagePanel1" class="stage-panel">
+        <div class="stage-desc-box">
+          <strong>💡 阶段心法</strong>：先审题后动笔。填写你构思的画面意象、核心立意与两条支撑论据。AI 不直接判死刑，而是作为“反方辩友”做逻辑压力测试。
+        </div>
+        <div class="stage-input-grid">
+          <div class="input-field-group">
+            <label>① 画面微观意象提炼（你看到了什么、暗喻什么）：</label>
+            <input type="text" id="s1_visual" class="exam-input" placeholder="例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读...">
+          </div>
+          <div class="input-field-group">
+            <label>② 核心论点 (Thesis Statement · 一句话亮明主张)：</label>
+            <input type="text" id="s1_thesis" class="exam-input" placeholder="例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读...">
+          </div>
+          <div class="input-field-group">
+            <label>③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：</label>
+            <input type="text" id="s1_arg1" class="exam-input" placeholder="例如：买书不读往往源于浮躁风气下的虚荣炫耀与打卡形式主义...">
+          </div>
+          <div class="input-field-group">
+            <label>④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：</label>
+            <input type="text" id="s1_arg2" class="exam-input" placeholder="例如：知识的吸收必须经历沉思反刍，缺乏思想内化则书本形同废纸...">
+          </div>
+        </div>
+        <div class="stage-action-bar">
+          <button class="btn btn-primary" id="btnRunStage1" onclick="requestStage1AI()">🔍 发起逻辑压力测试 (AI 挑刺)</button>
+          <button class="btn btn-secondary" onclick="copyStage1Prompt()">📋 复制 Stage 1 Prompt (自选外部大模型)</button>
+        </div>
+        <!-- AI 输出区域 -->
+        <div id="s1_output_box" style="display: none; margin-top: 14px;">
+          <div class="socratic-card">
+            <div class="socratic-header">
+              <span>🤔 苏格拉底式设问反思（先自主推敲）</span>
+            </div>
+            <div id="s1_socratic_text" class="socratic-body"></div>
+          </div>
+          <details class="stage-details" style="margin-top: 10px;">
+            <summary>💡 点击展开查看：AI 深度逻辑诊断与推荐【中文三段论骨架】</summary>
+            <div id="s1_diag_text" class="stage-diag-body"></div>
+          </details>
+        </div>
+      </div>
+
+      <!-- ===== Stage 2 面板 ===== -->
+      <div id="stagePanel2" class="stage-panel" style="display: none;">
+        <div class="stage-desc-box">
+          <strong>💡 阶段心法</strong>：结合 Stage 1 锁定的三段骨架起草英文。AI 充当“语言手术刀”，开展红黄绿三层雷达扫描，不代笔整篇，只做局部升维手术。
+        </div>
+        <!-- 骨架悬浮/提示卡 -->
+        <details class="stage-details" style="margin-bottom: 14px;" open>
+          <summary>📌 当前锁定的【中文三段论骨架参考】（点击折叠/展开）</summary>
+          <div id="s2_skeleton_preview" style="padding: 8px 6px; font-size: 0.88rem; line-height: 1.6; color: var(--text-color, #4b5563); white-space: pre-wrap;">
+（在 Stage 1 运行后自动注入；也可直接在此独立构思写作）
+          </div>
+        </details>
+        <div class="input-field-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="margin: 0;">英文大作文初稿（V1 · 三段式标准作文）：</label>
+            <span id="s2_word_count" style="font-size: 0.8rem; font-weight: 700; color: #3b82f6;">0 词 (建议 160-200 词)</span>
+          </div>
+          <textarea id="s2_draft" class="exam-textarea" rows="11" placeholder="在此输入你的英文大作文初稿..." oninput="updateWordCount('s2_draft', 's2_word_count')"></textarea>
+        </div>
+        <div class="stage-action-bar">
+          <button class="btn btn-primary" id="btnRunStage2" onclick="requestStage2AI()">🔬 三色手术刀深度批改</button>
+          <button class="btn btn-secondary" onclick="copyStage2Prompt()">📋 复制 Stage 2 Prompt</button>
+        </div>
+        <!-- Stage 2 AI 输出 -->
+        <div id="s2_output_box" style="display: none; margin-top: 14px;">
+          <div id="s2_diag_content"></div>
+        </div>
+      </div>
+
+      <!-- ===== Stage 3 面板 ===== -->
+      <div id="stagePanel3" class="stage-panel" style="display: none;">
+        <div class="stage-desc-box">
+          <strong>💡 阶段心法</strong>：根据 Stage 2 的修改建议，自己亲手手敲修改终稿 V2。AI 比对两版迭代，指出思维盲区，并提取 5 个考前必背高阶词网资产！
+        </div>
+        <div class="input-field-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="margin: 0;">吸收批改后手敲修改的终稿（V2）：</label>
+            <span id="s3_word_count" style="font-size: 0.8rem; font-weight: 700; color: #10b981;">0 词</span>
+          </div>
+          <textarea id="s3_final_draft" class="exam-textarea" rows="11" placeholder="在此手敲修改你的第二稿 V2..." oninput="updateWordCount('s3_final_draft', 's3_word_count')"></textarea>
+        </div>
+        <div class="stage-action-bar">
+          <button class="btn btn-primary" id="btnRunStage3" onclick="requestStage3AI()">💎 对比复盘并提取专属武器库</button>
+          <button class="btn btn-secondary" onclick="copyStage3Prompt()">📋 复制 Stage 3 Prompt</button>
+          <button class="btn" id="btnCopyObsidian" onclick="copyObsidianNote()" style="display: none; background: #059669; color: white; font-weight: 700;">📋 一键复制 Obsidian 复盘笔记</button>
+        </div>
+        <!-- Stage 3 AI 输出 -->
+        <div id="s3_output_box" style="display: none; margin-top: 14px;">
+          <div id="s3_diag_content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div>
 
@@ -7195,7 +7701,7 @@
       
       const tabBtns = document.querySelectorAll('.tab-btn');
       tabBtns.forEach(b => b.classList.remove('active'));
-      const tabIndex = mode === 'write' ? 0 : (mode === 'trans' ? 1 : 2);
+      const tabIndex = mode === 'write' ? 0 : (mode === 'trans' ? 1 : (mode === 'vocab' ? 2 : 3));
       if (tabBtns && tabBtns[tabIndex]) {
         tabBtns[tabIndex].classList.add('active');
       } else if (evt && evt.target) {
@@ -7204,6 +7710,20 @@
       
       const quizView = document.getElementById('quiz-view');
       const vocabView = document.getElementById('vocab-view');
+      const examView = document.getElementById('exam-view');
+      const sidePanel = document.querySelector('.side-panel-wrapper');
+
+      if (mode === 'exam') {
+        if (quizView) quizView.style.display = 'none';
+        if (vocabView) vocabView.style.display = 'none';
+        if (examView) examView.style.display = 'block';
+        if (sidePanel) sidePanel.style.display = 'none';
+        initExamView();
+        return;
+      } else {
+        if (examView) examView.style.display = 'none';
+        if (sidePanel) sidePanel.style.display = 'block';
+      }
 
       if (mode === 'write') {
         quizView.style.display = 'block';
@@ -8569,6 +9089,465 @@
     }
 
     window.onload = init;
-  </script>
+  
+    /* ===== 模式四：真题全流程带练数据源与逻辑 ===== */
+    const realExamQuestions = [
+  {
+    "year": 2026,
+    "title": "2026 年英语一 · 大作文真题",
+    "theme": "养老机器人接受度调查（左：接受态度饼图；右：首要顾虑柱状图）",
+    "topic": "科技现代生活 ／ 人口老龄化、智慧养老机器人、安全可靠性首位",
+    "image": "2026-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay based on the charts below. In your essay, you should\n1) describe the drawing briefly,\n2) interpret the charts, and\n3) give your comments.\nWrite your answers in 160-200 words on the ANSWER SHEET. (20 points)\n（校注：原卷题干此处印刷漏字，\"Write an essay of\" 后缺词数；第 1) 项沿用 \"drawing\" 一词，与图表题干不一致，均以官方原卷为准，未作改动。）"
+  },
+  {
+    "year": 2025,
+    "title": "2025 年英语一 · 大作文真题",
+    "theme": "2014–2023年全国居民每百户主要耐用消费品拥有量（台）",
+    "topic": "现代生活与社会变迁 ／ 居民生活水平跃升与高品质消费升级",
+    "image": "2025-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay based on the table below. In your essay, you should\n1) describe the table briefly,\n2) interpret the table, and\n3) give your comments.\nWrite your essay in 160-200 words on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2024,
+    "title": "2024 年英语一 · 大作文真题",
+    "theme": "（市民健身公园场景＋近三年公园数量柱状图）",
+    "topic": "现代生活 ／ 全民健康意识增强与公共体育设施普及",
+    "image": "2024-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay based on the picture and the chart below. In your essay, you should\n1) describe the picture and the chart briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2023,
+    "title": "2023 年英语一 · 大作文真题",
+    "theme": "（传统民俗活动，画面标注）赛龙舟",
+    "topic": "文化传承与团队协作 ／ 同舟共济、团结一心与拼搏精神",
+    "image": "2023-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2022,
+    "title": "2022 年英语一 · 大作文真题",
+    "theme": "（对话式，无固定短语题注）校园讲座公告栏",
+    "topic": "品质修养 ／ 认知格局·跨学科视野、开放包容 vs. 狭隘短视",
+    "image": "2022-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2021,
+    "title": "2021 年英语一 · 大作文真题",
+    "theme": "（对话式，无固定短语题注）学唱戏",
+    "topic": "品质修养 ／ 兴趣热爱、择业初心与传统艺术坚守",
+    "image": "2021-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2020,
+    "title": "2020 年英语一 · 大作文真题",
+    "theme": "习惯",
+    "topic": "品质修养 ／ 习惯塑造人生·提前规划与自律 vs. 拖延恶习",
+    "image": "2020-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the pictures below. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2019,
+    "title": "2019 年英语一 · 大作文真题",
+    "theme": "途中",
+    "topic": "品质修养 ／ 坚持不懈、坚忍不拔、迎难而上与同伴激励",
+    "image": "2019-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2018,
+    "title": "2018 年英语一 · 大作文真题",
+    "theme": "选课进行时",
+    "topic": "品质修养 ／ 青年取舍、功利逃避 vs. 迎难而上、追求卓越",
+    "image": "2018-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2017,
+    "title": "2017 年英语一 · 大作文真题",
+    "theme": "“有书”与“读书”",
+    "topic": "品质修养 ／ 治学态度、知行合一、虚浮占有 vs. 沉潜阅读",
+    "image": "2017-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2016,
+    "title": "2016 年英语一 · 大作文真题",
+    "theme": "与其只提要求，不如做个榜样",
+    "topic": "道德风尚 ／ 家庭教育、言传身教与以身作则",
+    "image": "2016-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2015,
+    "title": "2015 年英语一 · 大作文真题",
+    "theme": "手机时代的聚会",
+    "topic": "科技现代生活 ／ 数字化冷漠与面对面交流缺失",
+    "image": "2015-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2014,
+    "title": "2014 年英语一 · 大作文真题",
+    "theme": "相携（三十年前 / 现在）",
+    "topic": "道德风尚 ／ 孝道、反哺、亲情与家庭伦理",
+    "image": "2014-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2013,
+    "title": "2013 年英语一 · 大作文真题",
+    "theme": "选择（求职、考研、出国、创业）",
+    "topic": "品质修养 ／ 毕业选择、理性规划与人生定力",
+    "image": "2013-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)"
+  },
+  {
+    "year": 2012,
+    "title": "2012 年英语一 · 大作文真题",
+    "theme": "“全完了！” / “幸好还剩点儿。”",
+    "topic": "品质修养 ／ 人生态度·乐观与悲观",
+    "image": "2012-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+  },
+  {
+    "year": 2011,
+    "title": "2011 年英语一 · 大作文真题",
+    "theme": "旅程之“余”",
+    "topic": "文化传承与环保 ／ 公民道德与文明旅游",
+    "image": "2011-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+  },
+  {
+    "year": 2010,
+    "title": "2010 年英语一 · 大作文真题",
+    "theme": "文化“火锅”，既美味又营养",
+    "topic": "文化传承与环保 ／ 文化交流与多元融合",
+    "image": "2010-写作页.png",
+    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+  }
+];
+    let currentExamIndex = 0;
+    let currentExamStage = 1;
+    let currentExamS1Result = "";
+    let currentExamS2Result = "";
+    let currentExamS3Result = "";
+
+    function initExamView() {
+      const selectEl = document.getElementById('examYearSelect');
+      if (selectEl && selectEl.options.length === 0) {
+        selectEl.innerHTML = realExamQuestions.map((q, idx) => 
+          `<option value="${idx}">${q.year} 年 · ${q.theme ? q.theme.substring(0, 16) : '真题'}</option>`
+        ).join('');
+      }
+      renderCurrentExam();
+    }
+
+    function onExamYearSelectChange(val) {
+      currentExamIndex = parseInt(val, 10) || 0;
+      renderCurrentExam();
+    }
+
+    function renderCurrentExam() {
+      const q = realExamQuestions[currentExamIndex];
+      if (!q) return;
+      
+      const titleEl = document.getElementById('examTitle');
+      const themeEl = document.getElementById('examTheme');
+      const topicEl = document.getElementById('examTopic');
+      const modelTextEl = document.getElementById('examModelEssayText');
+      const modelBox = document.getElementById('examModelEssayBox');
+      
+      if (titleEl) titleEl.innerText = `${q.year} 年英语一 · 大作文真题`;
+      if (themeEl) themeEl.innerText = `📌 题注：${q.theme || '暂无题注' }`;
+      if (topicEl) topicEl.innerText = `🏷️ 母题：${q.topic || '通用考研写作' }`;
+      if (modelTextEl) modelTextEl.innerText = q.model_essay || '暂无参考范文';
+      if (modelBox) modelBox.style.display = 'none';
+
+      // 加载该真题的草稿暂存
+      loadExamDrafts(q.year);
+    }
+
+    function toggleExamModelEssay() {
+      const box = document.getElementById('examModelEssayBox');
+      if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function switchExamStage(stage) {
+      currentExamStage = stage;
+      for (let s = 1; s <= 3; s++) {
+        const btn = document.getElementById(`stageBtn${s}`);
+        const panel = document.getElementById(`stagePanel${s}`);
+        if (btn) btn.classList.toggle('active', s === stage);
+        if (panel) panel.style.display = s === stage ? 'block' : 'none';
+      }
+      saveExamDrafts();
+    }
+
+    function updateWordCount(inputId, countId) {
+      const el = document.getElementById(inputId);
+      const countEl = document.getElementById(countId);
+      if (!el || !countEl) return;
+      const text = el.value.trim();
+      const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+      countEl.innerText = `${words} 词` + (inputId === 's2_draft' ? ' (建议 160-200 词)' : '');
+      saveExamDrafts();
+    }
+
+    function saveExamDrafts() {
+      const q = realExamQuestions[currentExamIndex];
+      if (!q) return;
+      const draftData = {
+        visual: (document.getElementById('s1_visual') || {}).value || '',
+        thesis: (document.getElementById('s1_thesis') || {}).value || '',
+        arg1: (document.getElementById('s1_arg1') || {}).value || '',
+        arg2: (document.getElementById('s1_arg2') || {}).value || '',
+        draftV1: (document.getElementById('s2_draft') || {}).value || '',
+        draftV2: (document.getElementById('s3_final_draft') || {}).value || '',
+        stage: currentExamStage
+      };
+      localStorage.setItem(`kaoyan_exam_draft_${q.year}`, JSON.stringify(draftData));
+    }
+
+    function loadExamDrafts(year) {
+      const raw = localStorage.getItem(`kaoyan_exam_draft_${year}`);
+      if (!raw) {
+        // 清空
+        ['s1_visual', 's1_thesis', 's1_arg1', 's1_arg2', 's2_draft', 's3_final_draft'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        updateWordCount('s2_draft', 's2_word_count');
+        updateWordCount('s3_final_draft', 's3_word_count');
+        return;
+      }
+      try {
+        const data = JSON.parse(raw);
+        if (document.getElementById('s1_visual')) document.getElementById('s1_visual').value = data.visual || '';
+        if (document.getElementById('s1_thesis')) document.getElementById('s1_thesis').value = data.thesis || '';
+        if (document.getElementById('s1_arg1')) document.getElementById('s1_arg1').value = data.arg1 || '';
+        if (document.getElementById('s1_arg2')) document.getElementById('s1_arg2').value = data.arg2 || '';
+        if (document.getElementById('s2_draft')) document.getElementById('s2_draft').value = data.draftV1 || '';
+        if (document.getElementById('s3_final_draft')) document.getElementById('s3_final_draft').value = data.draftV2 || '';
+        updateWordCount('s2_draft', 's2_word_count');
+        updateWordCount('s3_final_draft', 's3_word_count');
+        if (data.stage) switchExamStage(data.stage);
+      } catch (e) {}
+    }
+
+    /* ===== Prompt 构建器 ===== */
+    const EXAM_SYSTEM_PROMPT = `你现在是我的考研英语写作私人教练。我是高度自觉的冲刺考生，不需要任何防作弊或强制性的监督。我的诉求是极致的效率、深度的逻辑拆解和地道的语言升维。请直接、犀利地指出问题，不要用无意义的客套或空洞鼓励浪费我的时间。所有输出请用清晰的 Markdown 格式，方便我直接归档到 Obsidian。`;
+
+    function buildStage1PromptText() {
+      const q = realExamQuestions[currentExamIndex];
+      const v = (document.getElementById('s1_visual') || {}).value || '未填写';
+      const t = (document.getElementById('s1_thesis') || {}).value || '未填写';
+      const a1 = (document.getElementById('s1_arg1') || {}).value || '未填写';
+      const a2 = (document.getElementById('s1_arg2') || {}).value || '未填写';
+      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的图画作文题目（母题：${q.topic}）。\n以下是我构思的中文立意和论据：\n> 画面意象提炼：${v}\n> 核心论点 (Thesis)：${t}\n> 支撑论据 1：${a1}\n> 支撑论据 2：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式设问反思】（置于最顶端）：\n请不要直接夸奖或给现成答案，请以反方辩友的最挑剔眼光，针对我这两个论据在推导核心论点时是否存在逻辑跳跃、自相矛盾、过度泛化或同义反复，抛出 2-3 个直击要害的反思设问，促使我自主深挖。\n\n【第二部分 · 深度逻辑诊断与推荐中文三段骨架】（置于下方）：\n1. 详细分析我的立意与论据在阅卷人眼中可能的扣分盲区；\n2. 提供更深刻的破题视角；\n3. 基于我的原意与你的补充，帮我理顺逻辑，生成一份清晰精炼的【中文三段论骨架】（第一段入画折射、第二段深度归因、第三段措施收束）。`;
+    }
+
+    function buildStage2PromptText() {
+      const q = realExamQuestions[currentExamIndex];
+      const draft = (document.getElementById('s2_draft') || {}).value || '';
+      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的初稿。\n我的英文作文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度学术诊断。严格按照以下三个层次输出，每一个批改点都必须遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准格式：\n\nA. 硬核语法与搭配排雷（必改）：\n彻底排查时态、主谓一致、单复数、标点误用以及生硬中式英语；\nB. 词汇与表达优化（可选）：\n抓出过于基础的初中词汇（如 I think, make life easy, damage 等），替换为考研大纲高阶学术词块（附中文释义）；\nC. 句式升维推演（核心精华）：\n挑选 1-2 处最关键句子，运用【无灵主语】（如 A sober analysis reveals that...）、【分词状语】或【倒装/强调句】重构。给出我的原句与你的神级改写对比，并讲透升级后的语法功能与论证优势。\n\n注意：绝对不要替我重写一整篇范文！保留我的行文框架，只做局部深度手术。`;
+    }
+
+    function buildStage3PromptText() {
+      const q = realExamQuestions[currentExamIndex];
+      const v1 = (document.getElementById('s2_draft') || {}).value || '';
+      const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
+      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】。我吸收批改建议后，自己动手手敲修改了第二稿（V2）。请对比我的初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【真题复盘笔记】：\n📝 核心自查：\n1. 致命伤排查：V1 里的语法硬伤与初级口语词，在 V2 里消灭了吗？\n2. 升维吸收度：建议的高级句型（无灵主语/分词状语等），是否用自己的方式自然融入了？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次修改演进过程中，提炼出 5 个最值得我长期背诵、通用性极强的【高阶动宾搭配】或【核心句型模板】，配上贴合题意的英文例句与中文释义，并标明可迁移的考研母题场景。`;
+    }
+
+    /* ===== 复制 Prompt 功能 ===== */
+    function copyStage1Prompt() {
+      navigator.clipboard.writeText(buildStage1PromptText()).then(() => {
+        alert("已成功复制 Stage 1 审题与苏格拉底设问 Prompt！可直接粘贴至 ChatGPT / Claude / Kimi 使用。");
+      }).catch(() => alert("复制失败，请手动选取复制。"));
+    }
+
+    function copyStage2Prompt() {
+      navigator.clipboard.writeText(buildStage2PromptText()).then(() => {
+        alert("已成功复制 Stage 2 语言手术刀批改 Prompt！");
+      }).catch(() => alert("复制失败，请手动选取复制。"));
+    }
+
+    function copyStage3Prompt() {
+      navigator.clipboard.writeText(buildStage3PromptText()).then(() => {
+        alert("已成功复制 Stage 3 对比与语料提取 Prompt！");
+      }).catch(() => alert("复制失败，请手动选取复制。"));
+    }
+
+    /* ===== 一键调用 AI 接口 ===== */
+    async function requestStage1AI() {
+      const t = (document.getElementById('s1_thesis') || {}).value.trim();
+      if (!t) {
+        alert("请至少填写核心论点 (Thesis) 后再发起压力测试！");
+        return;
+      }
+      const prompt = buildStage1PromptText();
+      const btn = document.getElementById('btnRunStage1');
+      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在推敲中..."; }
+
+      try {
+        const resText = await callAiBackend(prompt);
+        currentExamS1Result = resText;
+        
+        // 渲染输出
+        const box = document.getElementById('s1_output_box');
+        const socraticEl = document.getElementById('s1_socratic_text');
+        const diagEl = document.getElementById('s1_diag_text');
+        if (box) box.style.display = 'block';
+
+        // 尝试分割第一部分和第二部分
+        if (resText.includes('【第二部分') || resText.includes('第二部分')) {
+          const parts = resText.split(/【第二部分|第二部分/);
+          if (socraticEl) socraticEl.innerText = parts[0].replace(/【第一部分[^\n]*\n?/g, '').trim();
+          if (diagEl) diagEl.innerText = parts[1].trim();
+        } else {
+          if (socraticEl) socraticEl.innerText = resText.substring(0, 400);
+          if (diagEl) diagEl.innerText = resText;
+        }
+
+        // 同步把骨架更新到 Stage 2 预览区
+        const s2Preview = document.getElementById('s2_skeleton_preview');
+        if (s2Preview) s2Preview.innerText = resText;
+
+      } catch (err) {
+        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 1 Prompt】在外部大模型中运行。");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "🔍 发起逻辑压力测试 (AI 挑刺)"; }
+      }
+    }
+
+    async function requestStage2AI() {
+      const draft = (document.getElementById('s2_draft') || {}).value.trim();
+      if (!draft) {
+        alert("请先输入您的英文初稿！");
+        return;
+      }
+      const prompt = buildStage2PromptText();
+      const btn = document.getElementById('btnRunStage2');
+      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在进行三色手术刀深度批改..."; }
+
+      try {
+        const resText = await callAiBackend(prompt);
+        currentExamS2Result = resText;
+        const box = document.getElementById('s2_output_box');
+        const contentEl = document.getElementById('s2_diag_content');
+        if (box) box.style.display = 'block';
+        if (contentEl) contentEl.innerHTML = renderMarkdownToCards(resText);
+      } catch (err) {
+        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 2 Prompt】在外部大模型中运行。");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "🔬 三色手术刀深度批改"; }
+      }
+    }
+
+    async function requestStage3AI() {
+      const v2 = (document.getElementById('s3_final_draft') || {}).value.trim();
+      if (!v2) {
+        alert("请先输入您自修后的终稿 V2！");
+        return;
+      }
+      const prompt = buildStage3PromptText();
+      const btn = document.getElementById('btnRunStage3');
+      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在对比复盘与提取语料..."; }
+
+      try {
+        const resText = await callAiBackend(prompt);
+        currentExamS3Result = resText;
+        const box = document.getElementById('s3_output_box');
+        const contentEl = document.getElementById('s3_diag_content');
+        const btnObs = document.getElementById('btnCopyObsidian');
+        if (box) box.style.display = 'block';
+        if (btnObs) btnObs.style.display = 'inline-block';
+        if (contentEl) contentEl.innerHTML = `<div class="stage-details" style="display:block;"><div style="white-space:pre-wrap; font-size:0.9rem; line-height:1.6;">${resText}</div></div>`;
+      } catch (err) {
+        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 3 Prompt】在外部大模型中运行。");
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "💎 对比复盘并提取专属武器库"; }
+      }
+    }
+
+    function copyObsidianNote() {
+      const q = realExamQuestions[currentExamIndex];
+      const v1 = (document.getElementById('s2_draft') || {}).value || '';
+      const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
+      const note = `---
+tags: [英语一/作文, 真题复盘, "${q.year}"]
+年份: ${q.year}
+题注: ${q.theme || '大作文'}
+母题: ${q.topic}
+---
+
+# ${q.year} 年考研英语一 · 大作文全流程自修复盘
+
+## 一、 立意与中文骨架
+> 核心论点：${(document.getElementById('s1_thesis') || {}).value || ''}
+> 论据 1：${(document.getElementById('s1_arg1') || {}).value || ''}
+> 论据 2：${(document.getElementById('s1_arg2') || {}).value || ''}
+
+${currentExamS1Result ? '### 骨架推演记录\n' + currentExamS1Result + '\n' : ''}
+
+## 二、 作文演进对比 (V1 初稿 $\\to$ V2 终稿)
+
+### 初稿 V1
+\`\`\`text
+${v1}
+\`\`\`
+
+### 终稿 V2
+\`\`\`text
+${v2}
+\`\`\`
+
+## 三、 深度复盘与专属武器库
+${currentExamS3Result || currentExamS2Result || '（待生成）'}
+`;
+      navigator.clipboard.writeText(note).then(() => {
+        alert("🎉 已生成完美的 Obsidian Markdown 复盘笔记并已复制到剪贴板！可以直接粘贴进 Obsidian 知识库保存。");
+      }).catch(() => alert("复制失败，请手动选取。"));
+    }
+
+    /* 简单的 Markdown 转红黄绿卡片展示辅助函数 */
+    function renderMarkdownToCards(mdText) {
+      return `<div class="stage-details" style="display:block;"><div style="white-space:pre-wrap; font-size:0.9rem; line-height:1.6;">${mdText}</div></div>`;
+    }
+
+    async function callAiBackend(promptText) {
+      if (!userSettings.apiKey || !userSettings.apiKey.trim()) {
+        throw new Error("请先在右上角【⚙️ API 设置】中配置您的 API Key 与 Endpoint！");
+      }
+      let endpoint = userSettings.endpoint.trim();
+      if (!endpoint.endsWith('/chat/completions')) {
+        endpoint = endpoint.replace(/\/+$/, '') + '/chat/completions';
+      }
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userSettings.apiKey.trim()}`
+        },
+        body: JSON.stringify({
+          model: userSettings.model.trim().toLowerCase(),
+          messages: [{ role: 'user', content: promptText }],
+          temperature: 0.3
+        })
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.error?.message || `HTTP ${resp.status}`);
+      }
+      const data = await resp.json();
+      return data.choices?.[0]?.message?.content || "AI 未返回有效内容";
+    }
+
+</script>
 </body>
 </html>
