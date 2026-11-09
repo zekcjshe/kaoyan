@@ -110,7 +110,19 @@
     .result-box.show { display: block; animation: fadeIn 0.3s ease; }
     .score-badge { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
     .reasoning-box { font-size: 0.85rem; color: var(--text-muted); background: var(--card-bg); padding: 10px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #94a3b8; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
-    .critique-text { font-size: 0.9rem; line-height: 1.65; color: var(--text); white-space: pre-wrap; }
+    /* AI 批改报告富文本排版引擎 */
+    .critique-text { font-size: 0.92rem; line-height: 1.75; color: var(--text); word-break: break-word; }
+    .critique-text p { margin-top: 0; margin-bottom: 0.75rem; }
+    .critique-text p:last-child { margin-bottom: 0; }
+    .critique-text h3 { font-size: 1.05rem; font-weight: 700; margin: 1.1rem 0 0.5rem 0; padding-bottom: 5px; border-bottom: 1.5px solid var(--border); color: var(--primary); display: flex; align-items: center; gap: 6px; }
+    .critique-text h4 { font-size: 0.96rem; font-weight: 700; margin: 0.9rem 0 0.4rem 0; color: var(--text); }
+    .critique-text ul, .critique-text ol { margin: 0.4rem 0 0.8rem 1.4rem; padding: 0; }
+    .critique-text li { margin-bottom: 0.45rem; line-height: 1.65; }
+    .critique-text hr { border: none; border-top: 1px dashed var(--border); margin: 1rem 0; }
+    .critique-text strong { color: var(--text); font-weight: 700; }
+    .critique-text blockquote { margin: 0.6rem 0; padding: 10px 14px; background: var(--card-bg); border-left: 3.5px solid var(--primary); border-radius: 0 8px 8px 0; font-size: 0.88rem; line-height: 1.65; }
+    .critique-text code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background: var(--card-bg); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; font-size: 0.86rem; color: #dc2626; word-break: break-word; }
+    body.dark .critique-text code { color: #f87171; }
     .ref-box { margin-top: 10px; padding: 12px; background: #ecfdf5; border-radius: 8px; border-left: 3px solid var(--success); font-size: 0.92rem; color: #065f46; line-height: 1.6; }
     body.dark .ref-box { background: #064e3b; color: #a7f3d0; }
 
@@ -648,36 +660,86 @@
       const aiCritique = document.getElementById('ai-critique');
 
       resultBox.classList.add('show');
-      aiScore.innerText = "🤖 DeepSeek 正在严格审阅中...";
+      aiScore.innerText = "🤖 DeepSeek 正在深度推演与诊断...";
       aiReasoning.style.display = 'none';
       aiReasoningTitle.style.display = 'none';
-      aiCritique.innerText = "分析主干语法、遣词造句与采分点...";
+      aiCritique.innerHTML = "<p style='color:var(--text-muted);'>正在严格对照考场评分标准，解析高阶词块、句法骨架与标答精髓...</p>";
 
       let systemPrompt = "";
       let userPrompt = "";
 
       if (currentMode === 'write') {
-        systemPrompt = `你是一位专业、平视且深谙考研英语一真实阅卷标准的写作导师。
-【评分与指导原则】：
-1. 真实考场评分尺度：考研英语一注重主干清晰、词块高级与思想表达。若考生成功驾驭了复杂长句、调用了目标词块且表达丰富完整，应当给予充分肯定（真实考场一类文单句水准为 8.5 ~ 9.5 分 / 满分10分），绝不可吹毛求疵恶意给低分。
-2. 输入法打字容错：手机端打字时偶发的标点后少空格（如 mirror,vividly）或字母轻微黏连，仅作为打字习惯在末尾轻量提醒，严禁作为语法硬伤进行恶意扣分！
-3. 文风与姿态：彻底杜绝“你好/我是阅卷组长/大纲要求极高”等客套起手式与居高临下的挑剔说教，同行平视、就事论事、直接陈述评判。
-4. 诊断结构：
-   - 🎯【实得分数与总评】（给出贴合真实高分卷的分数，用一两句话肯定闪光点）；
-   - ✨【高光词块与结构】（表扬句中写得好、有学术质感的词汇或分词/无灵主语结构）；
-   - 💡【考场精炼提分点】（仅指出 1~2 个最能提分的实质性改进，如避免近义词赘述或所有格优化）；
-   - 🏆【考场满分优化版】（在考生原句基础上，保留其核心意图与亮点，输出最精悍洗练的终极句子）。`;
-        userPrompt = `【训练模块】：${q.category_name}\n【中文表达意图】：${q.chinese}\n【指定调用词块】：${q.constraint}\n【考生英文作答】：${inputVal}\n【考场参考范文】：${q.reference}`;
+        systemPrompt = `你是一位深谙考研英语一真实阅卷标准、专业且平视的“高分提分教练”。你深知考研写作（满分10分）的采分底层逻辑。你的目标不是找茬，而是帮考生建立“高级词块”和“骨架句法”的肌肉记忆。
+
+【苛刻红线与豁免机制】（极其重要）：
+1. 死扣硬伤：主谓一致、时态错乱、非谓语逻辑主语错位、动宾/介词搭配错误（Chinglish），必须直接指出并扣分。
+2. 绝对豁免：手机端输入导致的标点后无空格（如 mirror,vividly）、单词字母轻微黏连、大小写误触，一律视为合法输入，直接忽略，严禁提及，严禁扣分！
+3. 拒绝废话：杜绝“你好”、“我是阅卷组长”等套话与客服腔，直接输出诊断结果。
+4. 防呆与防幻觉机制：
+   - 若考生输入纯乱码、无意义字符或与意图无关的敷衍输入，给出 0 分，并明确提示重新作答；
+   - 若考生写得极好（成功驾驭无灵主语、分词、高级词块且无语法硬伤），大方给出 8.5 ~ 9.5 分的高分，绝不为了挑刺而挑刺；
+   - 若考生存在明显语法硬伤或句式松散，按真实考场标准给出 4.0 ~ 7.5 分，客观准确。
+
+请根据用户的作答严格按以下 Markdown 格式结构输出：
+
+🎯 **【实得分数与总评】**
+- **得分**：[X.X / 10分]
+- **总评**：[用一两句话客观肯定闪光点，并指出与标答的核心差距（如凝练度、学术质感、结构紧凑度）]。
+
+✨ **【高光词块与结构】**
+- [列出该考生句子里写得极好的 1~2 个高级词汇、搭配或无灵主语/分词结构，并说明好在哪里]。
+
+💡 **【考场避坑与精炼提分】**
+- [仅仅指出 1~2 个最实质的改进点。如果是语法硬伤，明确指出；如果是句式啰嗦，给出简化或名词化建议。严禁说废话]。
+
+📚 **【标答硬核精讲与对比】**（核心提分点）
+- **普通 vs 标答**：考生原句：\`[考生原句提取]\` ➡️ 满分标答：\`[参考范文]\`。
+- **高阶词块解析**：[标答中的高阶词块] 比考生用的 [普通词] 高级在哪？色彩和精准度有何不同？对标答中不常用或极具学术张力的高级词块做深度讲解。
+- **骨架降维拆解**：[标答采用了什么句型？如：无灵主语施加作用力、分词作状语消元、名词化压制从句]，拆解句法骨架并给出考生下次可套用的句法公式。
+
+🛠️ **【原句微调抢分版】**（考生原话最小改动版）
+- \`[在保留考生原有词汇、表达意图和基础句式的前提下，做最小幅度的修剪与语法校准，让考生清楚自己在考场上写出的句子如何微调就能拿到 8 分以上]\`
+
+🏆 **【考场满分优化版】**（标答骨架重写版）
+- \`[采用最高级、最凝练学术句式重写的终极范句]\``;
+
+        userPrompt = `【训练模块】：${q.category_name}
+【中文表达意图】：${q.chinese}
+【强制调用核心词块】：${q.constraint}
+【考生英文作答】：${inputVal}
+【考场参考范文】：${q.reference}`;
       } else {
-        systemPrompt = `你是一位专业客观的考研英语一翻译专家。英译汉满分 2.0 分。
-【原则】：
-1. 只要主干结构正确、意思通顺无错译漏译，按大纲标准给予 1.5 ~ 2.0 分的公允得分。
-2. 杜绝爹味客套与过度挑剔，直接切入采分点：
-   - 🎯【实得分数】（满分 2.0 分）；
-   - 踩分分析（主干、从句拆分与关键专业词汇翻译是否到位）；
-   - 💡【中文润色建议】（如何在信达雅上更进一步）；
-   - 🏆【考场满分参考】。`;
-        userPrompt = `【真题出处】：${q.title}\n【划线英文原文】：${q.english}\n【考生中文译文】：${inputVal}\n【官方标准参考译文】：${q.chinese_ref}`;
+        systemPrompt = `你是一位深谙考研英语一真实阅卷标准、专业客观的“英译汉采分教练”。英译汉满分 2.0 分。你的目标是按真实考场踩分点，指导考生实现主干准确与中文“信达雅”。
+
+【评分与指导原则】：
+1. 踩分底线：严格按照考研评分细则（主干结构 0.5~1.0 分，关键定语/状语从句 0.5 分，核心专有名词/生词 0.5 分）。主干正确且无严重错译漏译，大方给 1.5 ~ 2.0 分。
+2. 绝对豁免：手机端输入产生的个别标点空格或错别字误触，只要语义清晰，不扣分、不提。
+3. 杜绝套话：不讲废话，直接输出采分诊断。
+4. 防呆机制：乱码或空白判 0 分并提示重新输入。
+
+请严格按以下 Markdown 格式结构输出：
+
+🎯 **【实得分数与总评】**
+- **得分**：[X.X / 2.0分]
+- **总评**：[一两句话评价对长难句层次划分和逻辑关系的把握]。
+
+🔍 **【采分点深度诊断】**
+- **主干与从句拆分**：[对照原句拆解主谓宾、修饰成分，指出考生译文是否准确踩点]。
+- **核心术语与词义引申**：[指出原句中的关键生词、专有名词考生是否翻译到位]。
+
+💡 **【中文信达雅润色建议】**
+- [指出考生译文中生硬的“翻译腔”或欧化长句，如何调整语序、化长为短、运用双音节词或成语润色]。
+
+🛠️ **【考生译文微调版】**
+- \`[在考生中文译文基础上做最小修饰，保留考生表达意图，消除生硬欧化感]\`
+
+🏆 **【考场官方满分标准译文】**
+- \`[官方权威参考译文]\``;
+
+        userPrompt = `【真题出处】：${q.title}
+【划线英文原文】：${q.english}
+【考生中文译文】：${inputVal}
+【官方标准参考译文】：${q.chinese_ref}`;
       }
 
       let endpoint = userSettings.endpoint.trim().replace(/\/+$/, '');
@@ -724,10 +786,10 @@
           aiReasoning.style.display = 'block';
           aiReasoningTitle.style.display = 'block';
         }
-        aiCritique.innerText = content;
+        aiCritique.innerHTML = renderMarkdownContent(content);
 
         const recordKey = `${currentMode}_${q.id}`;
-        if (content.includes("扣分") || content.includes("错误") || content.includes("不当") || content.includes("瑕疵")) {
+        if (content.includes("扣分") || content.includes("错误") || content.includes("硬伤") || content.includes("Chinglish") || content.includes("瑕疵")) {
           userErrors[recordKey] = true;
           localStorage.setItem('kaoyan_errors', JSON.stringify(userErrors));
           setupFilterOptions();
@@ -743,7 +805,7 @@
 
       } catch(err) {
         aiScore.innerText = "❌ 评判遇到异常";
-        aiCritique.innerText = `错误详情: ${err.message}\n请检查 API Key、网络或在【⚙️ 设置】中核对端点。`;
+        aiCritique.innerHTML = `<div style="color:#ef4444; font-weight:600;">错误详情: ${err.message}</div><p style="margin-top:6px; color:var(--text-muted); font-size:0.85rem;">请检查 API Key、网络或在【⚙️ 设置】中核对端点。</p>`;
       }
     }
 
@@ -761,12 +823,17 @@
         aiReasoning.style.display = 'block';
         aiReasoningTitle.style.display = 'block';
       }
-      aiCritique.innerText = rec.critique || '';
+      aiCritique.innerHTML = renderMarkdownContent(rec.critique || '');
     }
 
     function renderMarkdownContent(mdText) {
-      if (window.marked && window.marked.parse) {
-        return marked.parse(mdText);
+      if (!mdText) return '';
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try {
+          return marked.parse(mdText, { breaks: true, gfm: true });
+        } catch(e) {
+          console.error("marked parse error:", e);
+        }
       }
       return mdText
         .replace(/^### (.*$)/gim, '<h3>$1</h3>')
@@ -774,7 +841,8 @@
         .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
         .replace(/`(.*?)`/gim, '<code>$1</code>')
         .replace(/^\- (.*$)/gim, '<li>$1</li>')
-        .replace(/\n\n/gim, '<p></p>');
+        .replace(/\n\n/gim, '<p></p>')
+        .replace(/\n/gim, '<br>');
     }
 
     function renderVocabList(list) {
