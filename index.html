@@ -589,8 +589,20 @@
     }
 
 
-    /* ===== 模式四：真题全流程带练专属样式 ===== */
-    /* 题型切换胶囊按钮 */
+    
+    /* ===== 模式四：真题全流程带练全新增强样式 ===== */
+    .exam-header-card {
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    body.dark .exam-header-card {
+      background: #1f2937;
+      border-color: #374151;
+    }
     .exam-type-toggle-group {
       display: flex;
       gap: 10px;
@@ -635,45 +647,17 @@
       border-color: #60a5fa;
       color: #bfdbfe;
     }
-    .directions-box {
-      margin-top: 12px;
-      padding: 12px 14px;
-      background: #f0fdf4;
-      border-left: 3px solid #16a34a;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      color: #14532d;
-    }
-    body.dark .directions-box {
-      background: #064e3b;
-      border-color: #22c55e;
-      color: #bbf7d0;
-    }
-
-    .exam-header-card {
-      background: var(--card-bg, #ffffff);
-      border: 1px solid var(--border-color, #e5e7eb);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    body.dark .exam-header-card {
-      background: #1f2937;
-      border-color: #374151;
-    }
     .exam-header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .exam-badge {
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: #2563eb;
       background: #eff6ff;
@@ -687,7 +671,7 @@
     }
     .exam-title {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 800;
       color: var(--text-color, #111827);
     }
@@ -717,17 +701,19 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-size: 0.85rem;
       color: #6b7280;
+      margin-bottom: 12px;
     }
     body.dark .exam-meta-bar {
       color: #9ca3af;
     }
     .exam-meta-item {
       background: var(--bg-hover, #f3f4f6);
-      padding: 3px 8px;
-      border-radius: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 500;
     }
     body.dark .exam-meta-item {
       background: #374151;
@@ -737,9 +723,9 @@
       background: none;
       border: 1px dashed #3b82f6;
       color: #3b82f6;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
       cursor: pointer;
       font-weight: 600;
       transition: all 0.2s;
@@ -750,22 +736,93 @@
     body.dark .exam-mini-btn:hover {
       background: #1e3a8a;
     }
-    .exam-model-box {
-      margin-top: 12px;
-      padding: 12px 14px;
+
+    /* 原题题目与真题原卷展示卡片 */
+    .exam-prompt-card {
       background: #f8fafc;
-      border-left: 3px solid #3b82f6;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+    body.dark .exam-prompt-card {
+      background: #111827;
+      border-color: #374151;
+    }
+    .exam-prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .exam-prompt-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    body.dark .exam-prompt-title {
+      color: #93c5fd;
+    }
+    .exam-directions-text {
+      background: var(--card-bg, #ffffff);
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: var(--text-color, #1f2937);
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+    }
+    body.dark .exam-directions-text {
+      background: #1f2937;
+      border-color: #4b5563;
+      color: #e5e7eb;
+    }
+    .exam-img-container {
+      margin-top: 10px;
+      text-align: center;
+      background: #ffffff;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    body.dark .exam-img-container {
+      background: #18202f;
+      border-color: #374151;
+    }
+    .exam-sheet-img {
+      max-width: 100%;
+      max-height: 400px;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+    .exam-sheet-img:hover {
+      transform: scale(1.01);
+    }
+    .exam-model-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: #fdf2f8;
+      border-left: 3px solid #ec4899;
       border-radius: 6px;
       font-size: 0.88rem;
       line-height: 1.6;
     }
     body.dark .exam-model-box {
-      background: #111827;
-      border-color: #60a5fa;
+      background: #2e1065;
+      border-color: #c084fc;
       color: #e5e7eb;
     }
 
-    /* 三阶段平级切换标签栏 */
+    /* 三阶段标签栏 */
     .exam-stages-bar {
       display: flex;
       gap: 10px;
@@ -779,7 +836,7 @@
     }
     .exam-stage-btn {
       flex: 1;
-      min-width: 160px;
+      min-width: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -823,7 +880,7 @@
       margin-bottom: 2px;
     }
 
-    /* 阶段面板与输入项 */
+    /* 阶段面板与多行输入项 */
     .stage-panel {
       background: var(--card-bg, #ffffff);
       border: 1px solid var(--border-color, #e5e7eb);
@@ -856,80 +913,207 @@
     }
     .input-field-group label {
       display: block;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--text-color, #374151);
       margin-bottom: 6px;
+      color: var(--text-color, #374151);
     }
     body.dark .input-field-group label {
-      color: #e5e7eb;
+      color: #d1d5db;
     }
-    .exam-input {
+    .exam-input, .exam-textarea {
       width: 100%;
-      box-sizing: border-box;
       padding: 9px 12px;
-      border-radius: 6px;
       border: 1.5px solid #d1d5db;
-      background: var(--card-bg, #fff);
-      color: var(--text-color, #111);
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .exam-input:focus {
-      border-color: #3b82f6;
-    }
-    body.dark .exam-input {
-      background: #111827;
-      border-color: #4b5563;
-      color: #f3f4f6;
-    }
-    .exam-textarea {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px 14px;
       border-radius: 8px;
-      border: 1.5px solid #d1d5db;
-      background: var(--card-bg, #fff);
-      color: var(--text-color, #111);
-      font-family: inherit;
       font-size: 0.92rem;
-      line-height: 1.6;
+      line-height: 1.5;
+      background: var(--card-bg, #ffffff);
+      color: var(--text-color, #111827);
+      box-sizing: border-box;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       resize: vertical;
+      font-family: inherit;
     }
-    .exam-textarea:focus {
-      border-color: #3b82f6;
-    }
-    body.dark .exam-textarea {
+    body.dark .exam-input, body.dark .exam-textarea {
       background: #111827;
       border-color: #4b5563;
       color: #f3f4f6;
     }
-    .stage-action-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 16px 0;
+    .exam-input:focus, .exam-textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
     }
 
-    /* 苏格拉底反思提问卡片 (琥珀金) */
-    .socratic-card {
+    /* Markdown 格式化渲染容器 */
+    .md-render-content {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text-color, #1f2937);
+    }
+    body.dark .md-render-content {
+      color: #e5e7eb;
+    }
+    .md-render-content h1, .md-render-content h2, .md-render-content h3, .md-render-content h4 {
+      margin: 14px 0 8px 0;
+      font-weight: 700;
+      color: #1e3a8a;
+      line-height: 1.4;
+    }
+    body.dark .md-render-content h1, body.dark .md-render-content h2, body.dark .md-render-content h3, body.dark .md-render-content h4 {
+      color: #93c5fd;
+    }
+    .md-render-content h3 {
+      font-size: 1.05rem;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 4px;
+    }
+    body.dark .md-render-content h3 {
+      border-color: #4b5563;
+    }
+    .md-render-content h4 {
+      font-size: 0.96rem;
+    }
+    .md-render-content p {
+      margin: 6px 0;
+    }
+    .md-render-content ul, .md-render-content ol {
+      margin: 6px 0 10px 20px;
+      padding: 0;
+    }
+    .md-render-content li {
+      margin-bottom: 4px;
+    }
+    .md-render-content strong {
+      font-weight: 700;
+      color: #111827;
+    }
+    body.dark .md-render-content strong {
+      color: #ffffff;
+    }
+    .md-render-content blockquote {
+      margin: 8px 0;
+      padding: 6px 12px;
+      border-left: 3px solid #3b82f6;
+      background: #eff6ff;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.88rem;
+    }
+    body.dark .md-render-content blockquote {
+      background: #1e293b;
+      border-color: #60a5fa;
+      color: #cbd5e1;
+    }
+    .md-render-content code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #db2777;
+    }
+    body.dark .md-render-content code {
+      background: #374151;
+      color: #f472b6;
+    }
+    .md-render-content pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin: 10px 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .md-render-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* 动作按钮栏 */
+    .stage-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #e5e7eb;
+    }
+    body.dark .stage-action-bar {
+      border-color: #374151;
+    }
+    .action-group-right {
+      display: flex;
+      gap: 8px;
+    }
+    .exam-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    }
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+    body.dark .btn-secondary {
+      background: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+
+    /* 结果容器 */
+    .stage-result-card {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1.5px solid #bfdbfe;
+      box-shadow: 0 2px 10px rgba(37,99,235,0.06);
+    }
+    body.dark .stage-result-card {
+      background: #1f2937;
+      border-color: #1e40af;
+    }
+    .socratic-box {
       background: #fffbeb;
       border: 1.5px solid #fde68a;
       border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
     }
-    body.dark .socratic-card {
-      background: #451a03;
-      border-color: #78350f;
+    body.dark .socratic-box {
+      background: #3b2a05;
+      border-color: #92400e;
     }
     .socratic-header {
       font-weight: 800;
       color: #b45309;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       margin-bottom: 8px;
       display: flex;
       align-items: center;
@@ -938,22 +1122,11 @@
     body.dark .socratic-header {
       color: #fde68a;
     }
-    .socratic-body {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #92400e;
-      white-space: pre-wrap;
-    }
-    body.dark .socratic-body {
-      color: #fef3c7;
-    }
-
-    /* 三色手术台样式 */
     .audit-card {
       border-radius: 8px;
       padding: 12px 14px;
-      margin-bottom: 10px;
-      font-size: 0.88rem;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
       line-height: 1.6;
     }
     .audit-red-zone {
@@ -989,8 +1162,8 @@
     .stage-details {
       margin-top: 10px;
       border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 8px 12px;
+      border-radius: 8px;
+      padding: 10px 14px;
       background: #f8fafc;
     }
     body.dark .stage-details {
@@ -1000,20 +1173,14 @@
     .stage-details summary {
       font-weight: 700;
       cursor: pointer;
-      color: #3b82f6;
+      color: #2563eb;
       user-select: none;
     }
     body.dark .stage-details summary {
       color: #60a5fa;
     }
-    .stage-diag-body {
-      margin-top: 8px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
 
-</style>
+  </style>
 </head>
 <body>
 
@@ -1155,6 +1322,221 @@
       </div>    </div>
 
     <div id="vocab-view" style="display:none;">
+      <input type="text" class="search-bar" id="vocab-search" placeholder="🔍 全局搜索知识点（如 建议信, embody, 举例论证, 竞争）..." oninput="filterVocab()">
+      <div id="vocab-list"></div>
+    </div>
+
+  <!-- ===== 模式四：真题全流程带练工作台 ===== -->
+  <div id="exam-view" style="display: none; width: 100%;">
+    <!-- 1. 真题顶栏：题型胶囊、年份选择器、母题信息卡 -->
+    <div class="exam-header-card">
+      <div class="exam-type-toggle-group">
+        <button class="exam-type-pill active" id="typePillPartB" onclick="switchExamType('partB')">🖼️ Part B 大作文 (20分)</button>
+        <button class="exam-type-pill" id="typePillPartA" onclick="switchExamType('partA')">✉️ Part A 小作文 (10分)</button>
+      </div>
+
+      <div class="exam-header-top">
+        <div class="exam-title-group">
+          <span class="exam-badge" id="examBadge">🎯 考研大作文 (Part B · 20分)</span>
+          <h2 id="examTitle" class="exam-title">2026 年英语一 · Part B 大作文真题</h2>
+        </div>
+        <div class="exam-year-picker">
+          <label for="examYearSelect">真题年份：</label>
+          <select id="examYearSelect" class="exam-year-select" onchange="onExamYearSelectChange(this.value)">
+            <!-- 动态渲染 -->
+          </select>
+        </div>
+      </div>
+
+      <div class="exam-meta-bar">
+        <span class="exam-meta-item" id="examTheme">📌 题注：养老机器人接受度调查</span>
+        <span class="exam-meta-item" id="examTopic">🏷️ 母题：科技现代生活</span>
+        <button class="exam-mini-btn" id="toggleImageBtn" onclick="toggleExamImage()">🖼️ 收起原卷图</button>
+        <button class="exam-mini-btn" onclick="toggleExamModelEssay()">💡 官方高分范文参考</button>
+      </div>
+
+      <!-- 显式呈现：真题题干 Directions & 官方高清原卷图 -->
+      <div class="exam-prompt-card">
+        <div class="exam-prompt-header">
+          <span class="exam-prompt-title">📜 考场原题 Directions (题目指令要求)：</span>
+          <span id="examExtraHint" style="font-size:0.8rem; color:#64748b;"></span>
+        </div>
+        <div id="examDirectionsText" class="exam-directions-text"></div>
+        
+        <!-- 大作文高清原卷图 (可点击全屏放大) -->
+        <div id="examImgWrapper" class="exam-img-container" style="display: none;">
+          <img id="examSheetImg" src="" alt="真题原卷写作页" class="exam-sheet-img" onclick="zoomExamImage(this.src)" title="点击查看大图">
+          <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">🔍 点击图片可查看高清大图</div>
+        </div>
+      </div>
+
+      <!-- 官方范文参考框 (折叠) -->
+      <div id="examModelEssayBox" class="exam-model-box" style="display: none;">
+        <div style="font-weight:700; color:#db2777; margin-bottom:6px;">官方高分范文参考（标答）：</div>
+        <div id="examModelEssayText" class="md-render-content"></div>
+      </div>
+    </div>
+
+    <!-- 2. 三阶段平级切换导航（纯信任·零门禁） -->
+    <div class="exam-stages-bar">
+      <button class="exam-stage-btn active" id="stageBtn1" onclick="switchExamStage(1)">
+        <span class="stage-num">Stage 1</span>
+        <span class="stage-text">立意与逻辑审查</span>
+      </button>
+      <button class="exam-stage-btn" id="stageBtn2" onclick="switchExamStage(2)">
+        <span class="stage-num">Stage 2</span>
+        <span class="stage-text">英文起草与手术刀</span>
+      </button>
+      <button class="exam-stage-btn" id="stageBtn3" onclick="switchExamStage(3)">
+        <span class="stage-num">Stage 3</span>
+        <span class="stage-text">自修与语料沉淀</span>
+      </button>
+    </div>
+
+    <!-- 3. 三个阶段的内容面板容器 -->
+    <div class="exam-stage-content">
+      <!-- ===== Stage 1 面板 ===== -->
+      <div id="stagePanel1" class="stage-panel">
+        <div class="stage-desc-box" id="s1_stage_desc">
+          <strong>💡 阶段心法</strong>：先审题后动笔。提炼微观意象、核心主旨与支撑论据。支持在论据框内自由拆分自分论据，AI 将智能识别主从逻辑关系并进行中肯提分诊断。
+        </div>
+        <div class="stage-input-grid">
+          <div class="input-field-group">
+            <label id="s1_label_1">① 画面微观意象提炼（你看到了什么、暗喻什么 / 小作文受众与语域）：</label>
+            <textarea id="s1_visual" class="exam-textarea" rows="2" placeholder="例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读..."></textarea>
+          </div>
+          <div class="input-field-group">
+            <label id="s1_label_2">② 核心论点 (Thesis Statement · 一句话亮明主旨)：</label>
+            <textarea id="s1_thesis" class="exam-textarea" rows="2" placeholder="例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读..."></textarea>
+          </div>
+          <div class="input-field-group">
+            <label id="s1_label_3">③ 支撑论据 1 (主论据 / 核心归因 / 可自行组织分论据与举例)：</label>
+            <textarea id="s1_arg1" class="exam-textarea" rows="3" placeholder="例如：主论据：买书不读源于浮躁虚荣。分论据a: 社交媒体打卡文化蔓延；分论据b: 知识焦虑导致的伪满足感..."></textarea>
+          </div>
+          <div class="input-field-group">
+            <label id="s1_label_4">④ 支撑论据 2 (递进论据 / 危害剖析 / 可自行组织分论据)：</label>
+            <textarea id="s1_arg2" class="exam-textarea" rows="3" placeholder="例如：主论据：思想内化缺失使知识贬值。分论据: 浅尝辄止无法提升逻辑与认知，书本终沦为摆设..."></textarea>
+          </div>
+          <div class="input-field-group">
+            <label id="s1_label_5">⑤ 支撑论据 3 (补充论据 / 辩证考量 / 应对建议 / 自由展开)：</label>
+            <textarea id="s1_arg3" class="exam-textarea" rows="3" placeholder="例如：提倡精读与沉淀，拒绝形式主义，将书本知识真正转化为解决现实问题的思辨力..."></textarea>
+          </div>
+        </div>
+
+        <div class="stage-action-bar">
+          <span style="font-size:0.8rem; color:#6b7280;">💾 草稿随输随存，自动同步云端 Gist</span>
+          <div class="action-group-right">
+            <button class="exam-btn btn-secondary" onclick="copyStage1Prompt()">📋 复制 Prompt (外部AI)</button>
+            <button class="exam-btn btn-primary" onclick="requestStage1AI()">🚀 提交 AI 审题反思</button>
+          </div>
+        </div>
+
+        <div id="s1_loading" style="display:none; text-align:center; padding:15px; color:#2563eb; font-weight:700;">
+          ⏳ AI 正在深度诊断论据逻辑与考场提分点，请稍候...
+        </div>
+
+        <!-- Stage 1 结果展示 -->
+        <div id="s1_result_box" class="stage-result-card" style="display:none;">
+          <div class="socratic-box">
+            <div class="socratic-header">🧠 苏格拉底式提分拷问（先自查思考）：</div>
+            <div id="s1_socratic_content" class="md-render-content"></div>
+          </div>
+          <details class="stage-details" open>
+            <summary>📐 中肯逻辑诊断与推荐考场提分骨架（点击折叠/展开）</summary>
+            <div id="s1_diag_content" class="md-render-content" style="margin-top:10px;"></div>
+          </details>
+          <div style="text-align:right; margin-top:12px;">
+            <button class="exam-btn btn-primary" onclick="switchExamStage(2)">下一步：进入英文起草 ➔</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Stage 2 面板 ===== -->
+      <div id="stagePanel2" class="stage-panel" style="display:none;">
+        <div class="stage-desc-box">
+          <strong>💡 阶段心法</strong>：锚定 Stage 1 骨架起草英文。完稿后提交 AI 进行【三色手术刀】深度批改：红区硬伤排雷、黄区表达升维、绿区阅卷评估。
+        </div>
+
+        <div class="input-field-group">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="margin:0;">英文初稿 (Draft V1)：</label>
+            <span id="s2_word_count" style="font-size:0.82rem; font-weight:700; color:#2563eb;">0 词</span>
+          </div>
+          <textarea id="s2_draft" class="exam-textarea" rows="12" placeholder="在此键入你的英文初稿..." oninput="updateWordCount('s2_draft', 's2_word_count')"></textarea>
+        </div>
+
+        <div class="stage-action-bar">
+          <button class="exam-btn btn-secondary" onclick="switchExamStage(1)">⬅️ 回到审题立意</button>
+          <div class="action-group-right">
+            <button class="exam-btn btn-secondary" onclick="copyStage2Prompt()">📋 复制 Prompt</button>
+            <button class="exam-btn btn-primary" onclick="requestStage2AI()">🔬 开启三色手术刀批改</button>
+          </div>
+        </div>
+
+        <div id="s2_loading" style="display:none; text-align:center; padding:15px; color:#2563eb; font-weight:700;">
+          ⏳ 正在进行考场级语言排雷、地道升维推演...
+        </div>
+
+        <!-- Stage 2 结果展示 -->
+        <div id="s2_result_box" class="stage-result-card" style="display:none;">
+          <h3 style="margin-top:0; color:#111827;">🔬 三色手术刀学术批改结果：</h3>
+          <div class="audit-card audit-red-zone">
+            <div style="font-weight:800; margin-bottom:6px;">🔴 硬核排雷区 (必改项 · 格式/时态/主谓/标点/硬伤)：</div>
+            <div id="s2_red_zone" class="md-render-content"></div>
+          </div>
+          <div class="audit-card audit-yellow-zone">
+            <div style="font-weight:800; margin-bottom:6px;">🟡 表达升级区 (选改项 · 基础口语词替换为高阶学术搭配)：</div>
+            <div id="s2_yellow_zone" class="md-render-content"></div>
+          </div>
+          <div class="audit-card audit-green-zone">
+            <div style="font-weight:800; margin-bottom:6px;">🟢 考场评估与升维范式 (阅卷档次 / 核心句型无灵主语重构)：</div>
+            <div id="s2_green_zone" class="md-render-content"></div>
+          </div>
+          <div style="text-align:right; margin-top:12px;">
+            <button class="exam-btn btn-primary" onclick="switchExamStage(3)">下一步：动手自修改版 ➔</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Stage 3 面板 ===== -->
+      <div id="stagePanel3" class="stage-panel" style="display:none;">
+        <div class="stage-desc-box">
+          <strong>💡 阶段心法</strong>：吸收手术刀批改建议，手敲修改终稿 (V2)。对比演进差异，提取 5 个专属高阶功能句/词块，一键归档到 Obsidian。
+        </div>
+
+        <div class="input-field-group">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="margin:0;">自修改终稿 (Final Draft V2)：</label>
+            <span id="s3_word_count" style="font-size:0.82rem; font-weight:700; color:#16a34a;">0 词</span>
+          </div>
+          <textarea id="s3_final_draft" class="exam-textarea" rows="12" placeholder="在此手敲润色后的终稿..." oninput="updateWordCount('s3_final_draft', 's3_word_count')"></textarea>
+        </div>
+
+        <div class="stage-action-bar">
+          <button class="exam-btn btn-secondary" onclick="switchExamStage(2)">⬅️ 回到初稿批改</button>
+          <div class="action-group-right">
+            <button class="exam-btn btn-secondary" onclick="copyStage3Prompt()">📋 复制 Prompt</button>
+            <button class="exam-btn btn-primary" onclick="requestStage3AI()">🏆 提炼专属高分语料</button>
+          </div>
+        </div>
+
+        <div id="s3_loading" style="display:none; text-align:center; padding:15px; color:#16a34a; font-weight:700;">
+          ⏳ 正在提炼本次演进的 5 大考前核心资产...
+        </div>
+
+        <!-- Stage 3 结果展示 -->
+        <div id="s3_result_box" class="stage-result-card" style="display:none;">
+          <h3 style="margin-top:0; color:#16a34a;">🧠 本题专属提分武器库：</h3>
+          <div id="s3_result_content" class="md-render-content"></div>
+          <div style="margin-top:16px; display:flex; justify-content:flex-end; gap:10px;">
+            <button class="exam-btn btn-primary" style="background:#16a34a;" onclick="copyObsidianNote()">📝 一键复制完整沉淀笔记 (Obsidian格式)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="vocab-view" style="display:none;">
       <input type="text" class="search-bar" id="vocab-search" placeholder="🔍 全局搜索知识点（如 建议信, embody, 举例论证, 竞争）..." oninput="filterVocab()">
       <div id="vocab-list"></div>
     </div>
@@ -8888,6 +9270,14 @@
         errors: userErrors,
         notes: userNotes, followups: userFollowups,
         drafts: JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}'),
+        exam_drafts: (() => {
+          const d = {};
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('kaoyan_exam_draft_')) d[k] = localStorage.getItem(k);
+          }
+          return d;
+        })(),
         write_idx: localStorage.getItem('kaoyan_write_idx'),
         trans_idx: localStorage.getItem('kaoyan_trans_idx'),
         exportTime: new Date().toISOString()
@@ -9165,261 +9555,312 @@
     const realExamQuestions = [
   {
     "year": 2026,
-    "title": "2026 年英语一 · 大作文真题",
+    "title": "2026 年英语一 · Part B 大作文真题",
+    "type": "**双图表作文（饼图＋柱状图！最新命题风向标）**",
     "theme": "养老机器人接受度调查（左：接受态度饼图；右：首要顾虑柱状图）",
     "topic": "科技现代生活 ／ 人口老龄化、智慧养老机器人、安全可靠性首位",
-    "image": "2026-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay based on the charts below. In your essay, you should\n1) describe the drawing briefly,\n2) interpret the charts, and\n3) give your comments.\nWrite your answers in 160-200 words on the ANSWER SHEET. (20 points)\n（校注：原卷题干此处印刷漏字，\"Write an essay of\" 后缺词数；第 1) 项沿用 \"drawing\" 一词，与图表题干不一致，均以官方原卷为准，未作改动。）"
+    "directions": "52. Directions:\nWrite an essay based on the charts below. In your essay, you should\n1) describe the drawing briefly,\n2) interpret the charts, and\n3) give your comments.\nWrite your answers in 160-200 words on the ANSWER SHEET. (20 points)\n（校注：原卷题干此处印刷漏字，\"Write an essay of\" 后缺词数；第 1) 项沿用 \"drawing\" 一词，与图表题干不一致，均以官方原卷为准，未作改动。）",
+    "image": "images/2026-写作页.png",
+    "model_essay": "Two charts map public attitudes toward elderly care robots: a pie chart of acceptance and a bar chart of primary concerns. As illustrated in the pie chart, an overwhelming majority of respondents maintain a receptive attitude, with 39.3% fully accepting and 32.8% partially accepting these intelligent gadgets, while only 27.9% reject them. Simultaneously, the bar chart reveals that safety (46.3%) constitutes the paramount concern for prospective buyers, significantly overshadowing price considerations (24.9%) and operational convenience (10.7%). The statistics indicate a promising market whose realization hinges decisively on safety benchmarks.\n\nTwo underlying dynamics account for this distribution. Primarily, against the backdrop of accelerating population aging and shrinking family sizes, traditional elderly care is confronted with an acute shortage of caregivers; consequently, intelligent service robots emerge as a revolutionary antidote to bridge the care deficit, explaining the widespread public endorsement. Nevertheless, because these devices interact intimately with fragile senior citizens—assisting with daily mobility and monitoring medical emergencies—any algorithmic glitch or hardware malfunction could inflict irreversible physical trauma. Hence, consumers instinctively prioritize failsafe reliability above monetary affordability.\n\nIn conclusion, elderly care robotics represents an inspiring technological frontier. Manufacturers must prioritize foolproof safety as the core foundation, ensuring that technological breakthroughs genuinely empower senior citizens with dignity and security."
   },
   {
     "year": 2025,
-    "title": "2025 年英语一 · 大作文真题",
+    "title": "2025 年英语一 · Part B 大作文真题",
+    "type": "**纯表格作文（Table！最新考题形态）**",
     "theme": "2014–2023年全国居民每百户主要耐用消费品拥有量（台）",
     "topic": "现代生活与社会变迁 ／ 居民生活水平跃升与高品质消费升级",
-    "image": "2025-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay based on the table below. In your essay, you should\n1) describe the table briefly,\n2) interpret the table, and\n3) give your comments.\nWrite your essay in 160-200 words on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay based on the table below. In your essay, you should\n1) describe the table briefly,\n2) interpret the table, and\n3) give your comments.\nWrite your essay in 160-200 words on the ANSWER SHEET. (20 points)",
+    "image": "images/2025-写作页.png",
+    "model_essay": "The table above clearly outlines the variations in the average ownership of major consumer durables per 100 households nationwide from 2014 to 2023. As is vividly reflected in the statistics, all tracked appliances witnessed a marked ascent: most prominently, the ownership of air conditioners nearly doubled, surging dramatically from 75.2 to 145.9 units; meanwhile, washing machines rose steadily from 83.7 to 98.2 units, and refrigerators increased robustly from 85.5 to 103.4 units. These figures unambiguously demonstrate that the material living standards of Chinese citizens have attained an unprecedented plateau of prosperity.\n\nTwo primary dynamics underpin this enduring consumption expansion. Chief among them is sustained macroeconomic growth and the continuous elevation of disposable household income, which furnish consumers with substantial purchasing power to acquire premium durable goods. Furthermore, a remarkable evolution in consumption philosophy has taken place: modern households are no longer merely preoccupied with basic necessities, but are proactively investing in comfortable, efficient, and intelligent domestic living environments.\n\nIn conclusion, the ubiquitous popularity of consumer durables bears testimony to China's economic leaps and burgeoning national welfare. Looking ahead, fueled by green and smart technologies, the quality of home living is poised for even greater advancement."
   },
   {
     "year": 2024,
-    "title": "2024 年英语一 · 大作文真题",
+    "title": "2024 年英语一 · Part B 大作文真题",
+    "type": "**图画＋图表（混合型！考情分水岭）**",
     "theme": "（市民健身公园场景＋近三年公园数量柱状图）",
     "topic": "现代生活 ／ 全民健康意识增强与公共体育设施普及",
-    "image": "2024-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay based on the picture and the chart below. In your essay, you should\n1) describe the picture and the chart briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay based on the picture and the chart below. In your essay, you should\n1) describe the picture and the chart briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)",
+    "image": "images/2024-写作页.png",
+    "model_essay": "The combined illustration and chart vividly depict the flourishing landscape of public fitness in China. In the picture on the left, citizens of diverse ages are energetically working out on various fitness apparatus in a community park, enveloped by verdant trees. Simultaneously, the bar chart on the right reveals a steady upward trajectory in the number of sports parks over the past three years, climbing remarkably from 406 in 2020 through 532 in 2021 to 670 in 2022. The organic integration of the drawing and data demonstrates an inspiring reality: fueled by the dramatic expansion of municipal exercise infrastructure, regular physical exercise has become an integral lifestyle for ordinary citizens.\n\nTwo primary catalysts account for this gratifying trend. Chief among them is the government's steadfast commitment to the \"Healthy China\" national strategy, which translates into robust fiscal allocations for constructing accessible neighborhood recreation grounds. Furthermore, accompanying rising living standards, a profound shift in public mindset has taken place: contemporary citizens have acutely recognized that daily physical workout serves as an indispensable antidote to modern workplace anxiety, shielding them against sub-health conditions and significantly augmenting overall life satisfaction.\n\nIn conclusion, the nationwide fitness enthusiasm symbolizes substantial societal progress. Sustained endeavors should be made to upgrade public athletic facilities, enabling an energetic and health-conscious lifestyle to permeate every corner of society."
   },
   {
     "year": 2023,
-    "title": "2023 年英语一 · 大作文真题",
+    "title": "2023 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "（传统民俗活动，画面标注）赛龙舟",
     "topic": "文化传承与团队协作 ／ 同舟共济、团结一心与拼搏精神",
-    "image": "2023-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer in 160-200 words on the ANSWER SHEET. (20 points)",
+    "image": "images/2023-写作页.png",
+    "model_essay": "A carved dragon boat glides across the surging river: at the bow a drummer beats rhythmically to synchronize the crew, while rows of rowers paddle in flawless unison, spray flying into the air. On the bank, villagers cheer, and an elderly onlooker exclaims: \"How impressive! Our village's dragon boat team is getting stronger and stronger!\" The picture illuminates one virtue: solidarity guarantees triumph over daunting obstacles.\n\nThe spirit of dragon boating mirrors the golden rule of success in modern society. Monumental achievements are rarely accomplished through solitary heroism. Just as a dragon boat requires the drummer's command and the rowers' synchronized propulsion, a high-performing collective relies on seamless alignment, where each member excels in their role while harmonizing with the whole. If individuals act independently, collective endeavor founders; conversely, unified strength can conquer formidable predicaments with ease.\n\nIn conclusion, \"United we stand, divided we fall.\" Facing life's challenging tides, young people should cultivate mutual trust and synergy, sailing toward glorious horizons through collaboration."
   },
   {
     "year": 2022,
-    "title": "2022 年英语一 · 大作文真题",
+    "title": "2022 年英语一 · Part B 大作文真题",
+    "type": "图画作文（公告栏前对话对比）",
     "theme": "（对话式，无固定短语题注）校园讲座公告栏",
     "topic": "品质修养 ／ 认知格局·跨学科视野、开放包容 vs. 狭隘短视",
-    "image": "2022-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)",
+    "image": "images/2022-写作页.png",
+    "model_essay": "Two female students stand before a campus bulletin board plastered with lecture posters. The student on the left points at the posters and frowns: \"It has nothing to do with our major; listening is useless.\" The student on the right, by contrast, urges her warmly: \"It will certainly do us good to go and listen.\" These two remarks capture two sharply different attitudes toward learning: an open, broad-minded curiosity versus a narrow, utilitarian mindset.\n\nThis picture prompts us to reflect on the essence of university education. In an era of accelerating interdisciplinary convergence, major innovations often emerge at the intersection of different bodies of knowledge. People with an open mind readily absorb diverse insights and turn broad exposure into cognitive agility and creativity. Conversely, those who confine themselves rigidly within the small circle of their own specialty risk becoming intellectually stagnant \"one-dimensional\" individuals, ill-equipped to handle complex real-world challenges.\n\nTherefore, we ought to tear down the fences of our minds. Young students should cultivate an inclusive curiosity, actively explore cross-disciplinary knowledge, and embrace the future with broader horizons."
   },
   {
     "year": 2021,
-    "title": "2021 年英语一 · 大作文真题",
+    "title": "2021 年英语一 · Part B 大作文真题",
+    "type": "图画作文（两代人对话式）",
     "theme": "（对话式，无固定短语题注）学唱戏",
     "topic": "品质修养 ／ 兴趣热爱、择业初心与传统艺术坚守",
-    "image": "2021-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2021-写作页.png",
+    "model_essay": "\"Dad, many of my classmates think learning to sing opera is no fun,\" says the child, dressed in a traditional opera costume and holding a stage prop, to which his father replies, \"Don't you like it yourself? That is enough.\" These two brief exchanges capture the choice between genuine passion and others' opinions.\n\nThe picture conveys a simple truth: real love is the inner strength that withstands outside doubt and long hardship. In today's pragmatic climate, people often weigh salary and prestige first when choosing a field of study or a career, while neglecting what they truly enjoy. Yet mastering any craft inevitably involves tedium and setbacks; those without genuine affection tend to compromise under fatigue and public opinion, whereas those guided by pure interest can turn grueling practice into rewarding growth. It is precisely generations of people willing to persevere for what they love that keep traditional arts alive.\n\nTherefore, we should listen to our inner voice and hold fast to our own choices."
   },
   {
     "year": 2020,
-    "title": "2020 年英语一 · 大作文真题",
+    "title": "2020 年英语一 · Part B 大作文真题",
+    "type": "图画作文（双人对比型）",
     "theme": "习惯",
     "topic": "品质修养 ／ 习惯塑造人生·提前规划与自律 vs. 拖延恶习",
-    "image": "2020-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the pictures below. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the pictures below. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nWrite your answer on the ANSWER SHEET. (20 points)",
+    "image": "images/2020-写作页.png",
+    "model_essay": "Two contrasting scenes of study are set side by side. On the left, a student works at a neatly arranged desk and remarks calmly: \"Finishing it early sets my mind at ease.\" By stark contrast, the student on the right slumps before a disordered pile of books, scratching his head and sighing: \"I never start until the last moment.\" The caption, \"Habit,\" incisively highlights how daily behavioral patterns dictate whether one stays composed or falls into panic at critical junctures.\n\nThis graphic dichotomy illuminates the profound impact of self-discipline in shaping human destiny. Habits function as invisible architects of life. Individuals who cultivate the habit of methodical planning and steady execution can decompose intimidating burdens into manageable daily steps, maintaining mental equanimity amid challenges. Conversely, those plagued by insidious procrastination chronically evade timely efforts, only to be crushed by frantic panic when deadlines loom, inevitably sacrificing both work quality and mental health. As Cicero famously noted, \"Habit is second nature.\"\n\nIn conclusion, we sow a habit, and we reap a destiny. Confronted with monumental goals, young adults should eradicate the toxic inertia of procrastination, adopt the virtue of structured daily discipline, and let good habits become the bedrock of enduring success."
   },
   {
     "year": 2019,
-    "title": "2019 年英语一 · 大作文真题",
+    "title": "2019 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "途中",
     "topic": "品质修养 ／ 坚持不懈、坚忍不拔、迎难而上与同伴激励",
-    "image": "2019-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the implied meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2019-写作页.png",
+    "model_essay": "High on a mountain trail, two hikers have come to a halt. On the rugged, winding trail, the hiker on the right sits slumped on a stone step, hands on his knees, sighing in frustration: \"I'm exhausted; I'm not climbing any further.\" Conversely, his companion on the left, though equally drenched in sweat, stands firm, hands him a water bottle, and encourages him with a smile: \"Come on, take a rest and then keep climbing.\" The caption, \"On the Way,\" points to the divide between giving up halfway and persevering toward one's goal.\n\nThe illustration illuminates the decisive role of perseverance in life. Attaining any worthwhile goal is akin to ascending a formidable peak, inevitably fraught with exhaustion, wavering will, and seemingly insurmountable obstacles. Mediocre individuals tend to surrender during the darkest hour before dawn, reducing prior endeavors to nothingness. True champions, by contrast, savor the view from the summit precisely because they summon the grit to take that extra step when others stop. Moreover, mutual support in times of adversity is a vital source of inner strength.\n\nIn conclusion, \"The last leg of a journey marks only the halfway point.\" Confronted with hurdles on our way, we must never give up midway. With steadfast determination and mutual encouragement, we are destined to reach our own summit."
   },
   {
     "year": 2018,
-    "title": "2018 年英语一 · 大作文真题",
+    "title": "2018 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "选课进行时",
     "topic": "品质修养 ／ 青年取舍、功利逃避 vs. 迎难而上、追求卓越",
-    "image": "2018-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the picture below. In your essay, you should\n1) describe the picture briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2018-写作页.png",
+    "model_essay": "Facing a screen that offers two options, a young man on the \"Course Selection System\" finds himself torn between \"Cutting-edge Knowledge, Innovation-oriented, Challenging\" and \"High Grades, Easy Pass, Minimal Assignments.\" The caption, \"Course Selection in Progress,\" precisely captures the inner struggle of contemporary students between the pursuit of knowledge and the pull of expediency.\n\nThis scene reveals an imbalance in some students' attitude toward study. In an evaluation system dominated by GPA, many young people reduce courses to mere bargaining chips for a dazzling transcript, instinctively avoiding those demanding courses that would genuinely broaden their intellectual horizons. However, consistently taking the path of least resistance may bring temporary ease, yet it insidiously weakens critical thinking and the capacity to solve complex problems. No genuine excellence can blossom within an unchallenged comfort zone; evading difficulties ultimately leaves one's long-term competitiveness barren.\n\nTherefore, young adults should step out of their comfort zones and actively choose challenging courses that stimulate their potential. The most arduous paths often lead to the most magnificent vistas."
   },
   {
     "year": 2017,
-    "title": "2017 年英语一 · 大作文真题",
+    "title": "2017 年英语一 · Part B 大作文真题",
+    "type": "图画作文（双幅对比型）",
     "theme": "“有书”与“读书”",
     "topic": "品质修养 ／ 治学态度、知行合一、虚浮占有 vs. 沉潜阅读",
-    "image": "2017-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2017-写作页.png",
+    "model_essay": "The picture sets two attitudes toward books side by side. In the left picture, a complacent man sits triumphantly before a towering bookshelf crammed with volumes, boasting: \"I have so many books!\", though most of them remain unopened and dust-laden. In stark contrast, the right picture portrays a diligent reader at a neat desk, perusing a single masterpiece while diligently taking notes, fully committed to finishing twenty books thoroughly this year. The caption, \"Possessing Books versus Reading Books,\" astutely differentiates superficial acquisition from substantive intellectual absorption.\n\nThe drawing highlights a profound philosophical insight: genuine erudition lies not in the ostentatious possession of knowledge, but in the contemplative assimilation of truth. In an era characterized by information saturation and restless commercialism, many individuals fall victim to the self-deceiving illusion that purchasing books equates to acquiring wisdom, treating literature merely as vanity decor. Nevertheless, unread books, no matter how voluminous, remain dormant paper. Only through immersive scrutiny, critical reflection, and practical application can knowledge be truly converted into inner competence.\n\nAs Francis Bacon famously remarked, \"Reading makes a full man.\" We ought to resist the hollow temptation of superficial hoarding, cultivate a habit of reflective reading, and genuinely internalize the quintessence of wisdom into our character."
   },
   {
     "year": 2016,
-    "title": "2016 年英语一 · 大作文真题",
+    "title": "2016 年英语一 · Part B 大作文真题",
+    "type": "图画作文（双幅对比型）",
     "theme": "与其只提要求，不如做个榜样",
     "topic": "道德风尚 ／ 家庭教育、言传身教与以身作则",
-    "image": "2016-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following pictures. In your essay, you should\n1) describe the pictures briefly,\n2) interpret the meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2016-写作页.png",
+    "model_essay": "Two fathers, two approaches—nothing could be more telling than the contrast between them. In the left picture, a father reclines comfortably on a sofa watching television, yet sternly scolds his son doing homework: \"Son, you must study hard!\" The frustrated boy appears sullen and resistant. In sharp contrast, the right picture depicts another father sitting side by side with his son at the study desk; both are deeply absorbed in reading, fostering a harmonious and inspiring learning atmosphere. As the subtitle astutely observes, \"Rather than setting harsh rules, it is far better to set a good example.\"\n\nThe profound implication illuminated by this illustration is that actions speak considerably louder than empty preachments. Parents serve as a child's foremost mentors; children's behavioral habits and moral character are rarely forged through authoritarian coercion, but rather through subconscious observation and imitation. When parents indulge in passive entertainment while demanding relentless diligence from their offspring, their hypocrisy inevitably breeds resentment and cynicism. Conversely, when parents embody self-discipline and intellectual curiosity in daily life, they naturally exert an uplifting and enduring influence.\n\nTo conclude, exemplary conduct remains the cornerstone of successful family upbringing. Parents should abandon superficial sermonizing, strive to lead by personal demonstration, and illuminate their children's path forward through the compelling power of personal role models."
   },
   {
     "year": 2015,
-    "title": "2015 年英语一 · 大作文真题",
+    "title": "2015 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "手机时代的聚会",
     "topic": "科技现代生活 ／ 数字化冷漠与面对面交流缺失",
-    "image": "2015-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following picture. In your essay, you should\n1) describe the picture briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)",
+    "image": "images/2015-写作页.png",
+    "model_essay": "Seated around a table laden with delicious dishes are four young individuals. Bizarrely, none of them have touched the food or uttered a single word to each other; instead, all of them are bowing their heads, gazing intently at their smartphones, and totally indulging in the virtual cyber world. The caption, \"A Party in the Age of Mobile Phones,\" mirrors a widespread modern predicament—the tragic alienation of interpersonal ties in an increasingly connected digital era.\n\nSeveral contributing factors underpin this prevalent social phenomenon. Undoubtedly, the proliferation of portable devices and ubiquitous social networks provides unparalleled convenience and instant gratification; nevertheless, over-reliance on digital interaction insidiously erodes genuine emotional connections. Captivated by screen feeds, modern citizens find it increasingly difficult to sustain face-to-face dialogues, rendering authentic human warmth an elusive luxury. \n\nTo conclude, smart technology should function as a bridge to unite people rather than a digital barrier that keeps them emotionally distant. A rational attitude ought to be adopted toward mobile gadgets: when gathering with friends and relatives, we must discipline ourselves to set aside our devices and cherish the priceless beauty of real-world companionship."
   },
   {
     "year": 2014,
-    "title": "2014 年英语一 · 大作文真题",
+    "title": "2014 年英语一 · Part B 大作文真题",
+    "type": "图画作文（今昔时间对比）",
     "theme": "相携（三十年前 / 现在）",
     "topic": "道德风尚 ／ 孝道、反哺、亲情与家庭伦理",
-    "image": "2014-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on the ANSWER SHEET. (20 points)",
+    "image": "images/2014-写作页.png",
+    "model_essay": "The picture unfolds in two frames, thirty years apart. On the left, thirty years ago, a vigorous young mother is gently holding the tiny hands of her toddler daughter, guiding her to take her first steps. On the right, thirty years later, the grown daughter is lovingly supporting her stooped, gray-haired mother as they stroll together. The caption, \"Accompanying Each Other,\" encapsulates the heartwarming essence of the illustration: it mirrors the noble transition from maternal devotion to filial reciprocity.\n\nWhat lies behind this poignant scene is the timeless virtue of filial piety and gratitude. Parents not only bestow life upon us, but also dedicate their prime years and boundless affection to nurturing us into maturity. Consequently, when their footsteps falter with advancing age, it becomes our sacred moral obligation and innate duty to furnish them with material care and, more importantly, empathetic companionship. As an ancient saying goes, \"Even crows have the courtesy to feed back their elderly parents.\" Filial devotion constitutes the very foundation of familial harmony and societal cohesion.\n\nTo conclude, the spirit of mutual companionship ought to be passed down through generations. Amid the hustle and bustle of contemporary life, we should never let busy schedules eclipse our filial duties; instead, we must carve out time to accompany our parents, illuminating the twilight of their lives with gratitude and tenderness."
   },
   {
     "year": 2013,
-    "title": "2013 年英语一 · 大作文真题",
+    "title": "2013 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "选择（求职、考研、出国、创业）",
     "topic": "品质修养 ／ 毕业选择、理性规划与人生定力",
-    "image": "2013-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) interpret its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET. (20 points)",
+    "image": "images/2013-写作页.png",
+    "model_essay": "Several college graduates stand at a crucial crossroads, unsure which way to turn. Erected in front of them are diverse road signs pointing in completely distinct directions, marked respectively as \"Job Hunting,\" \"Postgraduate Entrance Exam,\" \"Going Abroad,\" and \"Starting a Business.\" Confronted with these manifold possibilities, the students display bewildered expressions—some hesitating anxiously, while others seem completely lost. The intended message is vivid: contemporary young adults are inevitably confronted with critical dilemmas when making monumental life choices.\n\nThe prevalence of this hesitation stems from both objective and subjective factors. On the one hand, socioeconomic progress and educational diversification have afforded youth unprecedented developmental avenues, liberating them from a single fixed mold. On the other hand, the deficiency of self-awareness and systematic career planning often paralyzes individuals in a labyrinth of choices; without a clear vision, excessive options merely exacerbate anxiety and foster aimless conformity.\n\nFrom my perspective, choices define destiny, but only determination sustains progress. Confronted with a myriad of pathways, we ought to conduct a rational assessment of our inherent strengths and genuine passions. Once an optimal trajectory is identified, we must forge ahead tenaciously, transforming deliberation into tangible achievement."
   },
   {
     "year": 2012,
-    "title": "2012 年英语一 · 大作文真题",
+    "title": "2012 年英语一 · Part B 大作文真题",
+    "type": "图画作文（双人对比型）",
     "theme": "“全完了！” / “幸好还剩点儿。”",
     "topic": "品质修养 ／ 人生态度·乐观与悲观",
-    "image": "2012-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)",
+    "image": "images/2012-写作页.png",
+    "model_essay": "Lying overturned on the ground is a water bottle, most of its contents already spilled. Confronted with the identical situation, the two individuals display strikingly divergent attitudes: the man on the left stands hunched over, holding his head in sheer despair, lamenting \"Everything is ruined!\", whereas the one on the right remains composed, smiling cheerfully and exclaiming \"Fortunately, there is still some left!\" What lies behind this contrast is profoundly philosophical: it is not the adversity itself, but rather our psychological attitude toward it, that determines our destiny.\n\nThroughout the course of life, setbacks and unpredictability are virtually unavoidable. A pessimist tends to fixate narrowly on what has been forfeited, lapsing into self-pity and helplessness, which inevitably blinds him to potential breakthroughs. Conversely, an optimist focuses constructively on what is retained, turning crises into opportunities through sheer resilience and proactive action. As a well-known proverb illuminates, \"Two men look out through the same bars: one sees the mud, and one the stars.\"\n\nIn conclusion, cultivating an optimistic mindset is paramount to navigating life's tempests. Whenever confronted with insurmountable tribulations, we should refrain from useless grievances; instead, we ought to embrace a forward-looking perspective, cherishing the remaining resources and forging ahead with unwavering conviction."
   },
   {
     "year": 2011,
-    "title": "2011 年英语一 · 大作文真题",
+    "title": "2011 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "旅程之“余”",
     "topic": "文化传承与环保 ／ 公民道德与文明旅游",
-    "image": "2011-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)",
+    "image": "images/2011-写作页.png",
+    "model_essay": "The drawing depicts a picturesque lake, across which a sightseeing boat is cruising smoothly. Ironically, however, the tourists aboard, while relishing the magnificent scenery, are casually discarding food wrappers, bottles, and plastic bags into the crystal-clear lake, leaving behind a disgraceful trail of floating debris. The caption, \"Remains of the Journey,\" conveys a pungent satire: while enjoying nature, some vacationers leave destructive environmental burdens as their enduring legacy.\n\nThe illustrative phenomenon mirrors a distressing reality accompanying the booming tourism industry—the deficiency of civic consciousness and environmental stewardship. With living standards significantly elevated, outbound tourism has become a prevailing lifestyle; nevertheless, the moral awareness of certain tourists fails to keep pace with material prosperity. Behaviors like littering not only severely degrade the ecological equilibrium of scenic spots, but also tarnish our public image.\n\nTo redress this worsening dilemma, concerted efforts must be exerted from all sectors. On the one hand, regulatory authorities ought to tighten surveillance and penalize reckless littering with substantial fines. On the other hand, sustained media publicity should be launched to foster ecological awareness among tourists. Only by synchronizing economic growth with green consciousness can we ensure sustainable coexistence between mankind and nature."
   },
   {
     "year": 2010,
-    "title": "2010 年英语一 · 大作文真题",
+    "title": "2010 年英语一 · Part B 大作文真题",
+    "type": "图画作文",
     "theme": "文化“火锅”，既美味又营养",
     "topic": "文化传承与环保 ／ 文化交流与多元融合",
-    "image": "2010-写作页.png",
-    "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
+    "directions": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)",
+    "image": "images/2010-写作页.png",
+    "model_essay": "At the center of the picture stands a steaming \"cultural hotpot\", into which a wide variety of ingredients—Buddhism, postmodernism, the Butterfly Lovers, and Einstein—have been thrown. Blended harmoniously, these cultural components look tremendously appetizing and nutritious. What lies behind the illustration is self-evident: multicultural integration has emerged as a salient feature of our era, exerting an immensely positive impact on the inheritance and prosperity of world civilization.\n\nWe are living in an unprecedented epoch of globalization, where boundaries are blurred and cultural exchanges occur at unprecedented frequency. Diversified cultural elements furnish spiritual nourishment for people across the globe. For instance, traditional Chinese philosophies have been introduced into the Western world, providing innovative perspectives on modern corporate management; meanwhile, Peking Opera draws inspiration from Western aesthetic forms, rendering it far more accessible and captivating to global audiences. \n\nTo conclude, the convergence of diverse cultures constitutes an irresistible historical trend. For modern Chinese youth, we ought not merely to inherit and carry forward the essence of our indigenous heritage, but also to embrace external excellence with an open mind. Only through the organic synthesis of the old and the new, as well as the East and the West, can we foster the flourishing of human civilization."
   }
 ];
 
     const realShortExamQuestions = [
   {
     "year": 2026,
+    "title": "2026 年英语一 · Part A 小作文真题",
     "type": "介绍信 / 私人书信（Letter）",
     "summary": "阅读朋友 Paul 的电子邮件并回信：介绍你日前发布的中国家庭手写信的背景信息，并告知其公开展览的时间与地点。",
-    "directions": "Read the following email from your friend Paul and write him a reply. Hi Li Ming, I was really moved by the Chinese families' handwritten letters you posted yesterday. They are priceless! Could you please tell me a bit more about them? And are they currently on public display somewhere? I'm very kee",
-    "model_essay": "51. Directions:\nRead the following email from your friend Paul and write him a reply.\n\nHi Li Ming,\nI was really moved by the Chinese families' handwritten letters you posted yesterday. They are priceless! Could you please tell me a bit more about them? And are they currently on public display somewhere? I'm very keen to see them in person. Thanks.\n\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nRead the following email from your friend Paul and write him a reply.\n\nHi Li Ming,\nI was really moved by the Chinese families' handwritten letters you posted yesterday. They are priceless! Could you please tell me a bit more about them? And are they currently on public display somewhere? I'm very keen to see them in person. Thanks.\n\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear Paul,\n\nDelighted to learn that you are captivated by the Chinese families' handwritten letters I shared yesterday, I am writing to provide you with more background context.\n\nDating back from the 1950s to the 1990s, these precious correspondences carry intimate familial greetings and heartwarming narratives of daily life. In sharp contrast to fleeting, standardized digital messages, the tangible ink marks and unique penmanship embody deeply authentic human emotions. Fortunately, these historical letters are currently on public display at the Municipal Cultural Museum, with complimentary admission throughout this month.\n\nI sincerely hope you can visit the exhibition to personally feel the enduring warmth woven between the lines.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2025,
+    "title": "2025 年英语一 · Part A 小作文真题",
     "type": "建议与筹备信 / 电子邮件（Email 回信）",
     "summary": "阅读同学 Paul 的电子邮件并回信：介绍即将在校园展演的年轻工匠技艺展示内容，并说明你希望他协助的筹备工作。",
-    "directions": "Read the following email from your classmate Paul and write him a reply. Dear Li Ming, I was really excited to hear that you'd invite some young craftsmen to demonstrate their innovative craft-making on campus. May I know more about what they'll show? Also, I'd like to help with your preparation wor",
-    "model_essay": "51. Directions:\nRead the following email from your classmate Paul and write him a reply.\n\nDear Li Ming,\nI was really excited to hear that you'd invite some young craftsmen to demonstrate their innovative craft-making on campus. May I know more about what they'll show? Also, I'd like to help with your preparation work. Please let me know what I can do.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nRead the following email from your classmate Paul and write him a reply.\n\nDear Li Ming,\nI was really excited to hear that you'd invite some young craftsmen to demonstrate their innovative craft-making on campus. May I know more about what they'll show? Also, I'd like to help with your preparation work. Please let me know what I can do.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear Paul,\n\nDelighted to learn about your willingness to support the upcoming craft-making demonstration on campus, I am writing to furnish you with key details alongside preparation suggestions.\n\nScheduled for October 18 at the cultural square on campus, the exhibition showcases an exquisite collection of intangible cultural heritages, including eco-friendly paper cuttings, clay figurines, and delicate bamboo weavings, where master artisans will demonstrate craftsmanship firsthand. As for preparation, it would be immensely appreciated if you could assist with arranging the interactive display booths, drafting bilingual informational posters, and promoting the event among international students.\n\nWith your invaluable support, I am confident that our exhibition will achieve resounding success. Looking forward to our fruitful collaboration!\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2024,
+    "title": "2024 年英语一 · Part A 小作文真题",
     "type": "建议信 / 电子邮件（Email 回信）",
     "summary": "回复外国友人 Paul 的邮件，就其即将开展的关于“中国古代科学家”的口头报告提出具体准备建议。",
-    "directions": "Read the following email from an international student and write a reply. Dear Li Ming, I've got a class assignment to make an oral report on an ancient Chinese scientist, but I'm not sure how to prepare for it. Can you give me some advice? Thank you for your help. Yours, Paul Write your answer in a",
-    "model_essay": "51. Directions:\nRead the following email from an international student and write a reply.\n\nDear Li Ming,\nI've got a class assignment to make an oral report on an ancient Chinese scientist, but I'm not sure how to prepare for it. Can you give me some advice? Thank you for your help.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in your email; use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nRead the following email from an international student and write a reply.\n\nDear Li Ming,\nI've got a class assignment to make an oral report on an ancient Chinese scientist, but I'm not sure how to prepare for it. Can you give me some advice? Thank you for your help.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in your email; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear Paul,\n\nDelighted to receive your email, I am glad to offer some constructive suggestions regarding your upcoming oral presentation on an ancient Chinese scientist.\n\nAs for the choice of figure, I strongly recommend Shen Kuo, a renowned polymath of the Northern Song Dynasty, or Zhang Heng, the legendary astronomer of the Han Dynasty, both of whose pioneering contributions are recognized worldwide. In terms of preparation, you are advised to gather diverse multimedia materials and firsthand historical anecdotes. More importantly, instead of merely cataloging inventions, your presentation should highlight their empirical scientific spirit and illuminate how their discoveries profoundly shaped human civilization.\n\nShould you need further bilingual references, please feel free to reach out. Wishing your oral report a resounding success!\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2023,
+    "title": "2023 年英语一 · Part A 小作文真题",
     "type": "告示 / 通知（Notice）",
     "summary": "写一则通知，为 Smith 教授的校园体育活动研究项目招募一名学生，须说明该岗位的职责与要求。",
-    "directions": "Write a notice to recruit a student for Prof. Smith's research project on campus sports activities. Specify the duties and requirements of the job. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in the notice; use \"Li Ming\" instead. (10 points)",
-    "model_essay": "51. Directions:\nWrite a notice to recruit a student for Prof. Smith's research project on campus sports activities. Specify the duties and requirements of the job.\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the notice; use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nWrite a notice to recruit a student for Prof. Smith's research project on campus sports activities. Specify the duties and requirements of the job.\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the notice; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Notice\n\nThe research group is now recruiting a student assistant for its project on campus sports activities.\n\nThe duties include assisting in designing and distributing questionnaires, organizing and entering data on students' participation in sports, and helping to draft interim research reports. Applicants must be full-time students of our university with strong communication and data-processing skills, and should be able to commit at least eight hours per week. Previous research experience is preferred.\n\nThose interested are requested to send their résumés to research.project@university.edu.cn by October 20. All are welcome to apply.\n\nLi Ming"
   },
   {
     "year": 2022,
+    "title": "2022 年英语一 · Part A 小作文真题",
     "type": "邀请信 / 电子邮件（Email）",
     "summary": "给某英国大学的一位教授写电子邮件，邀请其组队参加将在你校举办的国际创新大赛。",
-    "directions": "Write an email to a professor at a British university, inviting him/her to organize a team for the international innovation contest to be held at your university. You should write about 100 words on the ANSWER SHEET. Do not use your own name in the email; use \"Li Ming\" instead. (10 points)",
-    "model_essay": "51. Directions:\nWrite an email to a professor at a British university, inviting him/her to organize a team for the international innovation contest to be held at your university.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nWrite an email to a professor at a British university, inviting him/her to organize a team for the international innovation contest to be held at your university.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear Professor,\n\nI am writing to cordially invite you to organize a team for the international innovation contest to be held at our university.\n\nThe contest is scheduled from November 15 to 17 under the theme of \"Green Technology and Sustainable Development,\" and will bring together teams from more than ten countries. Given your university's outstanding reputation in sustainable engineering, I am confident that a team under your guidance would present truly refreshing ideas. Accommodation and partial travel funding will be provided for all participating teams.\n\nShould you be interested, please let us know the number of participants and your research focus by the end of September. I look forward to your reply.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2021,
+    "title": "2021 年英语一 · Part A 小作文真题",
     "type": "建议信 / 电子邮件（Email）",
     "summary": "一位外国朋友刚大学毕业，打算在中国找工作，给他/她写一封电子邮件提些建议。",
-    "directions": "A foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions. You should write about 100 words on the ANSWER SHEET. Do not sign your own name at the end. Use \"Li Ming\" instead. Do not write the address. (10 points)",
-    "model_essay": "51. Directions:\nA foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions.\nYou should write about 100 words on the ANSWER SHEET.\nDo not sign your own name at the end. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nA foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions.\nYou should write about 100 words on the ANSWER SHEET.\nDo not sign your own name at the end. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Jack,\n\nThrilled to learn about your aspiration to pursue a career in China, I am writing to provide several practical suggestions to facilitate your job hunting.\n\nFirst and foremost, leveraging your native language proficiency and academic credentials, you are highly recommended to explore opportunities in multinational corporations, international schools, or foreign-trade consultancies, where bilingual professionals are in robust demand. Furthermore, polishing your practical Chinese communication skills and acquainting yourself with Chinese workplace etiquette will distinguish you during interviews, demonstrating exceptional intercultural adaptability. Additionally, remember to keep abreast of the latest employment regulations and prepare necessary visa documentation well in advance.\n\nShould you require assistance regarding local recruitment channels, please let me know. Wishing you fruitful endeavors and great success in China!\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2020,
+    "title": "2020 年英语一 · Part A 小作文真题",
     "type": "告示 / 通知（Notice）",
     "summary": "校学生会委派你就即将举行的歌唱比赛通知留学生，写一则约 100 词的通知。",
-    "directions": "The Student Union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words. Write your answer on the ANSWER SHEET. Do not use your own name in the notice. (10 points)",
-    "model_essay": "51. Directions:\nThe Student Union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words.\nWrite your answer on the ANSWER SHEET.\nDo not use your own name in the notice. (10 points)"
+    "directions": "51. Directions:\nThe Student Union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words.\nWrite your answer on the ANSWER SHEET.\nDo not use your own name in the notice. (10 points)",
+    "model_essay": "NOTICE\n\nTo enrich campus cultural life and showcase students' artistic talents, the Student Union is pleased to announce the upcoming Campus Singing Contest. \n\nThe preliminary round is scheduled to take place at 6:30 p.m. on November 20 in the Student Activity Center. Open to all registered students, the contest accommodates diverse performance genres, ranging from solos to duets and bands, in any language. Enthusiastic candidates are expected to email their personal profiles alongside their intended song tracks to music_contest@univ.edu prior to November 15. The top ten vocalists will be awarded honorary certificates and attractive prizes.\n\nDo not miss this golden opportunity to shine on stage. We eagerly anticipate your melodious voices!\n\nThe Student Union"
   },
   {
     "year": 2019,
+    "title": "2019 年英语一 · Part A 小作文真题",
     "type": "回复咨询信 / 电子邮件（Email）",
     "summary": "假设你在本校\"Aiding Rural Primary School（帮扶乡村小学）\"项目中工作，写一封电子邮件回复一位国际学生志愿者的咨询，说明该项目的细节。",
-    "directions": "Suppose you are working for the \"Aiding Rural Primary School\" project of your university. Write an email to answer the inquiry from an international student volunteer, specifying the details of the project. You should write about 100 words on the ANSWER SHEET. Do not use your own name in the email. ",
-    "model_essay": "51. Directions:\nSuppose you are working for the \"Aiding Rural Primary School\" project of your university. Write an email to answer the inquiry from an international student volunteer, specifying the details of the project.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email. Use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nSuppose you are working for the \"Aiding Rural Primary School\" project of your university. Write an email to answer the inquiry from an international student volunteer, specifying the details of the project.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email. Use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear John,\n\nI am delighted to receive your inquiry concerning our \"Aiding Rural Primary School\" project and deeply appreciate your passion for serving as a volunteer.\n\nThis project is aimed at offering two-week interactive English and arts sessions to elementary school pupils in remote mountain areas. Scheduled to commence on July 15, the program will station volunteers at a village school in Guizhou Province. Regarding preparations, applicants are expected to submit a curriculum vitae, design a brief introductory lesson plan, and arrange basic personal travel insurance prior to departure.\n\nShould you require further information, please feel free to contact me. Eagerly looking forward to your participation!\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2018,
+    "title": "2018 年英语一 · Part A 小作文真题",
     "type": "邀请信 / 电子邮件（Email）",
     "summary": "给全校的国际专家写一封电子邮件，邀请他们出席毕业典礼，邮件中须包含典礼的时间、地点及其他相关信息。",
-    "directions": "Write an email to all international experts on campus inviting them to attend the graduation ceremony. In your email you should include time, place and other relevant information about the ceremony. You should write about 100 words neatly on the ANSWER SHEET. Do not use your own name at the end of t",
-    "model_essay": "51. Directions:\nWrite an email to all international experts on campus inviting them to attend the graduation ceremony. In your email you should include time, place and other relevant information about the ceremony.\nYou should write about 100 words neatly on the ANSWER SHEET.\nDo not use your own name at the end of the email. Use \"Li Ming\" instead. (10 points)"
+    "directions": "51. Directions:\nWrite an email to all international experts on campus inviting them to attend the graduation ceremony. In your email you should include time, place and other relevant information about the ceremony.\nYou should write about 100 words neatly on the ANSWER SHEET.\nDo not use your own name at the end of the email. Use \"Li Ming\" instead. (10 points)",
+    "model_essay": "Dear Experts,\n\nOn behalf of our university, I am writing to extend a cordial invitation to you to attend our upcoming graduation ceremony.\n\nThe ceremony is scheduled for 9 a.m. on Saturday, June 28, in the university gymnasium, and will last approximately two hours. During the event, the president will deliver a speech and confer degrees upon the graduates, followed by addresses from outstanding graduates and artistic performances. As valued partners in our international exchanges, your presence would undoubtedly add luster to this solemn occasion.\n\nIf you are able to attend, please reply to this email by June 20 so that we can arrange seating accordingly. I look forward to seeing you at the ceremony.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2017,
+    "title": "2017 年英语一 · Part A 小作文真题",
     "type": "推荐信 / 电子邮件（Email）",
     "summary": "给新到任的澳大利亚教授 James Cook 写一封电子邮件，推荐本市的几处旅游景点，并说明推荐理由。",
-    "directions": "You are to write an email to James Cook, a newly-arrived Australian professor, recommending some tourist attractions in your city. Please give reasons for your recommendation. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the email. Use \"Li Ming\" instead. Do no",
-    "model_essay": "51. Directions:\nYou are to write an email to James Cook, a newly-arrived Australian professor, recommending some tourist attractions in your city. Please give reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the email. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nYou are to write an email to James Cook, a newly-arrived Australian professor, recommending some tourist attractions in your city. Please give reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the email. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Professor Cook,\n\nWelcome to our city! Learning that you have just arrived, I am writing to recommend two tourist attractions that you should not miss, together with the reasons for my recommendations.\n\nFirst and foremost, the Palace Museum deserves your priority, for its magnificent imperial architecture offers an immersive glimpse into China's centuries-old history and culture. Furthermore, Nanluoguxiang, a quintessential traditional alley, is well worth a visit, where you can savor authentic local snacks and experience the genuine flavor of the old city.\n\nI hope these suggestions will make your spare time more rewarding. Should you need any assistance, please feel free to contact me.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2016,
+    "title": "2016 年英语一 · Part A 小作文真题",
     "type": "告示 / 通知（Notice）",
     "summary": "假设你是本校图书馆员，写一则通知，向新入学的留学生提供图书馆的相关信息。",
-    "directions": "Suppose you are a librarian in your university. Write a notice of about 100 words, providing the newly-enrolled international students with relevant information about the library. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the notice. Use \"Li Ming\" instead. ",
-    "model_essay": "51. Directions:\nSuppose you are a librarian in your university. Write a notice of about 100 words, providing the newly-enrolled international students with relevant information about the library.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the notice. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nSuppose you are a librarian in your university. Write a notice of about 100 words, providing the newly-enrolled international students with relevant information about the library.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the notice. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "NOTICE\n\nTo help the newly-enrolled international students make better use of campus academic resources, I hereby announce the following essential information about our library.\n\nOur library houses an extensive collection of over one million printed volumes and provides full access to numerous digital academic databases. Each student with a valid campus ID is entitled to borrow up to ten books simultaneously for a duration of thirty days, with the privilege of one online renewal. The main library building opens daily from 8:00 a.m. to 10:00 p.m., seven days a week.\n\nShould you require orientation assistance or bibliographic guidance, please feel free to consult the Information Desk on the first floor. \n\nLi Ming"
   },
   {
     "year": 2015,
+    "title": "2015 年英语一 · Part A 小作文真题",
     "type": "推荐信 / 电子邮件（Email）",
     "summary": "作为读书会主持人，给全体会员写一封电子邮件推荐一本好书（如杨绛《我们仨》），并说明推荐理由。",
-    "directions": "You are going to host a club reading session. Write an email of about 100 words recommending a book to the club members. You should state reasons for your recommendation. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the letter, use \"Li Ming\" instead. Do not wr",
-    "model_essay": "51. Directions:\nYou are going to host a club reading session. Write an email of about 100 words recommending a book to the club members.\nYou should state reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter, use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nYou are going to host a club reading session. Write an email of about 100 words recommending a book to the club members.\nYou should state reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter, use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Fellow Club Members,\n\nAs the host of the upcoming reading session, I am writing to recommend a touching yet profound masterpiece, We Three, written by Yang Jiang, one of the most revered contemporary Chinese authors.\n\nTwo compelling reasons justify my recommendation. First and foremost, with lucid prose and genuine affection, the author portrays the enduring companionship between her late husband, daughter, and herself over six decades, interpreting the timeless essence of familial devotion amid hardship. Furthermore, through this seemingly ordinary yet extraordinary household, we are afforded profound insights into the integrity of Chinese intellectuals and the eternal philosophical truth that life's sorrows and joys are perpetually intertwined.\n\nI am confident that you will find immense delight in this literary gem. I look forward to your active sharing during our session.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2014,
+    "title": "2014 年英语一 · Part A 小作文真题",
     "type": "建议信 / 正式书信（Letter to the University President）",
     "summary": "给大学校长写一封信，就如何改善学生的体质状况提出建议，并补充你认为必要的细节。",
-    "directions": "Write a letter of about 100 words to the president of your university, suggesting how to improve students' physical condition. You should include the details you think necessary. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the letter. Use \"Li Ming\" instead. D",
-    "model_essay": "51. Directions:\nWrite a letter of about 100 words to the president of your university, suggesting how to improve students' physical condition.\nYou should include the details you think necessary.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nWrite a letter of about 100 words to the president of your university, suggesting how to improve students' physical condition.\nYou should include the details you think necessary.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Mr. President,\n\nI am writing this letter to put forward several constructive suggestions regarding how to improve the overall physical fitness of students on our campus.\n\nCurrently, excessive academic burdens and sedentary habits have plunged a growing number of students into sub-health conditions. To reverse this worrying trend, I propose two concrete measures. First and foremost, the university administration could consider extending the opening hours of sports venues and upgrading exercise facilities to ensure adequate access to physical training. In addition, organizing regular inter-departmental sports leagues and jogging campaigns would effectively ignite students' athletic enthusiasm.\n\nI am convinced that these initiatives, if adopted, will significantly motivate undergraduates to embrace a healthier lifestyle. Thank you for your time and consideration.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2013,
+    "title": "2013 年英语一 · Part A 小作文真题",
     "type": "邀请信 / 电子邮件（Email）",
     "summary": "写一封电子邮件给本院的一位外教，邀请其担任即将举行的英语演讲比赛评委，并补充你认为必要的细节（时间、地点、评分标准等）。",
-    "directions": "Write an e-mail of about 100 words to a foreign teacher in your college, inviting him/her to be a judge for the upcoming English speech contest. You should include the details you think necessary. You should write neatly on ANSWER SHEET. Do not sign your own name at the end of the e-mail. Use \"Li Mi",
-    "model_essay": "51. Directions:\nWrite an e-mail of about 100 words to a foreign teacher in your college, inviting him/her to be a judge for the upcoming English speech contest.\nYou should include the details you think necessary.\nYou should write neatly on ANSWER SHEET.\nDo not sign your own name at the end of the e-mail. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nWrite an e-mail of about 100 words to a foreign teacher in your college, inviting him/her to be a judge for the upcoming English speech contest.\nYou should include the details you think necessary.\nYou should write neatly on ANSWER SHEET.\nDo not sign your own name at the end of the e-mail. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Professor Williams,\n\nI am writing to invite you to serve as a judge for the upcoming English Speech Contest to be held on our campus.\n\nDesigned to enhance students' public speaking competence, the contest is scheduled from 2:00 p.m. to 5:00 p.m. on June 15 in the Student Activity Center. Twelve finalists will deliver speeches themed on \"Global Perspectives.\" Given your profound scholarship in English pedagogy and extensive experience, your insightful comments would undoubtedly prove invaluable to all the contestants.\n\nWe fully understand your demanding academic schedule, but we would be immensely honored if you could accept our invitation. Looking forward to your favorable reply.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2012,
+    "title": "2012 年英语一 · Part A 小作文真题",
     "type": "电子邮件（Email，欢迎＋建议）",
     "summary": "以学生会名义给即将到来的外国留学生写一封电子邮件，表示热烈欢迎并就大学生活提出实用建议。",
-    "directions": "Some international students are coming to your university. Write them an email in the name of the Students' Union to 1) extend your welcome and 2) provide some suggestions for their campus life here. You should write about 100 words on ANSWER SHEET 2. Do not sign your own name at the end of the lett",
-    "model_essay": "51. Directions:\nSome international students are coming to your university. Write them an email in the name of the Students' Union to\n1) extend your welcome and\n2) provide some suggestions for their campus life here.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nSome international students are coming to your university. Write them an email in the name of the Students' Union to\n1) extend your welcome and\n2) provide some suggestions for their campus life here.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear International Students,\n\nOn behalf of the Students' Union, I feel greatly honored to extend our warmest welcome to all of you who are about to commence your campus life at our university.\n\nTo facilitate your adaptation to this novel academic and cultural atmosphere, I would like to offer two practical suggestions. First and foremost, you are highly recommended to participate actively in campus language corners and recreational societies, which will undoubtedly help you overcome language barriers and forge friendships with local peers. Additionally, exploring local dietary customs and traditional festivals will serve as an effective buffer against cultural shock, broadening your cross-cultural horizons.\n\nShould you encounter any difficulties during your stay, please do not hesitate to contact our office. Wish you a fruitful and memorable journey here!\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2011,
+    "title": "2011 年英语一 · Part A 小作文真题",
     "type": "推荐信 / 私人书信（Letter）",
     "summary": "给你的朋友写一封信，推荐一部你最喜爱的电影，并阐明推荐理由。",
-    "directions": "Write a letter to a friend of yours to 1) recommend one of your favorite movies and 2) give reasons for your recommendation. You should write about 100 words on ANSWER SHEET 2. Do not sign your own name at the end of the letter. Use \"Li Ming\" instead. Do not write the address. (10 points)",
-    "model_essay": "51. Directions:\nWrite a letter to a friend of yours to\n1) recommend one of your favorite movies and\n2) give reasons for your recommendation.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+    "directions": "51. Directions:\nWrite a letter to a friend of yours to\n1) recommend one of your favorite movies and\n2) give reasons for your recommendation.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)",
+    "model_essay": "Dear Jack,\n\nLearning that you are currently searching for an inspirational movie to watch, I am writing to recommend one of my favorites, The Pursuit of Happyness (or: Forrest Gump).\n\nThere are two primary reasons accounting for my recommendation. First and foremost, the compelling storyline portrays an ordinary man who, despite numerous setbacks, tenaciously strives for his dream, which is bound to resonate deeply with the audience. Furthermore, the profound moral embedded in the film—that perseverance and optimism prevail over adversity—proves particularly illuminating in our fast-paced society.\n\nI am convinced that you will derive immense inspiration from this masterpiece. I am looking forward to hearing your impressions.\n\nYours sincerely,\nLi Ming"
   },
   {
     "year": 2010,
+    "title": "2010 年英语一 · Part A 小作文真题",
     "type": "告示 / 通知（Notice）",
     "summary": "以“研究生会”名义写一则招募志愿者的通知，为全球化国际会议招募志愿者，须包含申请者基本资格及其他相关信息。",
-    "directions": "You are supposed to write for the Postgraduates' Association a notice to recruit volunteers for an international conference on globalization. The notice should include the basic qualifications for applicants and other information which you think is relevant. You should write about 100 words on ANSWE",
-    "model_essay": "51. Directions:\nYou are supposed to write for the Postgraduates' Association a notice to recruit volunteers for an international conference on globalization. The notice should include the basic qualifications for applicants and other information which you think is relevant.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the notice. Use \"Postgraduates' Association\" instead. (10 points)"
+    "directions": "51. Directions:\nYou are supposed to write for the Postgraduates' Association a notice to recruit volunteers for an international conference on globalization. The notice should include the basic qualifications for applicants and other information which you think is relevant.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the notice. Use \"Postgraduates' Association\" instead. (10 points)",
+    "model_essay": "Volunteers Wanted\n\nVolunteers are needed as desk clerks and guides for the International Conference on Globalization to be held in our university on December 28. \n\nBasic requirements are proficiency in English and familiarity with the theme of the conference. Other qualifications include sound communication skills, a keen sense of responsibility, and tremendous zest for work. Priority will be given to those who are experienced in similar voluntary activities and conversant with social etiquette. \n\nIf you aspire to be part of this grand event and have close contact with renowned scholars, please submit your resume to postgraduates@univ.edu prior to December 20.\n\nPostgraduates' Association"
   }
 ];
 
@@ -9429,6 +9870,57 @@
     let currentExamS1Result = "";
     let currentExamS2Result = "";
     let currentExamS3Result = "";
+    let isImageCollapsed = false;
+
+    /* ===== 轻量 Markdown 渲染器 (排版优雅·去杂乱) ===== */
+    function renderMarkdown(md) {
+      if (!md) return '';
+      let text = md.trim();
+      
+      // 转义原生危险 HTML 字符
+      text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      
+      // 代码块 ```text ... ```
+      text = text.replace(/```([a-zA-Z]*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        return `<pre class="md-pre"><code>${code.trim()}</code></pre>`;
+      });
+      
+      // 行内代码 `code`
+      text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+      
+      // 标题 ### 
+      text = text.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+      text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+      
+      // 加粗与斜体
+      text = text.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+      
+      // 引用块 &gt; ...
+      text = text.replace(/^&gt;\s?(.*$)/gim, '<blockquote>$1</blockquote>');
+      
+      // 列表项 - 或 * 
+      text = text.replace(/^[\*\-]\s+(.*$)/gim, '<li>$1</li>');
+      text = text.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+      // 清理紧邻的多个 </ul><ul>
+      text = text.replace(/<\/ul>\s*<ul>/g, '');
+      
+      // 数字有序列表 1. 2.
+      text = text.replace(/^(\d+)\.\s+(.*$)/gim, '<li>$2</li>');
+      
+      // 段落与物理换行
+      const paragraphs = text.split(/\n\s*\n/);
+      return paragraphs.map(p => {
+        p = p.trim();
+        if (!p) return '';
+        if (p.startsWith('<h') || p.startsWith('<pre') || p.startsWith('<blockquote') || p.startsWith('<ul') || p.startsWith('<ol')) {
+          return p;
+        }
+        return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+      }).join('');
+    }
 
     function getCurrentExamList() {
       return currentExamType === 'partB' ? realExamQuestions : realShortExamQuestions;
@@ -9484,9 +9976,11 @@
       const titleEl = document.getElementById('examTitle');
       const themeEl = document.getElementById('examTheme');
       const topicEl = document.getElementById('examTopic');
-      const dirBtn = document.getElementById('examDirectionsBtn');
-      const dirBox = document.getElementById('examDirectionsBox');
       const dirText = document.getElementById('examDirectionsText');
+      const extraHint = document.getElementById('examExtraHint');
+      const imgWrapper = document.getElementById('examImgWrapper');
+      const sheetImg = document.getElementById('examSheetImg');
+      const toggleImgBtn = document.getElementById('toggleImageBtn');
       const modelTextEl = document.getElementById('examModelEssayText');
       const modelBox = document.getElementById('examModelEssayBox');
       
@@ -9495,8 +9989,20 @@
         if (titleEl) titleEl.innerText = `${q.year} 年英语一 · Part B 大作文真题`;
         if (themeEl) themeEl.innerText = `📌 题注：${q.theme || '暂无题注'}`;
         if (topicEl) topicEl.innerText = `🏷️ 母题：${q.topic || '通用考研写作'}`;
-        if (dirBtn) dirBtn.style.display = 'none';
-        if (dirBox) dirBox.style.display = 'none';
+        if (extraHint) extraHint.innerText = '字数要求：160-200 词 (满分20分)';
+        
+        // 显式加载 Directions 原文
+        if (dirText) dirText.innerText = q.directions || '52. Directions:\nWrite an essay based on the picture/charts below...';
+        
+        // 显示高清原卷大图
+        if (imgWrapper && sheetImg) {
+          imgWrapper.style.display = isImageCollapsed ? 'none' : 'block';
+          sheetImg.src = q.image || `images/${q.year}-写作页.png`;
+        }
+        if (toggleImgBtn) {
+          toggleImgBtn.style.display = 'inline-block';
+          toggleImgBtn.innerText = isImageCollapsed ? '🖼️ 展开原卷图' : '🖼️ 收起原卷图';
+        }
         
         setStage1FormUI('partB');
       } else {
@@ -9504,18 +10010,36 @@
         if (titleEl) titleEl.innerText = `${q.year} 年英语一 · Part A 小作文真题`;
         if (themeEl) themeEl.innerText = `🏷️ 体裁：${q.type || '应用文'}`;
         if (topicEl) topicEl.innerText = `📌 提要：${q.summary || '暂无提要'}`;
-        if (dirBtn) dirBtn.style.display = 'inline-block';
-        if (dirBox) dirBox.style.display = 'none';
-        if (dirText) dirText.innerText = q.directions || '暂无原卷 Directions';
+        if (extraHint) extraHint.innerText = '字数要求：约 100 词 (满分10分)';
+        
+        // 显式加载小作文 Directions (原题信件/任务)
+        if (dirText) dirText.innerText = q.directions || '51. Directions:\nWrite an email/letter...';
+        
+        // 小作文无原卷图
+        if (imgWrapper) imgWrapper.style.display = 'none';
+        if (toggleImgBtn) toggleImgBtn.style.display = 'none';
         
         setStage1FormUI('partA');
       }
       
-      if (modelTextEl) modelTextEl.innerText = q.model_essay || '暂无参考范文';
+      if (modelTextEl) modelTextEl.innerHTML = renderMarkdown(q.model_essay || '暂无参考范文');
       if (modelBox) modelBox.style.display = 'none';
 
       // 加载该题草稿
       loadExamDrafts();
+    }
+
+    function toggleExamImage() {
+      isImageCollapsed = !isImageCollapsed;
+      const imgWrapper = document.getElementById('examImgWrapper');
+      const toggleImgBtn = document.getElementById('toggleImageBtn');
+      if (imgWrapper) imgWrapper.style.display = isImageCollapsed ? 'none' : 'block';
+      if (toggleImgBtn) toggleImgBtn.innerText = isImageCollapsed ? '🖼️ 展开原卷图' : '🖼️ 收起原卷图';
+    }
+
+    function zoomExamImage(src) {
+      if (!src) return;
+      window.open(src, '_blank');
     }
 
     function setStage1FormUI(type) {
@@ -9524,43 +10048,42 @@
       const l2 = document.getElementById('s1_label_2');
       const l3 = document.getElementById('s1_label_3');
       const l4 = document.getElementById('s1_label_4');
+      const l5 = document.getElementById('s1_label_5');
       const i1 = document.getElementById('s1_visual');
       const i2 = document.getElementById('s1_thesis');
       const i3 = document.getElementById('s1_arg1');
       const i4 = document.getElementById('s1_arg2');
+      const i5 = document.getElementById('s1_arg3');
 
       if (type === 'partB') {
-        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：先审题后动笔。填写你构思的画面意象、核心立意与两条支撑论据。AI 不直接判死刑，而是作为“反方辩友”做逻辑压力测试。';
+        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：先审题后动笔。填写微观意象、核心主旨与 3 个支撑论据。支持在论据框内自由拆分分论据与举例，AI 将智能识别主从逻辑关系并进行中肯提分诊断。';
         if (l1) l1.innerText = '① 画面微观意象提炼（你看到了什么、暗喻什么）：';
-        if (l2) l2.innerText = '② 核心论点 (Thesis Statement · 一句话亮明主张)：';
-        if (l3) l3.innerText = '③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：';
-        if (l4) l4.innerText = '④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：';
+        if (l2) l2.innerText = '② 核心论点 (Thesis Statement · 一句话亮明主旨)：';
+        if (l3) l3.innerText = '③ 支撑论据 1 (主论据 / 深度归因 / 支持自行拆解分论据)：';
+        if (l4) l4.innerText = '④ 支撑论据 2 (递进论据 / 危害剖析 / 深入影响 / 支持拆解分论据)：';
+        if (l5) l5.innerText = '⑤ 支撑论据 3 (补充论据 / 辩证考量 / 应对建议 / 自由展开)：';
         if (i1) i1.placeholder = '例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读...';
         if (i2) i2.placeholder = '例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读...';
-        if (i3) i3.placeholder = '例如：买书不读往往源于浮躁风气下的虚荣炫耀与打卡形式主义...';
-        if (i4) i4.placeholder = '例如：知识的吸收必须经历沉思反刍，缺乏思想内化则书本形同废纸...';
+        if (i3) i3.placeholder = '例如：主论据：买书不读源于浮躁虚荣。分论据a: 社交媒体打卡文化蔓延；分论据b: 知识焦虑导致的伪满足感...';
+        if (i4) i4.placeholder = '例如：主论据：思想内化缺失使知识贬值。分论据: 浅尝辄止无法提升逻辑与认知，书本终沦为摆设...';
+        if (i5) i5.placeholder = '例如：提倡精读与沉淀，拒绝形式主义，将书本知识真正转化为解决现实问题的思辨力...';
       } else {
-        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：应用文核心在于“格式规范、语域得体、要点全覆盖”。明确收件人身份与语域、交际意图与两个必写要点。AI 将对语域得体度与信息完整度进行深度压力测试。';
+        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：应用文核心在于“格式规范、语域得体、要点全覆盖”。明确收件人身份与语域、交际意图与 3 个核心要点细节。AI 将对语域得体度与信息完整度进行深度压力测试。';
         if (l1) l1.innerText = '① 写作背景与收件人身份（发信人/收信人关系、正式/半正式/私人语域）：';
         if (l2) l2.innerText = '② 核心交际意图 (Purpose · 开门见山为什么写这封信/通知)：';
-        if (l3) l3.innerText = '③ 必答要点 1 (Key Point 1 · 题干指令要求的首要信息)：';
-        if (l4) l4.innerText = '④ 必答要点 2 (Key Point 2 · 题干指令要求的次要信息与活动细节)：';
+        if (l3) l3.innerText = '③ 必答要点 1 (Key Point 1 · 题干指令要求的首要信息与细节)：';
+        if (l4) l4.innerText = '④ 必答要点 2 (Key Point 2 · 题干指令要求的次要信息与活动安排)：';
+        if (l5) l5.innerText = '⑤ 必答要点 3 (Key Point 3 · 补充说明 / 期待回复 / 礼貌收尾)：';
         if (i1) i1.placeholder = '例如：写给外国朋友 Paul 的私人回信，语气亲切热情、非正式语域...';
         if (i2) i2.placeholder = '例如：告知手写信的背景信息，并通知其公开展览的具体安排...';
         if (i3) i3.placeholder = '例如：手写信反映了过去几十年中国普通家庭的生活变迁与真挚温情...';
-        if (i4) i4.placeholder = '例如：展览定于下周五上午9点在校美术馆举行，期待他的到来...';
+        if (i4) i4.placeholder = '例如：展览定于下周五上午9点在校美术馆举行，包含实物展柜与朗诵环节...';
+        if (i5) i5.placeholder = '例如：热忱期待他的光临，并愿在现场为其提供双语讲解...';
       }
     }
 
     function toggleExamModelEssay() {
       const box = document.getElementById('examModelEssayBox');
-      if (box) {
-        box.style.display = box.style.display === 'none' ? 'block' : 'none';
-      }
-    }
-
-    function toggleExamDirections() {
-      const box = document.getElementById('examDirectionsBox');
       if (box) {
         box.style.display = box.style.display === 'none' ? 'block' : 'none';
       }
@@ -9593,6 +10116,7 @@
       return `kaoyan_exam_draft_${currentExamType}_${q ? q.year : 'default'}`;
     }
 
+    let examAutoSyncTimer = null;
     function saveExamDrafts() {
       const q = getCurrentQuestion();
       if (!q) return;
@@ -9601,17 +10125,26 @@
         thesis: (document.getElementById('s1_thesis') || {}).value || '',
         arg1: (document.getElementById('s1_arg1') || {}).value || '',
         arg2: (document.getElementById('s1_arg2') || {}).value || '',
+        arg3: (document.getElementById('s1_arg3') || {}).value || '',
         draftV1: (document.getElementById('s2_draft') || {}).value || '',
         draftV2: (document.getElementById('s3_final_draft') || {}).value || '',
         stage: currentExamStage
       };
       localStorage.setItem(getStorageKey(), JSON.stringify(draftData));
+
+      // 防抖静默同步到 GitHub Gist (跨端漫游)
+      if (typeof pushToGist === 'function') {
+        if (examAutoSyncTimer) clearTimeout(examAutoSyncTimer);
+        examAutoSyncTimer = setTimeout(() => {
+          pushToGist(true);
+        }, 2000);
+      }
     }
 
     function loadExamDrafts() {
       const raw = localStorage.getItem(getStorageKey());
       if (!raw) {
-        ['s1_visual', 's1_thesis', 's1_arg1', 's1_arg2', 's2_draft', 's3_final_draft'].forEach(id => {
+        ['s1_visual', 's1_thesis', 's1_arg1', 's1_arg2', 's1_arg3', 's2_draft', 's3_final_draft'].forEach(id => {
           const el = document.getElementById(id);
           if (el) el.value = '';
         });
@@ -9625,6 +10158,7 @@
         if (document.getElementById('s1_thesis')) document.getElementById('s1_thesis').value = data.thesis || '';
         if (document.getElementById('s1_arg1')) document.getElementById('s1_arg1').value = data.arg1 || '';
         if (document.getElementById('s1_arg2')) document.getElementById('s1_arg2').value = data.arg2 || '';
+        if (document.getElementById('s1_arg3')) document.getElementById('s1_arg3').value = data.arg3 || '';
         if (document.getElementById('s2_draft')) document.getElementById('s2_draft').value = data.draftV1 || '';
         if (document.getElementById('s3_final_draft')) document.getElementById('s3_final_draft').value = data.draftV2 || '';
         updateWordCount('s2_draft', 's2_word_count');
@@ -9633,8 +10167,9 @@
       } catch (e) {}
     }
 
-    /* ===== Prompt 构建器 (双模式自适应) ===== */
-    const EXAM_SYSTEM_PROMPT = `你现在是我的考研英语写作私人教练。我是高度自觉的冲刺考生，不需要任何防作弊或强制性的监督。我的诉求是极致的效率、深度的逻辑拆解和地道的语言升维。请直接、犀利地指出问题，不要用无意义的客套或空洞鼓励浪费我的时间。所有输出请用清晰的 Markdown 格式，方便我直接归档到 Obsidian。`;
+    /* ===== Prompt 构建器 (以提分为锚点·严谨 Markdown 规范) ===== */
+    const EXAM_SYSTEM_PROMPT = `你现在是我的考研英语写作私人教练与阅卷专家。我是冲刺高分学员，请抛弃任何客套奉承与形式主义评价，以【考场得高分】为唯一导向，进行直接、中肯、一针见血的深度逻辑拆解和语言升维。
+【硬性排版要求】：所有输出必须严格遵循 Markdown 排版格式，必须使用 ### 级标题、无序列表 (-) 或有序列表、粗体标注重点，段落之间空行，严禁混杂成一大段无排版的杂乱纯文本！`;
 
     function buildStage1PromptText() {
       const q = getCurrentQuestion();
@@ -9642,11 +10177,61 @@
       const t = (document.getElementById('s1_thesis') || {}).value || '未填写';
       const a1 = (document.getElementById('s1_arg1') || {}).value || '未填写';
       const a2 = (document.getElementById('s1_arg2') || {}).value || '未填写';
+      const a3 = (document.getElementById('s1_arg3') || {}).value || '未填写';
       
       if (currentExamType === 'partB') {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的图画作文题目（母题：${q.topic}）。\n以下是我构思的中文立意和论据：\n> 画面意象提炼：${v}\n> 核心论点 (Thesis)：${t}\n> 支撑论据 1：${a1}\n> 支撑论据 2：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式设问反思】（置于最顶端）：\n请不要直接夸奖或给现成答案，请以反方辩友的最挑剔眼光，针对我这两个论据在推导核心论点时是否存在逻辑跳跃、自相矛盾、过度泛化或同义反复，抛出 2-3 个直击要害的反思设问，促使我自主深挖。\n\n【第二部分 · 深度逻辑诊断与推荐中文三段骨架】（置于下方）：\n1. 详细分析我的立意与论据在阅卷人眼中可能的扣分盲区；\n2. 提供更深刻的破题视角；\n3. 基于我的原意与你的补充，帮我理顺逻辑，生成一份清晰精炼的【中文三段论骨架】（第一段入画折射、第二段深度归因、第三段措施收束）。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年英语一 · ${q.theme || '大作文'}】真题（母题：${q.topic}）。
+题目要求(Directions)：
+${q.directions || ''}
+
+以下是我构思的中文立意与 3 个论据（我在框内可能自行组织了主论据与分论据/举例，请你智能识别主从层级）：
+> 画面意象提炼：${v}
+> 核心论点 (Thesis Statement)：${t}
+> 论据 1 (主论据/归因)：${a1}
+> 论据 2 (递进/危害/深度)：${a2}
+> 论据 3 (补充/对策/辩证)：${a3}
+
+【请严格按以下两部分 Markdown 结构输出】：
+
+【第一部分 · 考场提分拷问】
+不要为了挑刺而吹毛求疵，而是以冲刺 17+ 高分档为标准，针对上述论据推导论点时的逻辑跳跃、论证力度不足或同义反复，抛出 2-3 个一针见血的设问，促使我自主深挖。
+
+【第二部分 · 逻辑诊断与锚定中文骨架】
+1. **中肯提分诊断**：指出我的论据结构在阅卷老师眼中能够达到的档次，剖析提分潜力与薄弱环节；
+2. **自分论据层级识别**：梳理我填写的 3 个论据及其内部自分论据的主从逻辑链条；
+3. **推荐考场三段提纲骨架**：
+   - 第一段：微观意象描摹与寓意折射句；
+   - 第二段：递进展开的 Topic Sentences 与分论据论证链（可直接用于英文写作锚定）；
+   - 第三段：升华收束与措施对策。`;
       } else {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（10分真题）。\n体裁：${q.type}\n题目要求 (Directions)：${q.directions || ''}\n中文提要：${q.summary || ''}\n\n以下是我构思的写作前审题拆解：\n> 1. 写作背景与身份语域：${v}\n> 2. 核心交际意图 (Purpose)：${t}\n> 3. 必答要点 1 (Key Point 1)：${a1}\n> 4. 必答要点 2 (Key Point 2)：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式审题与语域拷问】（置于最顶端）：\n请以严格的阅卷专家视角，针对上述审题构思抛出 2-3 个直击要害的反思设问：\n1. 称呼、语气（正式/半正式/私人亲密）与署名是否存在语域冲突？\n2. 是否遗漏了 Directions 隐含要求或信息展开不够具体？\n3. 段落交际功能（开头开门见山、中段要点清晰、结尾得体客套）是否紧凑到位？\n\n【第二部分 · 深度逻辑诊断与推荐应用文骨架】（置于下方）：\n1. 详细指出上述审题构思中的闪光点与潜在失分隐患；\n2. 基于我的构思，生成一份标准地道的【应用文三段式提纲骨架】（段一表明目的、段二分点展开、段三客套收束与署名规范）。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年考研英语一 · Part A 小作文】（10分真题）。
+体裁：${q.type}
+Directions 原题要求：
+${q.directions || ''}
+中文提要：${q.summary || ''}
+
+以下是我构思的写作前审题拆解：
+> 1. 写作背景与身份语域：${v}
+> 2. 核心交际意图 (Purpose)：${t}
+> 3. 必答要点 1：${a1}
+> 4. 必答要点 2：${a2}
+> 5. 必答要点 3 / 补充细节：${a3}
+
+【请严格按以下两部分 Markdown 结构输出】：
+
+【第一部分 · 考场提分拷问】
+以冲刺 8.5+ 满分档为锚点，抛出 2-3 个直击要害的反思设问：
+1. 称呼、语气（正式/半正式/私人亲密）与署名是否存在语域冲突？
+2. 是否遗漏了 Directions 隐含要求或要点展开不够具体？
+3. 段落交际功能（首段目的、中段要点、尾段客套期盼）是否紧凑得体？
+
+【第二部分 · 逻辑诊断与推荐应用文骨架】
+1. **中肯提分诊断**：指出上述审题构思中的亮点与潜在失分隐患；
+2. **推荐应用文三段式提纲骨架**：给出最地道、标准的提纲（段一表明目的、段二分点展开、段三客套收束与署名）。`;
       }
     }
 
@@ -9655,9 +10240,58 @@
       const draft = (document.getElementById('s2_draft') || {}).value || '';
       
       if (currentExamType === 'partB') {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的初稿。\n我的英文作文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度学术诊断。严格按照以下三个层次输出，每一个批改点都必须遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准格式：\n\nA. 硬核语法与搭配排雷（必改）：\n彻底排查时态、主谓一致、单复数、标点误用以及生硬中式英语；\nB. 词汇与表达优化（可选）：\n抓出过于基础的初中词汇（如 I think, make life easy, damage 等），替换为考研大纲高阶学术词块（附中文释义）；\nC. 句式升维推演（核心精华）：\n挑选 1-2 处最关键句子，运用【无灵主语】（如 A sober analysis reveals that...）、【分词状语】或【倒装/强调句】重构。给出我的原句与你的神级改写对比，并讲透升级后的语法功能与论证优势。\n\n注意：绝对不要替我重写一整篇范文！保留我的行文框架，只做局部深度手术。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年英语一 · ${q.theme || '大作文'}】。
+Directions 原文要求：${q.directions || ''}
+
+我的英文作文初稿如下：
+\`\`\`text
+${draft}
+\`\`\`
+
+请对我进行深度学术诊断。严格按照【三色手术刀】输出，每个批改点遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准 Markdown 格式：
+
+### 🔴 硬核语法与排雷 (Red Zone · 必改项)
+- 排查时态一致性、主谓单复数、标点误用以及生硬中式英语；
+
+### 🟡 词汇与表达优化 (Yellow Zone · 选改项)
+- 抓出过于基础的初中口语词（如 I think, make life easy, damage 等），替换为大纲高阶学术词块（附中文释义）；
+
+### 🟢 考场评估与升维推演 (Green Zone · 核心精华)
+- 预估得分区间（满分20分）；
+- 挑选 1-2 处最关键句子，运用【无灵主语】（如 A sober analysis reveals that...）、【分词状语】或【倒装/强调句】重构，给出原句与神级改写对比，并讲透论证优势；
+- **第二阶段锚定骨架对照**：将我的初稿与第一阶段提纲进行对照，点评逻辑锚定契合度。
+
+注意：绝对不要替我重写一整篇范文！保留我的行文框架，只做局部深度手术。`;
       } else {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（体裁：${q.type}）。\nDirections 原题要求：${q.directions || ''}\n\n我的英文应用文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度应用文批改。严格按照【三色手术刀】输出，每个批改点遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】：\n\n【🔴 格式与硬伤排查 (Red Zone)】\n- 称呼 (Salutation) 与 署名 (Sign-off) 是否符合规范（如 Li Ming 规范，称呼后标点，严禁出现真实姓名）；\n- 排查时态一致性、单复数、介词搭配等语法硬伤；\n- 检查题干给出的所有要点是否均已覆盖，有无遗漏信息。\n\n【🟡 语域升维与地道交际表达 (Yellow Zone)】\n- 抓出过于平淡、中式或过口语化的表达，替换为高阶公文/书信地道功能句（附中文释义）；\n- 检查段落连接词（First and foremost, In addition 等）是否自然紧凑。\n\n【🟢 阅卷官整体评估与亮点 (Green Zone)】\n- 预估得分区间（满分10分）；\n- 肯定用得精妙的地道词块；\n- 给出升维润色后的整篇高分应用文对照范文。\n\n注意：保留我的原篇框架与思路，做精准手术，不要完全重起炉灶。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年考研英语一 · Part A 小作文】（体裁：${q.type}）。
+Directions 原题要求：${q.directions || ''}
+
+我的英文应用文初稿如下：
+\`\`\`text
+${draft}
+\`\`\`
+
+请对我进行深度应用文批改。严格按照【三色手术刀】输出，每个批改点遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准 Markdown 格式：
+
+### 🔴 格式与硬伤排查 (Red Zone · 必改项)
+- 称呼 (Salutation) 与 署名 (Sign-off) 是否符合规范（如 Li Ming 规范，称呼后标点，严禁出现真实姓名）；
+- 排查时态一致性、单复数、介词搭配等语法硬伤；
+- 检查题干给出的所有要点是否均已覆盖，有无遗漏信息。
+
+### 🟡 语域升维与地道交际表达 (Yellow Zone · 选改项)
+- 抓出过于平淡、中式或过口语化的表达，替换为高阶公文/书信地道功能句（附中文释义）；
+- 检查段落连接词（First and foremost, In addition 等）是否自然紧凑。
+
+### 🟢 阅卷官整体评估与亮点 (Green Zone)
+- 预估得分区间（满分10分）；
+- 肯定用得精妙的地道词块；
+- 给出升维润色后的整篇高分应用文对照范文。
+
+注意：保留我的原篇框架与思路，做精准手术，不要完全重起炉灶。`;
       }
     }
 
@@ -9667,16 +10301,56 @@
       const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
       
       if (currentExamType === 'partB') {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】。我吸收批改建议后，自己动手手敲修改了第二稿（V2）。请对比我的初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【真题复盘笔记】：\n📝 核心自查：\n1. 致命伤排查：V1 里的语法硬伤与初级口语词，在 V2 里消灭了吗？\n2. 升维吸收度：建议的高级句型（无灵主语/分词状语等），是否用自己的方式自然融入了？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次修改演进过程中，提炼出 5 个最值得我长期背诵、通用性极强的【高阶动宾搭配】或【核心句型模板】，配上贴合题意的英文例句与中文释义，并标明可迁移的考研母题场景。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年英语一 · ${q.theme || '大作文'}】。我吸收批改建议后，自己动手手敲修改了第二稿（V2）。请对比我的初稿（V1）与终稿（V2）：
+
+【初稿 V1】：
+\`\`\`text
+${v1}
+\`\`\`
+
+【终稿 V2】：
+\`\`\`text
+${v2}
+\`\`\`
+
+请输出一份严格遵循 Markdown 排版的【真题复盘笔记】：
+### 📝 核心自查与演进对比
+1. 致命伤排查：V1 里的语法硬伤与初级口语词，在 V2 里消灭了吗？
+2. 升维吸收度：建议的高级句型（无灵主语/分词状语等），是否自然融入了？
+
+### 🧠 专属武器库提取（考前核心资产）
+从本次修改演进过程中，提炼出 5 个最值得长期背诵、通用性极强的【高阶动宾搭配】或【核心句型模板】，配上贴合题意的英文例句与中文释义，并标明可迁移的考研母题场景。`;
       } else {
-        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（${q.type}）。我吸收批改建议后，修改了终稿（V2）。请对比初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【Part A 应用文真题复盘笔记】：\n📝 核心自查：\n1. 格式与要点：称呼、署名、题干要点是否彻底规范覆盖？\n2. 语域自然度：是否达到了本体裁应有的得体语域（委婉/严肃/亲切）？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次练习中，提炼出 5 个最值得长期背诵的【应用文黄金功能句/套话变体】（例如道歉、致谢、邀请、建议、期盼回复等功能句），附带中文释义与适用场景说明。`;
+        return `${EXAM_SYSTEM_PROMPT}
+
+这是【${q.year}年考研英语一 · Part A 小作文】（${q.type}）。我吸收建议后修改了终稿（V2）。请对比初稿（V1）与终稿（V2）：
+
+【初稿 V1】：
+\`\`\`text
+${v1}
+\`\`\`
+
+【终稿 V2】：
+\`\`\`text
+${v2}
+\`\`\`
+
+请输出一份严格遵循 Markdown 排版的【Part A 应用文真题复盘笔记】：
+### 📝 核心自查与演进对比
+1. 格式与要点：称呼、署名、题干要点是否彻底规范覆盖？
+2. 语域自然度：是否达到了本体裁应有的得体语域（委婉/严肃/亲切）？
+
+### 🧠 专属武器库提取（考前核心资产）
+从本次练习中，提炼出 5 个最值得长期背诵的【应用文黄金功能句/套话变体】（例如道歉、致谢、邀请、建议、期盼回复等功能句），附带中文释义与适用场景说明。`;
       }
     }
 
     /* ===== 复制 Prompt 功能 ===== */
     function copyStage1Prompt() {
       navigator.clipboard.writeText(buildStage1PromptText()).then(() => {
-        alert("已成功复制 Stage 1 审题与苏格拉底设问 Prompt！可直接粘贴至 ChatGPT / Claude / Kimi 使用。");
+        alert("已成功复制 Stage 1 审题与提分拷问 Prompt！可直接粘贴至 ChatGPT / Claude / Kimi 使用。");
       }).catch(() => alert("复制失败，请手动选取复制。"));
     }
 
@@ -9724,8 +10398,8 @@
           diagnosis = resText;
         }
         
-        if (socraticBody) socraticBody.innerText = socratic;
-        if (diagBody) diagBody.innerText = diagnosis;
+        if (socraticBody) socraticBody.innerHTML = renderMarkdown(socratic);
+        if (diagBody) diagBody.innerHTML = renderMarkdown(diagnosis);
         if (box) box.style.display = 'block';
       } catch (err) {
         alert("AI 调用失败：" + err.message + "\n请检查设置中的 API Key 或直接使用[复制 Prompt]手动提问。");
@@ -9754,27 +10428,27 @@
         const resText = await callAIChatAPI(prompt);
         currentExamS2Result = resText;
 
-        // 简易三色切分
+        // 三色切分
         let rText = "排雷完成，无致命硬伤。";
         let yText = "词汇地道，保持良好语感。";
         let gText = resText;
 
-        if (resText.includes("【🔴") || resText.includes("A. 硬核语法")) {
-          const pRed = resText.split(/(?:【🔴|A\.\s*硬核语法)/);
+        if (resText.includes("### 🔴") || resText.includes("【🔴")) {
+          const pRed = resText.split(/(?:### 🔴|【🔴)/);
           if (pRed[1]) {
-            const pYellow = pRed[1].split(/(?:【🟡|B\.\s*词汇与表达)/);
+            const pYellow = pRed[1].split(/(?:### 🟡|【🟡)/);
             rText = pYellow[0].trim();
             if (pYellow[1]) {
-              const pGreen = pYellow[1].split(/(?:【🟢|C\.\s*句式升维)/);
+              const pGreen = pYellow[1].split(/(?:### 🟢|【🟢)/);
               yText = pGreen[0].trim();
               if (pGreen[1]) gText = pGreen[1].trim();
             }
           }
         }
 
-        if (redZone) redZone.innerText = rText;
-        if (yellowZone) yellowZone.innerText = yText;
-        if (greenZone) greenZone.innerText = gText;
+        if (redZone) redZone.innerHTML = renderMarkdown(rText);
+        if (yellowZone) yellowZone.innerHTML = renderMarkdown(yText);
+        if (greenZone) greenZone.innerHTML = renderMarkdown(gText);
         if (box) box.style.display = 'block';
       } catch (err) {
         alert("AI 调用失败：" + err.message + "\n建议使用右上角[复制 Prompt]到外部 AI 运行。");
@@ -9801,7 +10475,7 @@
         const resText = await callAIChatAPI(prompt);
         currentExamS3Result = resText;
 
-        if (body) body.innerText = resText;
+        if (body) body.innerHTML = renderMarkdown(resText);
         if (box) box.style.display = 'block';
       } catch (err) {
         alert("AI 调用失败：" + err.message);
@@ -9817,6 +10491,7 @@
       const t = (document.getElementById('s1_thesis') || {}).value || '';
       const a1 = (document.getElementById('s1_arg1') || {}).value || '';
       const a2 = (document.getElementById('s1_arg2') || {}).value || '';
+      const a3 = (document.getElementById('s1_arg3') || {}).value || '';
       const v1 = (document.getElementById('s2_draft') || {}).value || '';
       const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
 
@@ -9832,6 +10507,7 @@ ${metaInfo}
 - **${isPartA ? '交际意图 (Purpose)' : '核心主张 (Thesis)'}**：${t}
 - **${isPartA ? '必写要点 1' : '支撑论据 1'}**：${a1}
 - **${isPartA ? '必写要点 2' : '支撑论据 2'}**：${a2}
+- **${isPartA ? '必写要点 3' : '支撑论据 3'}**：${a3}
 
 ### 2. 演进演练 (V1 初稿 -> V2 终稿)
 #### 【初稿 V1】
