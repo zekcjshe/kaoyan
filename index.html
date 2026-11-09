@@ -1405,6 +1405,11 @@
     // ========================================================
     // AI 独立追问系统 (每题独立追问流，位于右侧独立框)
     // ========================================================
+        function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
     let userFollowups = JSON.parse(localStorage.getItem('kaoyan_followups') || '{}');
 
     function renderFollowupChat() {
@@ -1435,7 +1440,7 @@
 
       container.innerHTML = history.map(msg => {
         if (msg.role === 'user') {
-          return `<div class="msg-bubble msg-user">${msg.content}</div>`;
+          return `<div class="msg-bubble msg-user">${escapeHtml(msg.content)}</div>`;
         } else {
           return `<div class="msg-bubble msg-ai">${renderMarkdownContent(msg.content)}</div>`;
         }
@@ -1445,12 +1450,16 @@
     }
 
     function quickAsk(text) {
+      const sendBtn = document.getElementById('followup-send-btn');
+      if (sendBtn && sendBtn.disabled) return;
       const input = document.getElementById('followup-input');
       if (input) input.value = text;
       sendFollowupQuestion(text);
     }
 
     async function sendFollowupQuestion(customText) {
+      const sendBtn = document.getElementById('followup-send-btn');
+      if (sendBtn && sendBtn.disabled) return;
       const inputEl = document.getElementById('followup-input');
       const query = (customText || (inputEl ? inputEl.value : '')).trim();
       if (!query) return;
@@ -1476,7 +1485,7 @@
       container.innerHTML += `<div class="msg-bubble msg-ai" id="${tempId}" style="color:var(--text-muted); font-style:italic;">🤖 私教正在思考解答中...</div>`;
       container.scrollTop = container.scrollHeight;
 
-      const sendBtn = document.getElementById('followup-send-btn');
+      sendBtn = document.getElementById('followup-send-btn');
       if (sendBtn) sendBtn.disabled = true;
 
       // 提取作答与批改上下文
@@ -1790,7 +1799,7 @@
     function renderVocabBody(bodyText) {
       initVocabQidMap();
       // 优化自测区标题说明
-      let processed = bodyText.replace(/### 二、考场定向造句自测区（留白无翻译）/g, '### 二、考场定向实战自测区（点击右侧按钮直达实战题）');
+      let processed = bodyText.replace(/### [一二三四五]、考场定向造句自测区（留白无翻译）/g, '### 二、考场定向实战自测区（点击右侧按钮直达实战题）');
 
       const lines = processed.split('\n');
       const newLines = lines.map(line => {
@@ -1992,6 +2001,10 @@
           if (data.errors) Object.assign(userErrors, data.errors);
           if (data.notes) Object.assign(userNotes, data.notes);
           localStorage.setItem('kaoyan_notes', JSON.stringify(userNotes));
+          if (data.followups) {
+            Object.assign(userFollowups, data.followups);
+            localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
+          }
           if (data.drafts) {
             const drafts = JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}');
             Object.assign(drafts, data.drafts);
@@ -2199,6 +2212,10 @@
         if (payload.errors) Object.assign(userErrors, payload.errors);
         if (payload.notes) Object.assign(userNotes, payload.notes);
         localStorage.setItem('kaoyan_notes', JSON.stringify(userNotes));
+        if (payload.followups) {
+          Object.assign(userFollowups, payload.followups);
+          localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
+        }
         if (payload.drafts) {
           const drafts = JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}');
           Object.assign(drafts, payload.drafts);
