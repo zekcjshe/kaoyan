@@ -1541,160 +1541,7 @@
       <div id="vocab-list"></div>
     </div>
 
-<!-- ===== 模式四：真题全流程带练工作台 ===== -->
-  <div id="exam-view" style="display: none; width: 100%;">
-    <!-- 1. 真题顶栏：年份选择器与母题信息卡 -->
-    <div class="exam-header-card">
-      <!-- 题型切换胶囊 -->
-      <div class="exam-type-toggle-group">
-        <button class="exam-type-pill active" id="typePillPartB" onclick="switchExamType('partB')">🖼️ Part B 大作文 (20分)</button>
-        <button class="exam-type-pill" id="typePillPartA" onclick="switchExamType('partA')">✉️ Part A 小作文 (10分)</button>
-      </div>
-      <div class="exam-header-top">
-        <div class="exam-title-group">
-          <span class="exam-badge" id="examBadge">🎯 考研大作文真题全流程带练</span>
-          <h2 id="examTitle" class="exam-title">2026 年英语一 · 大作文真题</h2>
-        </div>
-        <div class="exam-year-picker">
-          <label for="examYearSelect">切换真题：</label>
-          <select id="examYearSelect" class="exam-year-select" onchange="onExamYearSelectChange(this.value)">
-            <!-- 动态渲染 2026-2010 -->
-          </select>
-        </div>
-      </div>
-      <div class="exam-meta-bar">
-        <span class="exam-meta-item" id="examTheme">📌 题注：养老机器人接受度调查</span>
-        <span class="exam-meta-item" id="examTopic">🏷️ 母题：科技现代生活</span>
-        <button class="exam-mini-btn" id="examDirectionsBtn" onclick="toggleExamDirections()" style="display: none;">📜 原题 Directions</button>
-        <button class="exam-mini-btn" onclick="toggleExamModelEssay()">💡 官方高分范文参考</button>
-      </div>
-      <div id="examDirectionsBox" class="directions-box" style="display: none;">
-        <div style="font-weight:700; margin-bottom:6px;">Directions 原题要求：</div>
-        <div id="examDirectionsText" style="white-space: pre-wrap;"></div>
-      </div>
-      <div id="examModelEssayBox" class="exam-model-box" style="display: none;">
-        <div style="font-weight:700; color:#2563eb; margin-bottom:6px;">官方高分范文：</div>
-        <div id="examModelEssayText" style="white-space: pre-wrap;"></div>
-      </div>
-    </div>
-
-    <!-- 2. 三阶段平级切换导航（纯信任·无门禁） -->
-    <div class="exam-stages-bar">
-      <button class="exam-stage-btn active" id="stageBtn1" onclick="switchExamStage(1)">
-        <span class="stage-num">Stage 1</span>
-        <span class="stage-text">立意与逻辑碰撞</span>
-      </button>
-      <button class="exam-stage-btn" id="stageBtn2" onclick="switchExamStage(2)">
-        <span class="stage-num">Stage 2</span>
-        <span class="stage-text">英文起草与升维</span>
-      </button>
-      <button class="exam-stage-btn" id="stageBtn3" onclick="switchExamStage(3)">
-        <span class="stage-num">Stage 3</span>
-        <span class="stage-text">自修与语料沉淀</span>
-      </button>
-    </div>
-
-    <!-- 3. 三个阶段的内容面板容器 -->
-    <div class="exam-stage-content">
-      <!-- ===== Stage 1 面板 ===== -->
-      <div id="stagePanel1" class="stage-panel">
-        <div class="stage-desc-box" id="s1_stage_desc">
-          <strong>💡 阶段心法</strong>：先审题后动笔。填写你构思的画面意象、核心立意与两条支撑论据。AI 不直接判死刑，而是作为“反方辩友”做逻辑压力测试。
-        </div>
-        <div class="stage-input-grid">
-          <div class="input-field-group">
-            <label id="s1_label_1">① 画面微观意象提炼（你看到了什么、暗喻什么）：</label>
-            <input type="text" id="s1_visual" class="exam-input" placeholder="例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读...">
-          </div>
-          <div class="input-field-group">
-            <label id="s1_label_2">② 核心论点 (Thesis Statement · 一句话亮明主张)：</label>
-            <input type="text" id="s1_thesis" class="exam-input" placeholder="例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读...">
-          </div>
-          <div class="input-field-group">
-            <label id="s1_label_3">③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：</label>
-            <input type="text" id="s1_arg1" class="exam-input" placeholder="例如：买书不读往往源于浮躁风气下的虚荣炫耀与打卡形式主义...">
-          </div>
-          <div class="input-field-group">
-            <label id="s1_label_4">④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：</label>
-            <input type="text" id="s1_arg2" class="exam-input" placeholder="例如：知识的吸收必须经历沉思反刍，缺乏思想内化则书本形同废纸...">
-          </div>
-        </div>
-        <div class="stage-action-bar">
-          <button class="btn btn-primary" id="btnRunStage1" onclick="requestStage1AI()">🔍 发起逻辑压力测试 (AI 挑刺)</button>
-          <button class="btn btn-secondary" onclick="copyStage1Prompt()">📋 复制 Stage 1 Prompt (自选外部大模型)</button>
-        </div>
-        <!-- AI 输出区域 -->
-        <div id="s1_output_box" style="display: none; margin-top: 14px;">
-          <div class="socratic-card">
-            <div class="socratic-header">
-              <span>🤔 苏格拉底式设问反思（先自主推敲）</span>
-            </div>
-            <div id="s1_socratic_text" class="socratic-body"></div>
-          </div>
-          <details class="stage-details" style="margin-top: 10px;">
-            <summary>💡 点击展开查看：AI 深度逻辑诊断与推荐【中文三段论骨架】</summary>
-            <div id="s1_diag_text" class="stage-diag-body"></div>
-          </details>
-        </div>
-      </div>
-
-      <!-- ===== Stage 2 面板 ===== -->
-      <div id="stagePanel2" class="stage-panel" style="display: none;">
-        <div class="stage-desc-box" id="s1_stage_desc">
-          <strong>💡 阶段心法</strong>：结合 Stage 1 锁定的三段骨架起草英文。AI 充当“语言手术刀”，开展红黄绿三层雷达扫描，不代笔整篇，只做局部升维手术。
-        </div>
-        <!-- 骨架悬浮/提示卡 -->
-        <details class="stage-details" style="margin-bottom: 14px;" open>
-          <summary>📌 当前锁定的【中文三段论骨架参考】（点击折叠/展开）</summary>
-          <div id="s2_skeleton_preview" style="padding: 8px 6px; font-size: 0.88rem; line-height: 1.6; color: var(--text-color, #4b5563); white-space: pre-wrap;">
-（在 Stage 1 运行后自动注入；也可直接在此独立构思写作）
-          </div>
-        </details>
-        <div class="input-field-group">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label style="margin: 0;">英文大作文初稿（V1 · 三段式标准作文）：</label>
-            <span id="s2_word_count" style="font-size: 0.8rem; font-weight: 700; color: #3b82f6;">0 词 (建议 160-200 词)</span>
-          </div>
-          <textarea id="s2_draft" class="exam-textarea" rows="11" placeholder="在此输入你的英文大作文初稿..." oninput="updateWordCount('s2_draft', 's2_word_count')"></textarea>
-        </div>
-        <div class="stage-action-bar">
-          <button class="btn btn-primary" id="btnRunStage2" onclick="requestStage2AI()">🔬 三色手术刀深度批改</button>
-          <button class="btn btn-secondary" onclick="copyStage2Prompt()">📋 复制 Stage 2 Prompt</button>
-        </div>
-        <!-- Stage 2 AI 输出 -->
-        <div id="s2_output_box" style="display: none; margin-top: 14px;">
-          <div id="s2_diag_content"></div>
-        </div>
-      </div>
-
-      <!-- ===== Stage 3 面板 ===== -->
-      <div id="stagePanel3" class="stage-panel" style="display: none;">
-        <div class="stage-desc-box" id="s1_stage_desc">
-          <strong>💡 阶段心法</strong>：根据 Stage 2 的修改建议，自己亲手手敲修改终稿 V2。AI 比对两版迭代，指出思维盲区，并提取 5 个考前必背高阶词网资产！
-        </div>
-        <div class="input-field-group">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label style="margin: 0;">吸收批改后手敲修改的终稿（V2）：</label>
-            <span id="s3_word_count" style="font-size: 0.8rem; font-weight: 700; color: #10b981;">0 词</span>
-          </div>
-          <textarea id="s3_final_draft" class="exam-textarea" rows="11" placeholder="在此手敲修改你的第二稿 V2..." oninput="updateWordCount('s3_final_draft', 's3_word_count')"></textarea>
-        </div>
-        <div class="stage-action-bar">
-          <button class="btn btn-primary" id="btnRunStage3" onclick="requestStage3AI()">💎 对比复盘并提取专属武器库</button>
-          <button class="btn btn-secondary" onclick="copyStage3Prompt()">📋 复制 Stage 3 Prompt</button>
-          <button class="btn" id="btnCopyObsidian" onclick="copyObsidianNote()" style="display: none; background: #059669; color: white; font-weight: 700;">📋 一键复制 Obsidian 复盘笔记</button>
-        </div>
-        <!-- Stage 3 AI 输出 -->
-        <div id="s3_output_box" style="display: none; margin-top: 14px;">
-          <div id="s3_diag_content"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  </div>
-
-  <div class="footer-bar">
+<div class="footer-bar">
     <span id="progress-info">第 1 / 1 题</span>
     <span id="sync-status">🟢 自动同步就绪</span>
   </div>
@@ -1781,6 +1628,16 @@
   </div>
 
   <script>
+    function safeJSONParse(str, fallback = {}) {
+      if (!str) return fallback;
+      try {
+        return JSON.parse(str);
+      } catch (e) {
+        console.warn('JSON parse error fallback:', e);
+        return fallback;
+      }
+    }
+
     const writeQuestions = [
   {
     "id": 1,
@@ -8091,14 +7948,14 @@
     let allCurrentModeQuestions = writeQuestions;
     let currentIndex = 0;
 
-    let userSettings = JSON.parse(localStorage.getItem('kaoyan_settings') || '{}');
+    let userSettings = safeJSONParse(localStorage.getItem('kaoyan_settings'), {});
     if (!userSettings.endpoint) userSettings.endpoint = "https://api.deepseek.com";
     if (!userSettings.model) userSettings.model = "deepseek-chat";
 
-    let userRecords = JSON.parse(localStorage.getItem('kaoyan_records') || '{}');
-    let userFavorites = JSON.parse(localStorage.getItem('kaoyan_favorites') || '{}');
-    let userErrors = JSON.parse(localStorage.getItem('kaoyan_errors') || '{}');
-    let userNotes = JSON.parse(localStorage.getItem('kaoyan_notes') || '{}');
+    let userRecords = safeJSONParse(localStorage.getItem('kaoyan_records'), {});
+    let userFavorites = safeJSONParse(localStorage.getItem('kaoyan_favorites'), {});
+    let userErrors = safeJSONParse(localStorage.getItem('kaoyan_errors'), {});
+    let userNotes = safeJSONParse(localStorage.getItem('kaoyan_notes'), {});
 
     if (localStorage.getItem('kaoyan_theme') === 'dark') {
       document.body.classList.add('dark');
@@ -8704,7 +8561,7 @@
       return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
-    let userFollowups = JSON.parse(localStorage.getItem('kaoyan_followups') || '{}');
+    let userFollowups = safeJSONParse(localStorage.getItem('kaoyan_followups'), {});
 
     function renderFollowupChat() {
       const inputEl = document.getElementById('followup-input');
@@ -9269,7 +9126,7 @@
         favorites: userFavorites,
         errors: userErrors,
         notes: userNotes, followups: userFollowups,
-        drafts: JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}'),
+        drafts: safeJSONParse(localStorage.getItem('kaoyan_drafts'), {}),
         exam_drafts: (() => {
           const d = {};
           for (let i = 0; i < localStorage.length; i++) {
@@ -9308,7 +9165,7 @@
             localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
           }
           if (data.drafts) {
-            const drafts = JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}');
+            const drafts = safeJSONParse(localStorage.getItem('kaoyan_drafts'), {});
             Object.assign(drafts, data.drafts);
             localStorage.setItem('kaoyan_drafts', JSON.stringify(drafts));
           }
@@ -9389,7 +9246,7 @@
         favorites: userFavorites,
         errors: userErrors,
         notes: userNotes, followups: userFollowups,
-        drafts: JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}'),
+        drafts: safeJSONParse(localStorage.getItem('kaoyan_drafts'), {}),
         write_idx: localStorage.getItem('kaoyan_write_idx'),
         trans_idx: localStorage.getItem('kaoyan_trans_idx')
       };
@@ -9519,7 +9376,7 @@
           localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
         }
         if (payload.drafts) {
-          const drafts = JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}');
+          const drafts = safeJSONParse(localStorage.getItem('kaoyan_drafts'), {});
           Object.assign(drafts, payload.drafts);
           localStorage.setItem('kaoyan_drafts', JSON.stringify(drafts));
         }
