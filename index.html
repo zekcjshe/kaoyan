@@ -422,11 +422,15 @@
       document.getElementById('api-endpoint').value = userSettings.endpoint || '';
       document.getElementById('api-key').value = userSettings.apiKey || '';
       document.getElementById('api-model').value = userSettings.model || 'deepseek-chat';
+      document.getElementById('github-token').value = userSettings.githubToken || '';
+      document.getElementById('github-gist-id').value = userSettings.gistId || '';
+      document.getElementById('github-auto-sync').checked = !!userSettings.autoSync;
+      updateSyncStatus();
       updateThemeButton();
 
       setupFilterOptions();
       currentIndex = Math.min(parseInt(localStorage.getItem('kaoyan_write_idx') || '0'), currentQuestions.length - 1);
-            renderQuestion();
+      renderQuestion();
       renderVocabList(vocabCards);
       if (userSettings.githubToken && userSettings.gistId && userSettings.autoSync) {
         pullFromGist(true);
@@ -1109,6 +1113,9 @@
       const m = document.getElementById('settings-modal');
       m.classList.toggle('show');
       if (m.classList.contains('show')) {
+        document.getElementById('api-endpoint').value = userSettings.endpoint || '';
+        document.getElementById('api-key').value = userSettings.apiKey || '';
+        document.getElementById('api-model').value = userSettings.model || 'deepseek-chat';
         document.getElementById('github-token').value = userSettings.githubToken || '';
         document.getElementById('github-gist-id').value = userSettings.gistId || '';
         document.getElementById('github-auto-sync').checked = !!userSettings.autoSync;
@@ -1199,21 +1206,29 @@
 
     // GitHub Gist 云同步模块
     function getLatestSyncConfig() {
-      const tokenInput = document.getElementById('github-token');
-      const gistInput = document.getElementById('github-gist-id');
-      const autoSyncCheck = document.getElementById('github-auto-sync');
+      const modal = document.getElementById('settings-modal');
+      const isModalOpen = modal && modal.classList.contains('show');
 
-      // 优先取输入框中的最新值，若输入框被用户清空则认定为空
-      let token = tokenInput ? tokenInput.value.trim() : (userSettings.githubToken || '');
-      let gistId = gistInput ? gistInput.value.trim() : (userSettings.gistId || '');
-      let autoSync = autoSyncCheck ? autoSyncCheck.checked : !!userSettings.autoSync;
+      let token = userSettings.githubToken || '';
+      let gistId = userSettings.gistId || '';
+      let autoSync = !!userSettings.autoSync;
 
-      // 实时同步更新到内存中的 userSettings 与 localStorage
-      userSettings.githubToken = token;
-      userSettings.gistId = gistId;
-      userSettings.autoSync = autoSync;
-      localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
-      updateSyncStatus();
+      // 仅当用户打开设置弹窗时，才从 DOM 输入框提取最新值
+      if (isModalOpen) {
+        const tokenInput = document.getElementById('github-token');
+        const gistInput = document.getElementById('github-gist-id');
+        const autoSyncCheck = document.getElementById('github-auto-sync');
+
+        token = tokenInput ? tokenInput.value.trim() : token;
+        gistId = gistInput ? gistInput.value.trim() : gistId;
+        autoSync = autoSyncCheck ? autoSyncCheck.checked : autoSync;
+
+        userSettings.githubToken = token;
+        userSettings.gistId = gistId;
+        userSettings.autoSync = autoSync;
+        localStorage.setItem('kaoyan_settings', JSON.stringify(userSettings));
+        updateSyncStatus();
+      }
 
       return { token, gistId, autoSync };
     }
