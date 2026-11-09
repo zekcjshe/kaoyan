@@ -231,7 +231,7 @@
 
         <div class="result-box" id="result-box">
           <div class="score-badge" id="ai-score">得分计算中...</div>
-          <div id="ai-reasoning-title" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:4px; display:none;">DeepSeek 思考链：</div>
+          <div id="ai-reasoning-title" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:4px; display:none;">🧠 阅卷思考链：</div>
           <div class="reasoning-box" id="ai-reasoning" style="display:none;"></div>
           <div class="critique-text" id="ai-critique"></div>
         </div>
@@ -647,7 +647,7 @@
         return;
       }
       if (!userSettings.apiKey) {
-        alert("请先点击右上角【⚙️ 设置】配置您的 DeepSeek API Key！");
+        alert("请先点击右上角【⚙️ 设置】配置您的 API Key！");
         toggleSettingsModal();
         return;
       }
@@ -660,7 +660,7 @@
       const aiCritique = document.getElementById('ai-critique');
 
       resultBox.classList.add('show');
-      aiScore.innerText = "🤖 DeepSeek 正在深度推演与诊断...";
+      aiScore.innerText = "🤖 阅卷老师正在批改中...";
       aiReasoning.style.display = 'none';
       aiReasoningTitle.style.display = 'none';
       aiCritique.innerHTML = "<p style='color:var(--text-muted);'>正在严格对照考场评分标准，解析高阶词块、句法骨架与标答精髓...</p>";
