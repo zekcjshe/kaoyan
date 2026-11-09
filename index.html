@@ -57,9 +57,349 @@
     .tab-btn.active { background: #e0e7ff; color: var(--primary); }
     body.dark .tab-btn.active { background: #312e81; color: #a5b4fc; }
 
-    .container { max-width: 1360px; margin: 0 auto; padding: 14px 20px; }
+    .container { max-width: 1360px; margin: 0 auto; padding: 14px 16px; }
 
-    /* 双栏工作区：左为主做题卡片与完整批改报告，右侧常驻 AI 追问面板 */
+    .filter-bar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
+    .filter-select { flex: 1; min-width: 130px; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.82rem; background: var(--card-bg); font-weight: 600; color: var(--text); outline: none; }
+    .jump-box { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: var(--text-muted); }
+    .jump-input { width: 44px; padding: 6px 2px; border: 1.5px solid var(--border); border-radius: 6px; text-align: center; font-size: 0.85rem; font-weight: 700; background: var(--card-bg); color: var(--text); outline: none; }
+    .jump-btn { padding: 6px 9px; background: #e0e7ff; color: var(--primary); border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+    body.dark .jump-btn { background: #312e81; color: #a5b4fc; }
+
+    .card { background: var(--card-bg); border-radius: var(--radius); padding: 18px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; position: relative; }
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: #e0e7ff; color: var(--primary); }
+    body.dark .badge { background: #312e81; color: #c7d2fe; }
+    .badge-trans { background: #fef3c7; color: #b45309; }
+    body.dark .badge-trans { background: #451a03; color: #fde68a; }
+
+    .fav-btn { border: none; background: transparent; font-size: 1.3rem; cursor: pointer; line-height: 1; padding: 2px; }
+    .fav-btn.active { color: #f59e0b; }
+
+    .q-title { font-size: 1.05rem; font-weight: 700; line-height: 1.5; margin-bottom: 10px; color: var(--text); }
+    
+    /* 翻译长难句大字醒目卡片 */
+    .trans-box { font-size: 1.05rem; line-height: 1.75; color: var(--text); margin-bottom: 12px; background: var(--block-bg); padding: 14px 16px; border-radius: 8px; border-left: 4px solid var(--primary); font-weight: 500; }
+    .q-content { font-size: 0.95rem; line-height: 1.6; color: var(--text); margin-bottom: 12px; background: var(--block-bg); padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary); }
+    
+    .q-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+    .q-tag { font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; background: #f1f5f9; color: #475569; font-weight: 600; }
+    body.dark .q-tag { background: #1e293b; color: #94a3b8; }
+    
+        /* 三维词网协同装配武器库 */
+    .constraint-container {
+      margin-bottom: 12px;
+      border: 1.5px solid #fed7aa;
+      background: #fffaf0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      box-shadow: 0 1px 3px rgba(245, 158, 11, 0.08);
+    }
+    body.dark .constraint-container {
+      background: #271a0c;
+      border-color: #78350f;
+    }
+    .constraint-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: #b45309;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+    body.dark .constraint-title {
+      color: #fde68a;
+    }
+    .constraint-hint {
+      font-size: 0.72rem;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    body.dark .constraint-hint {
+      background: #451a03;
+      color: #fde68a;
+    }
+    .assembly-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .assembly-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .assembly-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tag-verb { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .tag-noun { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .tag-mod  { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    body.dark .tag-verb { background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }
+    body.dark .tag-noun { background: #172554; color: #93c5fd; border-color: #1e40af; }
+    body.dark .tag-mod  { background: #451a03; color: #fde68a; border-color: #78350f; }
+    .assembly-words code {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .q-constraint { font-size: 0.85rem; color: #b45309; background: #fffbeb; padding: 8px 10px; border-radius: 6px; margin-bottom: 14px; font-weight: 600; }
+    body.dark .q-constraint { background: #451a03; color: #fde68a; }
+    
+    .fold-box { font-size: 0.85rem; color: var(--text-muted); background: var(--block-bg); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .context-article { display:none; font-size:0.88rem; color:var(--text); background:var(--block-bg); padding:14px; border-radius:8px; margin-bottom:12px; line-height:1.7; border: 1px dashed var(--border); white-space: pre-wrap; }
+    
+    /* 上下文中当前句高亮 */
+    mark.trans-hl { background: var(--trans-highlight); color: var(--trans-hl-text); padding: 2px 4px; border-radius: 3px; font-weight: 700; text-decoration: underline; }
+
+    textarea { width: 100%; height: 110px; padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; line-height: 1.5; resize: none; margin-bottom: 12px; transition: border-color 0.2s; outline: none; background: var(--card-bg); color: var(--text); }
+    textarea:focus { border-color: var(--primary); }
+
+    .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .btn { flex: 1; min-width: 75px; padding: 9px 6px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 4px; transition: opacity 0.2s; }
+    .btn:active { opacity: 0.8; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-secondary { background: var(--block-bg); color: var(--text); border: 1px solid var(--border); }
+    .btn-random { background: #fdf4ff; color: #a21caf; border: 1px solid #f0abfc; }
+    body.dark .btn-random { background: #4a044e; color: #f5d0fe; border-color: #86198f; }
+    
+    .result-box { margin-top: 14px; padding: 14px; border-radius: 8px; background: var(--block-bg); border: 1px solid var(--border); display: none; }
+    .result-box.show { display: block; animation: fadeIn 0.3s ease; }
+    .score-badge { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .reasoning-box { font-size: 0.85rem; color: var(--text-muted); background: var(--card-bg); padding: 10px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #94a3b8; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+    /* AI 批改报告富文本排版引擎 */
+    .critique-text { font-size: 0.92rem; line-height: 1.75; color: var(--text); word-break: break-word; }
+    .critique-text p { margin-top: 0; margin-bottom: 0.75rem; }
+    .critique-text p:last-child { margin-bottom: 0; }
+    .critique-text h3 { font-size: 1.05rem; font-weight: 700; margin: 1.1rem 0 0.5rem 0; padding-bottom: 5px; border-bottom: 1.5px solid var(--border); color: var(--primary); display: flex; align-items: center; gap: 6px; }
+    .critique-text h4 { font-size: 0.96rem; font-weight: 700; margin: 0.9rem 0 0.4rem 0; color: var(--text); }
+    .critique-text ul, .critique-text ol { margin: 0.4rem 0 0.8rem 1.4rem; padding: 0; }
+    .critique-text li { margin-bottom: 0.45rem; line-height: 1.65; }
+    .critique-text hr { border: none; border-top: 1px dashed var(--border); margin: 1rem 0; }
+    .critique-text strong { color: var(--text); font-weight: 700; }
+    .critique-text blockquote { margin: 0.6rem 0; padding: 10px 14px; background: var(--card-bg); border-left: 3.5px solid var(--primary); border-radius: 0 8px 8px 0; font-size: 0.88rem; line-height: 1.65; }
+    .critique-text code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background: var(--card-bg); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; font-size: 0.86rem; color: #dc2626; word-break: break-word; }
+    body.dark .critique-text code { color: #f87171; }
+    .ref-box { margin-top: 10px; padding: 12px; background: #ecfdf5; border-radius: 8px; border-left: 3px solid var(--success); font-size: 0.92rem; color: #065f46; line-height: 1.6; }
+    body.dark .ref-box { background: #064e3b; color: #a7f3d0; }
+
+    .search-bar { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; margin-bottom: 12px; outline: none; background: var(--card-bg); color: var(--text); }
+    .search-bar:focus { border-color: var(--primary); }
+    .vocab-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 12px; cursor: pointer; box-shadow: var(--shadow); }
+    .vocab-title { font-weight: 700; font-size: 0.95rem; color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+    .vocab-body { margin-top: 12px; font-size: 0.9rem; line-height: 1.65; color: var(--text); display: none; border-top: 1px dashed var(--border); padding-top: 12px; }
+    .vocab-card.open .vocab-body { display: block; }
+    
+    .vocab-body h2, .vocab-body h3 { font-size: 1rem; color: var(--primary); margin: 12px 0 6px 0; border-left: 3px solid var(--primary); padding-left: 6px; }
+    .vocab-body h4 { font-size: 0.95rem; color: var(--text); margin: 10px 0 4px 0; font-weight: 700; }
+    .vocab-body p { margin-bottom: 8px; }
+    .vocab-body ul { margin-left: 18px; margin-bottom: 8px; }
+    .vocab-body li { margin-bottom: 4px; }
+        /* 专属笔记卡片 (类似不背单词) */
+    .note-box {
+      margin-top: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .note-header {
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: var(--block-bg);
+      font-size: 0.9rem;
+      border-bottom: 1px solid transparent;
+    }
+    .note-box.open .note-header {
+      border-bottom-color: var(--border);
+    }
+    .badge-essential {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #e03131, #f03e3e);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+      box-shadow: 0 1px 3px rgba(224, 49, 49, 0.3);
+      letter-spacing: 0.3px;
+    }
+    .note-badge {
+      background: #f59e0b;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-left: 6px;
+    }
+    .note-body {
+      padding: 12px 14px;
+      display: none;
+    }
+    .note-box.open .note-body {
+      display: block;
+    }
+    .note-textarea {
+      width: 100%;
+      min-height: 80px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      background: var(--card-bg);
+      color: var(--text);
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .note-textarea:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+    }
+    .note-toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .note-tool-btn {
+      background: var(--block-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .note-tool-btn:hover {
+      background: var(--border);
+      color: var(--primary);
+    }
+    body.dark .note-box {
+      border-color: #334155;
+    }
+    body.dark .note-textarea {
+      background: var(--block-bg);
+      border-color: #475569;
+    }
+
+    /* 词库与实战双向联动按钮 */
+    .btn-practice-jump {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--card-bg);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: all 0.2s ease;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      line-height: 1.3;
+    }
+    .btn-practice-jump:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-practice-jump:active {
+      transform: scale(0.96);
+    }
+    body.dark .btn-practice-jump {
+      background: var(--block-bg);
+      border-color: #60a5fa;
+      color: #93c5fd;
+    }
+    body.dark .btn-practice-jump:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    #return-vocab-banner {
+      display: none;
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      color: #1d4ed8;
+      padding: 9px 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 0.86rem;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeIn 0.25s ease;
+      box-shadow: 0 2px 4px rgba(59, 130, 246, 0.08);
+    }
+    body.dark #return-vocab-banner {
+      background: #1e293b;
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+
+    .vocab-body code { background: var(--code-bg); color: var(--code-text); padding: 2px 5px; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
+    .vocab-body hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+    .vocab-body strong { color: var(--text); }
+    .vocab-body table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 0.85rem; }
+    .vocab-body th, .vocab-body td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; }
+    .vocab-body th { background: var(--block-bg); }
+
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; padding: 16px; }
+    .modal.show { display: flex; }
+    .modal-content { background: var(--card-bg); border-radius: 12px; padding: 20px; width: 100%; max-width: 480px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); color: var(--text); }
+    .modal-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+    
+    .grid-bubbles { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 6px; margin-top: 10px; }
+    .bubble { height: 38px; display: flex; justify-content: center; align-items: center; border-radius: 6px; font-size: 0.85rem; font-weight: 700; cursor: pointer; border: 1px solid var(--border); background: var(--block-bg); color: var(--text); }
+    .bubble.done { background: #dcfce7; color: #15803d; border-color: #86efac; }
+    .bubble.fav { border: 2px solid #f59e0b; }
+    .bubble.current { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    .form-input { width: 100%; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 0.9rem; outline: none; background: var(--card-bg); color: var(--text); }
+
+    .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); border-top: 1px solid var(--border); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); z-index: 40; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  
+    /* 双栏工作区：左为主做题卡片与批改报告，右侧常驻挂载 AI 追问面板 */
     .quiz-layout {
       display: flex;
       gap: 20px;
@@ -86,21 +426,22 @@
       }
     }
 
-    /* 批改报告恢复原有不变排版 */
-    .result-box { 
-      margin-top: 14px; 
-      padding: 16px; 
-      border-radius: 8px; 
-      background: var(--block-bg); 
-      border: 1px solid var(--border); 
-      display: none; 
+    .result-box {
+      margin-top: 0 !important;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--block-bg);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      transition: all 0.2s ease;
     }
-    .result-box.show { 
-      display: block; 
-      animation: fadeIn 0.3s ease; 
+    .result-box.show {
+      border-color: var(--primary);
     }
 
-    /* 右侧 AI 追问挂载卡片 */
+    /* 右侧 AI 追问卡片 */
     .followup-box {
       border: 1.5px solid var(--border);
       border-radius: 10px;
@@ -114,7 +455,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .followup-header {
-      padding: 11px 14px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -240,6 +581,7 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
+
 </style>
 </head>
 <body>
@@ -271,74 +613,72 @@
         </span>
         <button class="btn btn-primary" style="padding:4px 12px; font-size:0.8rem; font-weight:700;" onclick="returnToVocabView()">🔙 返回刚才的词库</button>
       </div>
-
-      <!-- 双栏工作区：左为主做题卡片与批改报告，右侧常驻 AI 追问面板 -->
       <div class="quiz-layout">
-        <!-- 左侧主体：题目、输入、笔记、完整批改报告 -->
+        <!-- 左侧主体：题目、输入、笔记、完整批改报告 (保持原有全宽不变) -->
         <div class="quiz-main-column">
           <div class="filter-bar">
-            <select class="filter-select" id="category-filter" onchange="onCategoryFilterChange()"></select>
-            <div class="jump-box">
-              <span>第</span>
-              <input type="number" class="jump-input" id="jump-page" min="1" onkeydown="if(event.key==='Enter') jumpToQuestion()">
-              <span id="jump-total">/ 1 题</span>
-              <button class="jump-btn" onclick="jumpToQuestion()">直达</button>
+        <select class="filter-select" id="category-filter" onchange="onCategoryFilterChange()"></select>
+        <div class="jump-box">
+          <span>第</span>
+          <input type="number" class="jump-input" id="jump-page" min="1" onkeydown="if(event.key==='Enter') jumpToQuestion()">
+          <span id="jump-total">/ 1 题</span>
+          <button class="jump-btn" onclick="jumpToQuestion()">直达</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge" id="q-category">分类加载中</span>
+          <button class="fav-btn" id="fav-toggle-btn" onclick="toggleFavorite()" title="加入收藏/星标">☆</button>
+        </div>
+        <div class="q-title" id="q-title">正在加载试题...</div>
+        <div class="q-tags" id="q-tags" style="display:none;"></div>
+        
+        <!-- 待翻译长难句或作文题目 -->
+        <div id="q-main-display"></div>
+        <div class="q-constraint" id="q-constraint"></div>
+        
+        <div class="fold-box" id="q-context-box" onclick="toggleContext()" style="display:none;">
+          <span>📄 原文整篇段落上下文（黄色为当前划线句）</span>
+          <span style="font-size:0.75rem; color:var(--primary);">▼ 点击展开</span>
+        </div>
+        <div class="context-article" id="q-context-detail"></div>
+
+        <textarea id="user-input" placeholder="请在此处输入您的答案（实时自动保存，支持语音输入）..." oninput="onUserInput()"></textarea></textarea>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="prevQuestion()">⬅ 上一题</button>
+          <button class="btn btn-random" onclick="randomQuestion()">🔀 随机抽题</button>
+          <button class="btn btn-secondary" onclick="toggleReference()">💡 参考示例</button>
+          <button class="btn btn-primary" onclick="submitForAI()">🤖 AI 批改</button>
+          <button class="btn btn-secondary" onclick="nextQuestion()">下一题 ➡</button>
+        </div>
+
+        <div class="ref-box" id="ref-box" style="display:none;">
+          <div style="font-weight:700; margin-bottom:4px;">参考示例：</div>
+          <div id="ref-text" style="white-space:pre-wrap;"></div>
+        </div>
+
+        <!-- 类似不背单词的专属独立笔记卡片 -->
+        <div class="note-box" id="note-box">
+          <div class="note-header" onclick="toggleNoteBox()">
+            <div style="display:flex; align-items:center;">
+              <span>📝</span>
+              <span style="font-weight:700; margin-left:6px;">专属笔记与解题心得</span>
+              <span id="note-badge" class="note-badge" style="display:none;">已记</span>
+            </div>
+            <span id="note-arrow" style="font-size:0.8rem; color:var(--text-muted);">▼ 展开笔记</span>
+          </div>
+          <div class="note-body" id="note-body">
+            <textarea id="note-input" class="note-textarea" placeholder="在此记录你的生词短语、避坑反思、答题灵感或考场背诵句（自动实时保存，支持多端云同步）..." oninput="onNoteInput()"></textarea>
+            <div class="note-toolbar">
+              <button class="note-tool-btn" onclick="quickAppendRefToNote()" title="将参考示例快速填入笔记">💡 引用示例</button>
+              <button class="note-tool-btn" onclick="quickAppendAiCritiqueToNote()" title="将 AI 批改报告摘录进笔记">🤖 摘录批改建议</button>
+              <button class="note-tool-btn" style="color:#ef4444;" onclick="clearCurrentNote()">🧹 清空</button>
+              <span id="note-save-tip" style="font-size:0.75rem; color:var(--text-muted); margin-left:auto;">实时自动保存</span>
             </div>
           </div>
-
-          <div class="card">
-            <div class="card-top">
-              <span class="badge" id="q-category">分类加载中</span>
-              <button class="fav-btn" id="fav-toggle-btn" onclick="toggleFavorite()" title="加入收藏/星标">☆</button>
-            </div>
-            <div class="q-title" id="q-title">正在加载试题...</div>
-            <div class="q-tags" id="q-tags" style="display:none;"></div>
-            
-            <!-- 待翻译长难句或作文题目 -->
-            <div id="q-main-display"></div>
-            <div class="q-constraint" id="q-constraint"></div>
-            
-            <div class="fold-box" id="q-context-box" onclick="toggleContext()" style="display:none;">
-              <span>📄 原文整篇段落上下文（黄色为当前划线句）</span>
-              <span style="font-size:0.75rem; color:var(--primary);">▼ 点击展开</span>
-            </div>
-            <div class="context-article" id="q-context-detail"></div>
-
-            <textarea id="user-input" placeholder="请在此处输入您的答案（实时自动保存，支持语音输入）..." oninput="onUserInput()"></textarea>
-
-            <div class="btn-group">
-              <button class="btn btn-secondary" onclick="prevQuestion()">⬅ 上一题</button>
-              <button class="btn btn-random" onclick="randomQuestion()">🔀 随机抽题</button>
-              <button class="btn btn-secondary" onclick="toggleReference()">💡 参考示例</button>
-              <button class="btn btn-primary" onclick="submitForAI()">🤖 AI 批改</button>
-              <button class="btn btn-secondary" onclick="nextQuestion()">下一题 ➡</button>
-            </div>
-
-            <div class="ref-box" id="ref-box" style="display:none;">
-              <div style="font-weight:700; margin-bottom:4px;">参考示例：</div>
-              <div id="ref-text" style="white-space:pre-wrap;"></div>
-            </div>
-
-            <!-- 专属笔记卡片 (类似不背单词) -->
-            <div class="note-box" id="note-box">
-              <div class="note-header" onclick="toggleNoteBox()">
-                <div style="display:flex; align-items:center;">
-                  <span>📝</span>
-                  <span style="font-weight:700; margin-left:6px;">专属笔记与解题心得</span>
-                  <span id="note-badge" class="note-badge" style="display:none;">已记</span>
-                </div>
-                <span id="note-arrow" style="font-size:0.8rem; color:var(--text-muted);">▼ 展开笔记</span>
-              </div>
-              <div class="note-body" id="note-body">
-                <textarea id="note-input" class="note-textarea" placeholder="在此记录你的生词短语、避坑反思、答题灵感或考场背诵句（自动实时保存，支持多端云同步）..." oninput="onNoteInput()"></textarea>
-                <div class="note-toolbar">
-                  <button class="note-tool-btn" onclick="quickAppendRefToNote()" title="将参考示例快速填入笔记">💡 引用示例</button>
-                  <button class="note-tool-btn" onclick="quickAppendAiCritiqueToNote()" title="将 AI 批改报告摘录进笔记">🤖 摘录批改建议</button>
-                  <button class="note-tool-btn" style="color:#ef4444;" onclick="clearCurrentNote()">🧹 清空</button>
-                  <span id="note-save-tip" style="font-size:0.75rem; color:var(--text-muted); margin-left:auto;">实时自动保存</span>
-                </div>
-              </div>
-            </div>
+        </div>
 
             <!-- AI 批改报告 (保持原有不变！整块横向展开，视觉饱满) -->
             <div class="result-box" id="result-box">
@@ -380,8 +720,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div>    </div>
 
     <div id="vocab-view" style="display:none;">
       <input type="text" class="search-bar" id="vocab-search" placeholder="🔍 全局搜索知识点（如 建议信, embody, 举例论证, 竞争）..." oninput="filterVocab()">
