@@ -590,6 +590,67 @@
 
 
     /* ===== 模式四：真题全流程带练专属样式 ===== */
+    /* 题型切换胶囊按钮 */
+    .exam-type-toggle-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .exam-type-pill {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1.5px solid #d1d5db;
+      background: var(--card-bg, #ffffff);
+      color: var(--text-color, #4b5563);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .exam-type-pill:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+    }
+    body.dark .exam-type-pill {
+      background: #1f2937;
+      border-color: #4b5563;
+      color: #9ca3af;
+    }
+    body.dark .exam-type-pill:hover {
+      background: #374151;
+      border-color: #60a5fa;
+    }
+    .exam-type-pill.active {
+      border-color: #2563eb;
+      background: #eff6ff;
+      color: #1d4ed8;
+      box-shadow: 0 2px 4px rgba(37,99,235,0.15);
+    }
+    body.dark .exam-type-pill.active {
+      background: #1e3a8a;
+      border-color: #60a5fa;
+      color: #bfdbfe;
+    }
+    .directions-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #f0fdf4;
+      border-left: 3px solid #16a34a;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #14532d;
+    }
+    body.dark .directions-box {
+      background: #064e3b;
+      border-color: #22c55e;
+      color: #bbf7d0;
+    }
+
     .exam-header-card {
       background: var(--card-bg, #ffffff);
       border: 1px solid var(--border-color, #e5e7eb);
@@ -1102,9 +1163,14 @@
   <div id="exam-view" style="display: none; width: 100%;">
     <!-- 1. 真题顶栏：年份选择器与母题信息卡 -->
     <div class="exam-header-card">
+      <!-- 题型切换胶囊 -->
+      <div class="exam-type-toggle-group">
+        <button class="exam-type-pill active" id="typePillPartB" onclick="switchExamType('partB')">🖼️ Part B 大作文 (20分)</button>
+        <button class="exam-type-pill" id="typePillPartA" onclick="switchExamType('partA')">✉️ Part A 小作文 (10分)</button>
+      </div>
       <div class="exam-header-top">
         <div class="exam-title-group">
-          <span class="exam-badge">🎯 考研大作文真题全流程带练</span>
+          <span class="exam-badge" id="examBadge">🎯 考研大作文真题全流程带练</span>
           <h2 id="examTitle" class="exam-title">2026 年英语一 · 大作文真题</h2>
         </div>
         <div class="exam-year-picker">
@@ -1117,7 +1183,12 @@
       <div class="exam-meta-bar">
         <span class="exam-meta-item" id="examTheme">📌 题注：养老机器人接受度调查</span>
         <span class="exam-meta-item" id="examTopic">🏷️ 母题：科技现代生活</span>
+        <button class="exam-mini-btn" id="examDirectionsBtn" onclick="toggleExamDirections()" style="display: none;">📜 原题 Directions</button>
         <button class="exam-mini-btn" onclick="toggleExamModelEssay()">💡 官方高分范文参考</button>
+      </div>
+      <div id="examDirectionsBox" class="directions-box" style="display: none;">
+        <div style="font-weight:700; margin-bottom:6px;">Directions 原题要求：</div>
+        <div id="examDirectionsText" style="white-space: pre-wrap;"></div>
       </div>
       <div id="examModelEssayBox" class="exam-model-box" style="display: none;">
         <div style="font-weight:700; color:#2563eb; margin-bottom:6px;">官方高分范文：</div>
@@ -1145,24 +1216,24 @@
     <div class="exam-stage-content">
       <!-- ===== Stage 1 面板 ===== -->
       <div id="stagePanel1" class="stage-panel">
-        <div class="stage-desc-box">
+        <div class="stage-desc-box" id="s1_stage_desc">
           <strong>💡 阶段心法</strong>：先审题后动笔。填写你构思的画面意象、核心立意与两条支撑论据。AI 不直接判死刑，而是作为“反方辩友”做逻辑压力测试。
         </div>
         <div class="stage-input-grid">
           <div class="input-field-group">
-            <label>① 画面微观意象提炼（你看到了什么、暗喻什么）：</label>
+            <label id="s1_label_1">① 画面微观意象提炼（你看到了什么、暗喻什么）：</label>
             <input type="text" id="s1_visual" class="exam-input" placeholder="例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读...">
           </div>
           <div class="input-field-group">
-            <label>② 核心论点 (Thesis Statement · 一句话亮明主张)：</label>
+            <label id="s1_label_2">② 核心论点 (Thesis Statement · 一句话亮明主张)：</label>
             <input type="text" id="s1_thesis" class="exam-input" placeholder="例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读...">
           </div>
           <div class="input-field-group">
-            <label>③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：</label>
+            <label id="s1_label_3">③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：</label>
             <input type="text" id="s1_arg1" class="exam-input" placeholder="例如：买书不读往往源于浮躁风气下的虚荣炫耀与打卡形式主义...">
           </div>
           <div class="input-field-group">
-            <label>④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：</label>
+            <label id="s1_label_4">④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：</label>
             <input type="text" id="s1_arg2" class="exam-input" placeholder="例如：知识的吸收必须经历沉思反刍，缺乏思想内化则书本形同废纸...">
           </div>
         </div>
@@ -1187,7 +1258,7 @@
 
       <!-- ===== Stage 2 面板 ===== -->
       <div id="stagePanel2" class="stage-panel" style="display: none;">
-        <div class="stage-desc-box">
+        <div class="stage-desc-box" id="s1_stage_desc">
           <strong>💡 阶段心法</strong>：结合 Stage 1 锁定的三段骨架起草英文。AI 充当“语言手术刀”，开展红黄绿三层雷达扫描，不代笔整篇，只做局部升维手术。
         </div>
         <!-- 骨架悬浮/提示卡 -->
@@ -1216,7 +1287,7 @@
 
       <!-- ===== Stage 3 面板 ===== -->
       <div id="stagePanel3" class="stage-panel" style="display: none;">
-        <div class="stage-desc-box">
+        <div class="stage-desc-box" id="s1_stage_desc">
           <strong>💡 阶段心法</strong>：根据 Stage 2 的修改建议，自己亲手手敲修改终稿 V2。AI 比对两版迭代，指出思维盲区，并提取 5 个考前必背高阶词网资产！
         </div>
         <div class="input-field-group">
@@ -9229,19 +9300,174 @@
     "model_essay": "52. Directions:\nWrite an essay of 160-200 words based on the following drawing. In your essay, you should\n1) describe the drawing briefly,\n2) explain its intended meaning, and\n3) give your comments.\nYou should write neatly on ANSWER SHEET 2. (20 points)"
   }
 ];
-    let currentExamIndex = 0;
-    let currentExamStage = 1;
+
+    const realShortExamQuestions = [
+  {
+    "year": 2026,
+    "type": "介绍信 / 私人书信（Letter）",
+    "summary": "阅读朋友 Paul 的电子邮件并回信：介绍你日前发布的中国家庭手写信的背景信息，并告知其公开展览的时间与地点。",
+    "directions": "Read the following email from your friend Paul and write him a reply. Hi Li Ming, I was really moved by the Chinese families' handwritten letters you posted yesterday. They are priceless! Could you please tell me a bit more about them? And are they currently on public display somewhere? I'm very kee",
+    "model_essay": "51. Directions:\nRead the following email from your friend Paul and write him a reply.\n\nHi Li Ming,\nI was really moved by the Chinese families' handwritten letters you posted yesterday. They are priceless! Could you please tell me a bit more about them? And are they currently on public display somewhere? I'm very keen to see them in person. Thanks.\n\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2025,
+    "type": "建议与筹备信 / 电子邮件（Email 回信）",
+    "summary": "阅读同学 Paul 的电子邮件并回信：介绍即将在校园展演的年轻工匠技艺展示内容，并说明你希望他协助的筹备工作。",
+    "directions": "Read the following email from your classmate Paul and write him a reply. Dear Li Ming, I was really excited to hear that you'd invite some young craftsmen to demonstrate their innovative craft-making on campus. May I know more about what they'll show? Also, I'd like to help with your preparation wor",
+    "model_essay": "51. Directions:\nRead the following email from your classmate Paul and write him a reply.\n\nDear Li Ming,\nI was really excited to hear that you'd invite some young craftsmen to demonstrate their innovative craft-making on campus. May I know more about what they'll show? Also, I'd like to help with your preparation work. Please let me know what I can do.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2024,
+    "type": "建议信 / 电子邮件（Email 回信）",
+    "summary": "回复外国友人 Paul 的邮件，就其即将开展的关于“中国古代科学家”的口头报告提出具体准备建议。",
+    "directions": "Read the following email from an international student and write a reply. Dear Li Ming, I've got a class assignment to make an oral report on an ancient Chinese scientist, but I'm not sure how to prepare for it. Can you give me some advice? Thank you for your help. Yours, Paul Write your answer in a",
+    "model_essay": "51. Directions:\nRead the following email from an international student and write a reply.\n\nDear Li Ming,\nI've got a class assignment to make an oral report on an ancient Chinese scientist, but I'm not sure how to prepare for it. Can you give me some advice? Thank you for your help.\nYours,\nPaul\n\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in your email; use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2023,
+    "type": "告示 / 通知（Notice）",
+    "summary": "写一则通知，为 Smith 教授的校园体育活动研究项目招募一名学生，须说明该岗位的职责与要求。",
+    "directions": "Write a notice to recruit a student for Prof. Smith's research project on campus sports activities. Specify the duties and requirements of the job. Write your answer in about 100 words on the ANSWER SHEET. Do not use your own name in the notice; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "51. Directions:\nWrite a notice to recruit a student for Prof. Smith's research project on campus sports activities. Specify the duties and requirements of the job.\nWrite your answer in about 100 words on the ANSWER SHEET.\nDo not use your own name in the notice; use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2022,
+    "type": "邀请信 / 电子邮件（Email）",
+    "summary": "给某英国大学的一位教授写电子邮件，邀请其组队参加将在你校举办的国际创新大赛。",
+    "directions": "Write an email to a professor at a British university, inviting him/her to organize a team for the international innovation contest to be held at your university. You should write about 100 words on the ANSWER SHEET. Do not use your own name in the email; use \"Li Ming\" instead. (10 points)",
+    "model_essay": "51. Directions:\nWrite an email to a professor at a British university, inviting him/her to organize a team for the international innovation contest to be held at your university.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email; use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2021,
+    "type": "建议信 / 电子邮件（Email）",
+    "summary": "一位外国朋友刚大学毕业，打算在中国找工作，给他/她写一封电子邮件提些建议。",
+    "directions": "A foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions. You should write about 100 words on the ANSWER SHEET. Do not sign your own name at the end. Use \"Li Ming\" instead. Do not write the address. (10 points)",
+    "model_essay": "51. Directions:\nA foreign friend of yours has recently graduated from college and intends to find a job in China. Write him/her an email to make some suggestions.\nYou should write about 100 words on the ANSWER SHEET.\nDo not sign your own name at the end. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2020,
+    "type": "告示 / 通知（Notice）",
+    "summary": "校学生会委派你就即将举行的歌唱比赛通知留学生，写一则约 100 词的通知。",
+    "directions": "The Student Union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words. Write your answer on the ANSWER SHEET. Do not use your own name in the notice. (10 points)",
+    "model_essay": "51. Directions:\nThe Student Union of your university has assigned you to inform the international students about an upcoming singing contest. Write a notice in about 100 words.\nWrite your answer on the ANSWER SHEET.\nDo not use your own name in the notice. (10 points)"
+  },
+  {
+    "year": 2019,
+    "type": "回复咨询信 / 电子邮件（Email）",
+    "summary": "假设你在本校\"Aiding Rural Primary School（帮扶乡村小学）\"项目中工作，写一封电子邮件回复一位国际学生志愿者的咨询，说明该项目的细节。",
+    "directions": "Suppose you are working for the \"Aiding Rural Primary School\" project of your university. Write an email to answer the inquiry from an international student volunteer, specifying the details of the project. You should write about 100 words on the ANSWER SHEET. Do not use your own name in the email. ",
+    "model_essay": "51. Directions:\nSuppose you are working for the \"Aiding Rural Primary School\" project of your university. Write an email to answer the inquiry from an international student volunteer, specifying the details of the project.\nYou should write about 100 words on the ANSWER SHEET.\nDo not use your own name in the email. Use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2018,
+    "type": "邀请信 / 电子邮件（Email）",
+    "summary": "给全校的国际专家写一封电子邮件，邀请他们出席毕业典礼，邮件中须包含典礼的时间、地点及其他相关信息。",
+    "directions": "Write an email to all international experts on campus inviting them to attend the graduation ceremony. In your email you should include time, place and other relevant information about the ceremony. You should write about 100 words neatly on the ANSWER SHEET. Do not use your own name at the end of t",
+    "model_essay": "51. Directions:\nWrite an email to all international experts on campus inviting them to attend the graduation ceremony. In your email you should include time, place and other relevant information about the ceremony.\nYou should write about 100 words neatly on the ANSWER SHEET.\nDo not use your own name at the end of the email. Use \"Li Ming\" instead. (10 points)"
+  },
+  {
+    "year": 2017,
+    "type": "推荐信 / 电子邮件（Email）",
+    "summary": "给新到任的澳大利亚教授 James Cook 写一封电子邮件，推荐本市的几处旅游景点，并说明推荐理由。",
+    "directions": "You are to write an email to James Cook, a newly-arrived Australian professor, recommending some tourist attractions in your city. Please give reasons for your recommendation. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the email. Use \"Li Ming\" instead. Do no",
+    "model_essay": "51. Directions:\nYou are to write an email to James Cook, a newly-arrived Australian professor, recommending some tourist attractions in your city. Please give reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the email. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2016,
+    "type": "告示 / 通知（Notice）",
+    "summary": "假设你是本校图书馆员，写一则通知，向新入学的留学生提供图书馆的相关信息。",
+    "directions": "Suppose you are a librarian in your university. Write a notice of about 100 words, providing the newly-enrolled international students with relevant information about the library. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the notice. Use \"Li Ming\" instead. ",
+    "model_essay": "51. Directions:\nSuppose you are a librarian in your university. Write a notice of about 100 words, providing the newly-enrolled international students with relevant information about the library.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the notice. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2015,
+    "type": "推荐信 / 电子邮件（Email）",
+    "summary": "作为读书会主持人，给全体会员写一封电子邮件推荐一本好书（如杨绛《我们仨》），并说明推荐理由。",
+    "directions": "You are going to host a club reading session. Write an email of about 100 words recommending a book to the club members. You should state reasons for your recommendation. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the letter, use \"Li Ming\" instead. Do not wr",
+    "model_essay": "51. Directions:\nYou are going to host a club reading session. Write an email of about 100 words recommending a book to the club members.\nYou should state reasons for your recommendation.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter, use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2014,
+    "type": "建议信 / 正式书信（Letter to the University President）",
+    "summary": "给大学校长写一封信，就如何改善学生的体质状况提出建议，并补充你认为必要的细节。",
+    "directions": "Write a letter of about 100 words to the president of your university, suggesting how to improve students' physical condition. You should include the details you think necessary. You should write neatly on the ANSWER SHEET. Do not sign your own name at the end of the letter. Use \"Li Ming\" instead. D",
+    "model_essay": "51. Directions:\nWrite a letter of about 100 words to the president of your university, suggesting how to improve students' physical condition.\nYou should include the details you think necessary.\nYou should write neatly on the ANSWER SHEET.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2013,
+    "type": "邀请信 / 电子邮件（Email）",
+    "summary": "写一封电子邮件给本院的一位外教，邀请其担任即将举行的英语演讲比赛评委，并补充你认为必要的细节（时间、地点、评分标准等）。",
+    "directions": "Write an e-mail of about 100 words to a foreign teacher in your college, inviting him/her to be a judge for the upcoming English speech contest. You should include the details you think necessary. You should write neatly on ANSWER SHEET. Do not sign your own name at the end of the e-mail. Use \"Li Mi",
+    "model_essay": "51. Directions:\nWrite an e-mail of about 100 words to a foreign teacher in your college, inviting him/her to be a judge for the upcoming English speech contest.\nYou should include the details you think necessary.\nYou should write neatly on ANSWER SHEET.\nDo not sign your own name at the end of the e-mail. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2012,
+    "type": "电子邮件（Email，欢迎＋建议）",
+    "summary": "以学生会名义给即将到来的外国留学生写一封电子邮件，表示热烈欢迎并就大学生活提出实用建议。",
+    "directions": "Some international students are coming to your university. Write them an email in the name of the Students' Union to 1) extend your welcome and 2) provide some suggestions for their campus life here. You should write about 100 words on ANSWER SHEET 2. Do not sign your own name at the end of the lett",
+    "model_essay": "51. Directions:\nSome international students are coming to your university. Write them an email in the name of the Students' Union to\n1) extend your welcome and\n2) provide some suggestions for their campus life here.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2011,
+    "type": "推荐信 / 私人书信（Letter）",
+    "summary": "给你的朋友写一封信，推荐一部你最喜爱的电影，并阐明推荐理由。",
+    "directions": "Write a letter to a friend of yours to 1) recommend one of your favorite movies and 2) give reasons for your recommendation. You should write about 100 words on ANSWER SHEET 2. Do not sign your own name at the end of the letter. Use \"Li Ming\" instead. Do not write the address. (10 points)",
+    "model_essay": "51. Directions:\nWrite a letter to a friend of yours to\n1) recommend one of your favorite movies and\n2) give reasons for your recommendation.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the letter. Use \"Li Ming\" instead.\nDo not write the address. (10 points)"
+  },
+  {
+    "year": 2010,
+    "type": "告示 / 通知（Notice）",
+    "summary": "以“研究生会”名义写一则招募志愿者的通知，为全球化国际会议招募志愿者，须包含申请者基本资格及其他相关信息。",
+    "directions": "You are supposed to write for the Postgraduates' Association a notice to recruit volunteers for an international conference on globalization. The notice should include the basic qualifications for applicants and other information which you think is relevant. You should write about 100 words on ANSWE",
+    "model_essay": "51. Directions:\nYou are supposed to write for the Postgraduates' Association a notice to recruit volunteers for an international conference on globalization. The notice should include the basic qualifications for applicants and other information which you think is relevant.\nYou should write about 100 words on ANSWER SHEET 2.\nDo not sign your own name at the end of the notice. Use \"Postgraduates' Association\" instead. (10 points)"
+  }
+];
+
+    let currentExamType = 'partB'; // 'partB' (大作文) 或 'partA' (小作文)
+    let currentExamIndex = 0;      // 当前选中的索引
+    let currentExamStage = 1;      // 1, 2, 3
     let currentExamS1Result = "";
     let currentExamS2Result = "";
     let currentExamS3Result = "";
 
-    function initExamView() {
+    function getCurrentExamList() {
+      return currentExamType === 'partB' ? realExamQuestions : realShortExamQuestions;
+    }
+
+    function getCurrentQuestion() {
+      const list = getCurrentExamList();
+      return list[currentExamIndex] || list[0];
+    }
+
+    function switchExamType(type) {
+      if (currentExamType === type) return;
+      currentExamType = type;
+      currentExamIndex = 0; // 重置到最新一年 (2026)
+      
+      const pillB = document.getElementById('typePillPartB');
+      const pillA = document.getElementById('typePillPartA');
+      if (pillB) pillB.classList.toggle('active', type === 'partB');
+      if (pillA) pillA.classList.toggle('active', type === 'partA');
+      
+      populateExamYearSelect();
+      renderCurrentExam();
+    }
+
+    function populateExamYearSelect() {
       const selectEl = document.getElementById('examYearSelect');
-      if (selectEl && selectEl.options.length === 0) {
-        selectEl.innerHTML = realExamQuestions.map((q, idx) => 
-          `<option value="${idx}">${q.year} 年 · ${q.theme ? q.theme.substring(0, 16) : '真题'}</option>`
-        ).join('');
-      }
+      if (!selectEl) return;
+      const list = getCurrentExamList();
+      selectEl.innerHTML = list.map((q, idx) => {
+        const label = currentExamType === 'partB' 
+          ? `${q.year} 年 · ${q.theme ? q.theme.substring(0, 16) : '大作文'}`
+          : `${q.year} 年 · ${q.type.split('／')[0].split('/')[0].trim()} (${q.summary ? q.summary.substring(0, 14) : ''}...)`;
+        return `<option value="${idx}">${label}</option>`;
+      }).join('');
+      selectEl.value = currentExamIndex;
+    }
+
+    function initExamView() {
+      populateExamYearSelect();
       renderCurrentExam();
     }
 
@@ -9251,27 +9477,90 @@
     }
 
     function renderCurrentExam() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
       if (!q) return;
       
+      const badgeEl = document.getElementById('examBadge');
       const titleEl = document.getElementById('examTitle');
       const themeEl = document.getElementById('examTheme');
       const topicEl = document.getElementById('examTopic');
+      const dirBtn = document.getElementById('examDirectionsBtn');
+      const dirBox = document.getElementById('examDirectionsBox');
+      const dirText = document.getElementById('examDirectionsText');
       const modelTextEl = document.getElementById('examModelEssayText');
       const modelBox = document.getElementById('examModelEssayBox');
       
-      if (titleEl) titleEl.innerText = `${q.year} 年英语一 · 大作文真题`;
-      if (themeEl) themeEl.innerText = `📌 题注：${q.theme || '暂无题注' }`;
-      if (topicEl) topicEl.innerText = `🏷️ 母题：${q.topic || '通用考研写作' }`;
+      if (currentExamType === 'partB') {
+        if (badgeEl) badgeEl.innerText = '🎯 考研大作文 (Part B · 20分)';
+        if (titleEl) titleEl.innerText = `${q.year} 年英语一 · Part B 大作文真题`;
+        if (themeEl) themeEl.innerText = `📌 题注：${q.theme || '暂无题注'}`;
+        if (topicEl) topicEl.innerText = `🏷️ 母题：${q.topic || '通用考研写作'}`;
+        if (dirBtn) dirBtn.style.display = 'none';
+        if (dirBox) dirBox.style.display = 'none';
+        
+        setStage1FormUI('partB');
+      } else {
+        if (badgeEl) badgeEl.innerText = '✉️ 考研小作文 (Part A · 10分)';
+        if (titleEl) titleEl.innerText = `${q.year} 年英语一 · Part A 小作文真题`;
+        if (themeEl) themeEl.innerText = `🏷️ 体裁：${q.type || '应用文'}`;
+        if (topicEl) topicEl.innerText = `📌 提要：${q.summary || '暂无提要'}`;
+        if (dirBtn) dirBtn.style.display = 'inline-block';
+        if (dirBox) dirBox.style.display = 'none';
+        if (dirText) dirText.innerText = q.directions || '暂无原卷 Directions';
+        
+        setStage1FormUI('partA');
+      }
+      
       if (modelTextEl) modelTextEl.innerText = q.model_essay || '暂无参考范文';
       if (modelBox) modelBox.style.display = 'none';
 
-      // 加载该真题的草稿暂存
-      loadExamDrafts(q.year);
+      // 加载该题草稿
+      loadExamDrafts();
+    }
+
+    function setStage1FormUI(type) {
+      const descEl = document.getElementById('s1_stage_desc');
+      const l1 = document.getElementById('s1_label_1');
+      const l2 = document.getElementById('s1_label_2');
+      const l3 = document.getElementById('s1_label_3');
+      const l4 = document.getElementById('s1_label_4');
+      const i1 = document.getElementById('s1_visual');
+      const i2 = document.getElementById('s1_thesis');
+      const i3 = document.getElementById('s1_arg1');
+      const i4 = document.getElementById('s1_arg2');
+
+      if (type === 'partB') {
+        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：先审题后动笔。填写你构思的画面意象、核心立意与两条支撑论据。AI 不直接判死刑，而是作为“反方辩友”做逻辑压力测试。';
+        if (l1) l1.innerText = '① 画面微观意象提炼（你看到了什么、暗喻什么）：';
+        if (l2) l2.innerText = '② 核心论点 (Thesis Statement · 一句话亮明主张)：';
+        if (l3) l3.innerText = '③ 支撑论据 1 (Topic Sentence 1 · 第一条深度归因)：';
+        if (l4) l4.innerText = '④ 支撑论据 2 (Topic Sentence 2 · 第二条归因或递进危害)：';
+        if (i1) i1.placeholder = '例如：一人坐拥满架豪华藏书自鸣得意，另一人在简陋灯下专心夜读...';
+        if (i2) i2.placeholder = '例如：书籍的物理占有并不等同于真才实学，真正的智慧来自深思细读...';
+        if (i3) i3.placeholder = '例如：买书不读往往源于浮躁风气下的虚荣炫耀与打卡形式主义...';
+        if (i4) i4.placeholder = '例如：知识的吸收必须经历沉思反刍，缺乏思想内化则书本形同废纸...';
+      } else {
+        if (descEl) descEl.innerHTML = '<strong>💡 阶段心法</strong>：应用文核心在于“格式规范、语域得体、要点全覆盖”。明确收件人身份与语域、交际意图与两个必写要点。AI 将对语域得体度与信息完整度进行深度压力测试。';
+        if (l1) l1.innerText = '① 写作背景与收件人身份（发信人/收信人关系、正式/半正式/私人语域）：';
+        if (l2) l2.innerText = '② 核心交际意图 (Purpose · 开门见山为什么写这封信/通知)：';
+        if (l3) l3.innerText = '③ 必答要点 1 (Key Point 1 · 题干指令要求的首要信息)：';
+        if (l4) l4.innerText = '④ 必答要点 2 (Key Point 2 · 题干指令要求的次要信息与活动细节)：';
+        if (i1) i1.placeholder = '例如：写给外国朋友 Paul 的私人回信，语气亲切热情、非正式语域...';
+        if (i2) i2.placeholder = '例如：告知手写信的背景信息，并通知其公开展览的具体安排...';
+        if (i3) i3.placeholder = '例如：手写信反映了过去几十年中国普通家庭的生活变迁与真挚温情...';
+        if (i4) i4.placeholder = '例如：展览定于下周五上午9点在校美术馆举行，期待他的到来...';
+      }
     }
 
     function toggleExamModelEssay() {
       const box = document.getElementById('examModelEssayBox');
+      if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function toggleExamDirections() {
+      const box = document.getElementById('examDirectionsBox');
       if (box) {
         box.style.display = box.style.display === 'none' ? 'block' : 'none';
       }
@@ -9294,12 +9583,18 @@
       if (!el || !countEl) return;
       const text = el.value.trim();
       const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
-      countEl.innerText = `${words} 词` + (inputId === 's2_draft' ? ' (建议 160-200 词)' : '');
+      const targetHint = currentExamType === 'partB' ? '(建议 160-200 词)' : '(建议 90-120 词 / 约 100 词)';
+      countEl.innerText = `${words} 词` + (inputId === 's2_draft' ? ` ${targetHint}` : '');
       saveExamDrafts();
     }
 
+    function getStorageKey() {
+      const q = getCurrentQuestion();
+      return `kaoyan_exam_draft_${currentExamType}_${q ? q.year : 'default'}`;
+    }
+
     function saveExamDrafts() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
       if (!q) return;
       const draftData = {
         visual: (document.getElementById('s1_visual') || {}).value || '',
@@ -9310,13 +9605,12 @@
         draftV2: (document.getElementById('s3_final_draft') || {}).value || '',
         stage: currentExamStage
       };
-      localStorage.setItem(`kaoyan_exam_draft_${q.year}`, JSON.stringify(draftData));
+      localStorage.setItem(getStorageKey(), JSON.stringify(draftData));
     }
 
-    function loadExamDrafts(year) {
-      const raw = localStorage.getItem(`kaoyan_exam_draft_${year}`);
+    function loadExamDrafts() {
+      const raw = localStorage.getItem(getStorageKey());
       if (!raw) {
-        // 清空
         ['s1_visual', 's1_thesis', 's1_arg1', 's1_arg2', 's2_draft', 's3_final_draft'].forEach(id => {
           const el = document.getElementById(id);
           if (el) el.value = '';
@@ -9339,29 +9633,44 @@
       } catch (e) {}
     }
 
-    /* ===== Prompt 构建器 ===== */
+    /* ===== Prompt 构建器 (双模式自适应) ===== */
     const EXAM_SYSTEM_PROMPT = `你现在是我的考研英语写作私人教练。我是高度自觉的冲刺考生，不需要任何防作弊或强制性的监督。我的诉求是极致的效率、深度的逻辑拆解和地道的语言升维。请直接、犀利地指出问题，不要用无意义的客套或空洞鼓励浪费我的时间。所有输出请用清晰的 Markdown 格式，方便我直接归档到 Obsidian。`;
 
     function buildStage1PromptText() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
       const v = (document.getElementById('s1_visual') || {}).value || '未填写';
       const t = (document.getElementById('s1_thesis') || {}).value || '未填写';
       const a1 = (document.getElementById('s1_arg1') || {}).value || '未填写';
       const a2 = (document.getElementById('s1_arg2') || {}).value || '未填写';
-      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的图画作文题目（母题：${q.topic}）。\n以下是我构思的中文立意和论据：\n> 画面意象提炼：${v}\n> 核心论点 (Thesis)：${t}\n> 支撑论据 1：${a1}\n> 支撑论据 2：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式设问反思】（置于最顶端）：\n请不要直接夸奖或给现成答案，请以反方辩友的最挑剔眼光，针对我这两个论据在推导核心论点时是否存在逻辑跳跃、自相矛盾、过度泛化或同义反复，抛出 2-3 个直击要害的反思设问，促使我自主深挖。\n\n【第二部分 · 深度逻辑诊断与推荐中文三段骨架】（置于下方）：\n1. 详细分析我的立意与论据在阅卷人眼中可能的扣分盲区；\n2. 提供更深刻的破题视角；\n3. 基于我的原意与你的补充，帮我理顺逻辑，生成一份清晰精炼的【中文三段论骨架】（第一段入画折射、第二段深度归因、第三段措施收束）。`;
+      
+      if (currentExamType === 'partB') {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的图画作文题目（母题：${q.topic}）。\n以下是我构思的中文立意和论据：\n> 画面意象提炼：${v}\n> 核心论点 (Thesis)：${t}\n> 支撑论据 1：${a1}\n> 支撑论据 2：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式设问反思】（置于最顶端）：\n请不要直接夸奖或给现成答案，请以反方辩友的最挑剔眼光，针对我这两个论据在推导核心论点时是否存在逻辑跳跃、自相矛盾、过度泛化或同义反复，抛出 2-3 个直击要害的反思设问，促使我自主深挖。\n\n【第二部分 · 深度逻辑诊断与推荐中文三段骨架】（置于下方）：\n1. 详细分析我的立意与论据在阅卷人眼中可能的扣分盲区；\n2. 提供更深刻的破题视角；\n3. 基于我的原意与你的补充，帮我理顺逻辑，生成一份清晰精炼的【中文三段论骨架】（第一段入画折射、第二段深度归因、第三段措施收束）。`;
+      } else {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（10分真题）。\n体裁：${q.type}\n题目要求 (Directions)：${q.directions || ''}\n中文提要：${q.summary || ''}\n\n以下是我构思的写作前审题拆解：\n> 1. 写作背景与身份语域：${v}\n> 2. 核心交际意图 (Purpose)：${t}\n> 3. 必答要点 1 (Key Point 1)：${a1}\n> 4. 必答要点 2 (Key Point 2)：${a2}\n\n你的任务分为两部分：\n【第一部分 · 苏格拉底式审题与语域拷问】（置于最顶端）：\n请以严格的阅卷专家视角，针对上述审题构思抛出 2-3 个直击要害的反思设问：\n1. 称呼、语气（正式/半正式/私人亲密）与署名是否存在语域冲突？\n2. 是否遗漏了 Directions 隐含要求或信息展开不够具体？\n3. 段落交际功能（开头开门见山、中段要点清晰、结尾得体客套）是否紧凑到位？\n\n【第二部分 · 深度逻辑诊断与推荐应用文骨架】（置于下方）：\n1. 详细指出上述审题构思中的闪光点与潜在失分隐患；\n2. 基于我的构思，生成一份标准地道的【应用文三段式提纲骨架】（段一表明目的、段二分点展开、段三客套收束与署名规范）。`;
+      }
     }
 
     function buildStage2PromptText() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
       const draft = (document.getElementById('s2_draft') || {}).value || '';
-      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的初稿。\n我的英文作文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度学术诊断。严格按照以下三个层次输出，每一个批改点都必须遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准格式：\n\nA. 硬核语法与搭配排雷（必改）：\n彻底排查时态、主谓一致、单复数、标点误用以及生硬中式英语；\nB. 词汇与表达优化（可选）：\n抓出过于基础的初中词汇（如 I think, make life easy, damage 等），替换为考研大纲高阶学术词块（附中文释义）；\nC. 句式升维推演（核心精华）：\n挑选 1-2 处最关键句子，运用【无灵主语】（如 A sober analysis reveals that...）、【分词状语】或【倒装/强调句】重构。给出我的原句与你的神级改写对比，并讲透升级后的语法功能与论证优势。\n\n注意：绝对不要替我重写一整篇范文！保留我的行文框架，只做局部深度手术。`;
+      
+      if (currentExamType === 'partB') {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】的初稿。\n我的英文作文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度学术诊断。严格按照以下三个层次输出，每一个批改点都必须遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】的标准格式：\n\nA. 硬核语法与搭配排雷（必改）：\n彻底排查时态、主谓一致、单复数、标点误用以及生硬中式英语；\nB. 词汇与表达优化（可选）：\n抓出过于基础的初中词汇（如 I think, make life easy, damage 等），替换为考研大纲高阶学术词块（附中文释义）；\nC. 句式升维推演（核心精华）：\n挑选 1-2 处最关键句子，运用【无灵主语】（如 A sober analysis reveals that...）、【分词状语】或【倒装/强调句】重构。给出我的原句与你的神级改写对比，并讲透升级后的语法功能与论证优势。\n\n注意：绝对不要替我重写一整篇范文！保留我的行文框架，只做局部深度手术。`;
+      } else {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（体裁：${q.type}）。\nDirections 原题要求：${q.directions || ''}\n\n我的英文应用文初稿如下：\n"""\n${draft}\n"""\n\n请对我进行深度应用文批改。严格按照【三色手术刀】输出，每个批改点遵循【原句 -> 诊断 -> 升级版 -> 为什么这样改】：\n\n【🔴 格式与硬伤排查 (Red Zone)】\n- 称呼 (Salutation) 与 署名 (Sign-off) 是否符合规范（如 Li Ming 规范，称呼后标点，严禁出现真实姓名）；\n- 排查时态一致性、单复数、介词搭配等语法硬伤；\n- 检查题干给出的所有要点是否均已覆盖，有无遗漏信息。\n\n【🟡 语域升维与地道交际表达 (Yellow Zone)】\n- 抓出过于平淡、中式或过口语化的表达，替换为高阶公文/书信地道功能句（附中文释义）；\n- 检查段落连接词（First and foremost, In addition 等）是否自然紧凑。\n\n【🟢 阅卷官整体评估与亮点 (Green Zone)】\n- 预估得分区间（满分10分）；\n- 肯定用得精妙的地道词块；\n- 给出升维润色后的整篇高分应用文对照范文。\n\n注意：保留我的原篇框架与思路，做精准手术，不要完全重起炉灶。`;
+      }
     }
 
     function buildStage3PromptText() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
       const v1 = (document.getElementById('s2_draft') || {}).value || '';
       const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
-      return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】。我吸收批改建议后，自己动手手敲修改了第二稿（V2）。请对比我的初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【真题复盘笔记】：\n📝 核心自查：\n1. 致命伤排查：V1 里的语法硬伤与初级口语词，在 V2 里消灭了吗？\n2. 升维吸收度：建议的高级句型（无灵主语/分词状语等），是否用自己的方式自然融入了？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次修改演进过程中，提炼出 5 个最值得我长期背诵、通用性极强的【高阶动宾搭配】或【核心句型模板】，配上贴合题意的英文例句与中文释义，并标明可迁移的考研母题场景。`;
+      
+      if (currentExamType === 'partB') {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年英语一 · ${q.theme || '大作文'}】。我吸收批改建议后，自己动手手敲修改了第二稿（V2）。请对比我的初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【真题复盘笔记】：\n📝 核心自查：\n1. 致命伤排查：V1 里的语法硬伤与初级口语词，在 V2 里消灭了吗？\n2. 升维吸收度：建议的高级句型（无灵主语/分词状语等），是否用自己的方式自然融入了？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次修改演进过程中，提炼出 5 个最值得我长期背诵、通用性极强的【高阶动宾搭配】或【核心句型模板】，配上贴合题意的英文例句与中文释义，并标明可迁移的考研母题场景。`;
+      } else {
+        return `${EXAM_SYSTEM_PROMPT}\n\n这是【${q.year}年考研英语一 · Part A 小作文】（${q.type}）。我吸收批改建议后，修改了终稿（V2）。请对比初稿（V1）与终稿（V2）：\n\n【初稿 V1】：\n"""\n${v1}\n"""\n\n【终稿 V2】：\n"""\n${v2}\n"""\n\n请直接输出一份适合我直接归档至 Obsidian 的【Part A 应用文真题复盘笔记】：\n📝 核心自查：\n1. 格式与要点：称呼、署名、题干要点是否彻底规范覆盖？\n2. 语域自然度：是否达到了本体裁应有的得体语域（委婉/严肃/亲切）？\n\n🧠 专属武器库提取（考前核心资产）：\n请从本次练习中，提炼出 5 个最值得长期背诵的【应用文黄金功能句/套话变体】（例如道歉、致谢、邀请、建议、期盼回复等功能句），附带中文释义与适用场景说明。`;
+      }
     }
 
     /* ===== 复制 Prompt 功能 ===== */
@@ -9387,167 +9696,163 @@
     async function requestStage1AI() {
       const t = (document.getElementById('s1_thesis') || {}).value.trim();
       if (!t) {
-        alert("请至少填写核心论点 (Thesis) 后再发起压力测试！");
+        alert("请至少填写核心意图 / 核心论点！");
         return;
       }
-      const prompt = buildStage1PromptText();
-      const btn = document.getElementById('btnRunStage1');
-      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在推敲中..."; }
+      const loading = document.getElementById('s1_loading');
+      const box = document.getElementById('s1_result_box');
+      const socraticBody = document.getElementById('s1_socratic_content');
+      const diagBody = document.getElementById('s1_diag_content');
+      
+      if (loading) loading.style.display = 'block';
+      if (box) box.style.display = 'none';
 
       try {
-        const resText = await callAiBackend(prompt);
+        const prompt = buildStage1PromptText();
+        const resText = await callAIChatAPI(prompt);
         currentExamS1Result = resText;
         
-        // 渲染输出
-        const box = document.getElementById('s1_output_box');
-        const socraticEl = document.getElementById('s1_socratic_text');
-        const diagEl = document.getElementById('s1_diag_text');
-        if (box) box.style.display = 'block';
-
-        // 尝试分割第一部分和第二部分
-        if (resText.includes('【第二部分') || resText.includes('第二部分')) {
-          const parts = resText.split(/【第二部分|第二部分/);
-          if (socraticEl) socraticEl.innerText = parts[0].replace(/【第一部分[^\n]*\n?/g, '').trim();
-          if (diagEl) diagEl.innerText = parts[1].trim();
+        let socratic = "";
+        let diagnosis = "";
+        
+        if (resText.includes("【第二部分")) {
+          const parts = resText.split(new RegExp('【第二部分[^\\n]*\\n?'));
+          socratic = parts[0].replace(new RegExp('【第一部分[^\\n]*\\n?'), '').trim();
+          diagnosis = parts[1] ? parts[1].trim() : '';
         } else {
-          if (socraticEl) socraticEl.innerText = resText.substring(0, 400);
-          if (diagEl) diagEl.innerText = resText;
+          socratic = resText.substring(0, 300) + "...";
+          diagnosis = resText;
         }
-
-        // 同步把骨架更新到 Stage 2 预览区
-        const s2Preview = document.getElementById('s2_skeleton_preview');
-        if (s2Preview) s2Preview.innerText = resText;
-
+        
+        if (socraticBody) socraticBody.innerText = socratic;
+        if (diagBody) diagBody.innerText = diagnosis;
+        if (box) box.style.display = 'block';
       } catch (err) {
-        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 1 Prompt】在外部大模型中运行。");
+        alert("AI 调用失败：" + err.message + "\n请检查设置中的 API Key 或直接使用[复制 Prompt]手动提问。");
       } finally {
-        if (btn) { btn.disabled = false; btn.innerText = "🔍 发起逻辑压力测试 (AI 挑刺)"; }
+        if (loading) loading.style.display = 'none';
       }
     }
 
     async function requestStage2AI() {
       const draft = (document.getElementById('s2_draft') || {}).value.trim();
       if (!draft) {
-        alert("请先输入您的英文初稿！");
+        alert("请先填写你的初稿！");
         return;
       }
-      const prompt = buildStage2PromptText();
-      const btn = document.getElementById('btnRunStage2');
-      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在进行三色手术刀深度批改..."; }
+      const loading = document.getElementById('s2_loading');
+      const box = document.getElementById('s2_result_box');
+      const redZone = document.getElementById('s2_red_zone');
+      const yellowZone = document.getElementById('s2_yellow_zone');
+      const greenZone = document.getElementById('s2_green_zone');
+
+      if (loading) loading.style.display = 'block';
+      if (box) box.style.display = 'none';
 
       try {
-        const resText = await callAiBackend(prompt);
+        const prompt = buildStage2PromptText();
+        const resText = await callAIChatAPI(prompt);
         currentExamS2Result = resText;
-        const box = document.getElementById('s2_output_box');
-        const contentEl = document.getElementById('s2_diag_content');
+
+        // 简易三色切分
+        let rText = "排雷完成，无致命硬伤。";
+        let yText = "词汇地道，保持良好语感。";
+        let gText = resText;
+
+        if (resText.includes("【🔴") || resText.includes("A. 硬核语法")) {
+          const pRed = resText.split(/(?:【🔴|A\.\s*硬核语法)/);
+          if (pRed[1]) {
+            const pYellow = pRed[1].split(/(?:【🟡|B\.\s*词汇与表达)/);
+            rText = pYellow[0].trim();
+            if (pYellow[1]) {
+              const pGreen = pYellow[1].split(/(?:【🟢|C\.\s*句式升维)/);
+              yText = pGreen[0].trim();
+              if (pGreen[1]) gText = pGreen[1].trim();
+            }
+          }
+        }
+
+        if (redZone) redZone.innerText = rText;
+        if (yellowZone) yellowZone.innerText = yText;
+        if (greenZone) greenZone.innerText = gText;
         if (box) box.style.display = 'block';
-        if (contentEl) contentEl.innerHTML = renderMarkdownToCards(resText);
       } catch (err) {
-        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 2 Prompt】在外部大模型中运行。");
+        alert("AI 调用失败：" + err.message + "\n建议使用右上角[复制 Prompt]到外部 AI 运行。");
       } finally {
-        if (btn) { btn.disabled = false; btn.innerText = "🔬 三色手术刀深度批改"; }
+        if (loading) loading.style.display = 'none';
       }
     }
 
     async function requestStage3AI() {
       const v2 = (document.getElementById('s3_final_draft') || {}).value.trim();
       if (!v2) {
-        alert("请先输入您自修后的终稿 V2！");
+        alert("请先在终稿框中填写你修改润色后的文章！");
         return;
       }
-      const prompt = buildStage3PromptText();
-      const btn = document.getElementById('btnRunStage3');
-      if (btn) { btn.disabled = true; btn.innerText = "⏳ 正在对比复盘与提取语料..."; }
+      const loading = document.getElementById('s3_loading');
+      const box = document.getElementById('s3_result_box');
+      const body = document.getElementById('s3_result_content');
+
+      if (loading) loading.style.display = 'block';
+      if (box) box.style.display = 'none';
 
       try {
-        const resText = await callAiBackend(prompt);
+        const prompt = buildStage3PromptText();
+        const resText = await callAIChatAPI(prompt);
         currentExamS3Result = resText;
-        const box = document.getElementById('s3_output_box');
-        const contentEl = document.getElementById('s3_diag_content');
-        const btnObs = document.getElementById('btnCopyObsidian');
+
+        if (body) body.innerText = resText;
         if (box) box.style.display = 'block';
-        if (btnObs) btnObs.style.display = 'inline-block';
-        if (contentEl) contentEl.innerHTML = `<div class="stage-details" style="display:block;"><div style="white-space:pre-wrap; font-size:0.9rem; line-height:1.6;">${resText}</div></div>`;
       } catch (err) {
-        alert("请求失败: " + err.message + "\n提示：您也可以点击【📋 复制 Stage 3 Prompt】在外部大模型中运行。");
+        alert("AI 调用失败：" + err.message);
       } finally {
-        if (btn) { btn.disabled = false; btn.innerText = "💎 对比复盘并提取专属武器库"; }
+        if (loading) loading.style.display = 'none';
       }
     }
 
+    /* 一键生成 Obsidian 完整沉淀笔记并复制 */
     function copyObsidianNote() {
-      const q = realExamQuestions[currentExamIndex];
+      const q = getCurrentQuestion();
+      const v = (document.getElementById('s1_visual') || {}).value || '';
+      const t = (document.getElementById('s1_thesis') || {}).value || '';
+      const a1 = (document.getElementById('s1_arg1') || {}).value || '';
+      const a2 = (document.getElementById('s1_arg2') || {}).value || '';
       const v1 = (document.getElementById('s2_draft') || {}).value || '';
       const v2 = (document.getElementById('s3_final_draft') || {}).value || '';
-      const note = `---
-tags: [英语一/作文, 真题复盘, "${q.year}"]
-年份: ${q.year}
-题注: ${q.theme || '大作文'}
-母题: ${q.topic}
----
 
-# ${q.year} 年考研英语一 · 大作文全流程自修复盘
+      const isPartA = currentExamType === 'partA';
+      const sectionName = isPartA ? `Part A · 小作文 (${q.type})` : `Part B · 大作文`;
+      const metaInfo = isPartA ? `> 体裁：${q.type}\n> 提要：${q.summary}` : `> 题注：${q.theme}\n> 母题：${q.topic}`;
 
-## 一、 立意与中文骨架
-> 核心论点：${(document.getElementById('s1_thesis') || {}).value || ''}
-> 论据 1：${(document.getElementById('s1_arg1') || {}).value || ''}
-> 论据 2：${(document.getElementById('s1_arg2') || {}).value || ''}
+      const noteText = `## 【真题实战】${q.year} 年英语一 · ${sectionName}
+${metaInfo}
 
-${currentExamS1Result ? '### 骨架推演记录\n' + currentExamS1Result + '\n' : ''}
+### 1. 审题与构思提纲
+- **${isPartA ? '语域与背景' : '画面意象'}**：${v}
+- **${isPartA ? '交际意图 (Purpose)' : '核心主张 (Thesis)'}**：${t}
+- **${isPartA ? '必写要点 1' : '支撑论据 1'}**：${a1}
+- **${isPartA ? '必写要点 2' : '支撑论据 2'}**：${a2}
 
-## 二、 作文演进对比 (V1 初稿 $\\to$ V2 终稿)
-
-### 初稿 V1
+### 2. 演进演练 (V1 初稿 -> V2 终稿)
+#### 【初稿 V1】
 \`\`\`text
 ${v1}
 \`\`\`
 
-### 终稿 V2
+#### 【终稿 V2 (自修升级版)】
 \`\`\`text
 ${v2}
 \`\`\`
 
-## 三、 深度复盘与专属武器库
-${currentExamS3Result || currentExamS2Result || '（待生成）'}
+### 3. 本题专属武器库与复盘
+${currentExamS3Result || '（尚未进行 Stage 3 武器库提炼，建议点击 Stage 3 提取 5 个高阶专属语料）'}
 `;
-      navigator.clipboard.writeText(note).then(() => {
-        alert("🎉 已生成完美的 Obsidian Markdown 复盘笔记并已复制到剪贴板！可以直接粘贴进 Obsidian 知识库保存。");
-      }).catch(() => alert("复制失败，请手动选取。"));
+
+      navigator.clipboard.writeText(noteText).then(() => {
+        alert("🎉 完整实战笔记已复制到剪贴板！可直接粘贴进 Obsidian 知识库中。");
+      }).catch(() => alert("复制失败，请手动选取复制。"));
     }
 
-    /* 简单的 Markdown 转红黄绿卡片展示辅助函数 */
-    function renderMarkdownToCards(mdText) {
-      return `<div class="stage-details" style="display:block;"><div style="white-space:pre-wrap; font-size:0.9rem; line-height:1.6;">${mdText}</div></div>`;
-    }
-
-    async function callAiBackend(promptText) {
-      if (!userSettings.apiKey || !userSettings.apiKey.trim()) {
-        throw new Error("请先在右上角【⚙️ API 设置】中配置您的 API Key 与 Endpoint！");
-      }
-      let endpoint = userSettings.endpoint.trim();
-      if (!endpoint.endsWith('/chat/completions')) {
-        endpoint = endpoint.replace(/\/+$/, '') + '/chat/completions';
-      }
-      const resp = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${userSettings.apiKey.trim()}`
-        },
-        body: JSON.stringify({
-          model: userSettings.model.trim().toLowerCase(),
-          messages: [{ role: 'user', content: promptText }],
-          temperature: 0.3
-        })
-      });
-      if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
-        throw new Error(err.error?.message || `HTTP ${resp.status}`);
-      }
-      const data = await resp.json();
-      return data.choices?.[0]?.message?.content || "AI 未返回有效内容";
-    }
-
-</script>
+  </script>
 </body>
 </html>
