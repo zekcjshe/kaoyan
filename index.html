@@ -398,7 +398,177 @@
     .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); border-top: 1px solid var(--border); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); z-index: 40; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-  </style>
+  
+    /* 左右双列排版：左侧批改报告，右侧 AI 追问 */
+    .qa-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+      align-items: stretch;
+    }
+    @media (max-width: 820px) {
+      .qa-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-box {
+      margin-top: 0 !important;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--block-bg);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      transition: all 0.2s ease;
+    }
+    .result-box.show {
+      border-color: var(--primary);
+    }
+
+    /* 右侧 AI 追问卡片 */
+    .followup-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      max-height: 540px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .followup-header {
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--block-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-badge {
+      font-size: 0.68rem;
+      background: #10b981;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .btn-clear-chat {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .btn-clear-chat:hover {
+      color: #ef4444;
+      background: var(--card-bg);
+    }
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 12px;
+      background: var(--block-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .chip-item {
+      font-size: 0.74rem;
+      padding: 3px 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .chip-item:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(37,99,235,0.05);
+    }
+    .followup-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+    .chat-welcome {
+      background: var(--block-bg);
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+    }
+    .msg-bubble {
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 90%;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+    .msg-user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: #ffffff;
+      border-bottom-right-radius: 2px;
+    }
+    .msg-ai {
+      align-self: flex-start;
+      background: var(--block-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 2px;
+    }
+    .msg-ai p { margin: 0 0 6px 0; }
+    .msg-ai p:last-child { margin-bottom: 0; }
+    .msg-ai code { background: rgba(0,0,0,0.06); padding: 1px 4px; border-radius: 3px; font-size: 0.82rem; }
+    .followup-input-bar {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      background: var(--block-bg);
+    }
+    .followup-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .followup-input:focus {
+      border-color: var(--primary);
+    }
+    .followup-send-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .followup-send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+</style>
 </head>
 <body>
 
@@ -493,11 +663,53 @@
           </div>
         </div>
 
-        <div class="result-box" id="result-box">
-          <div class="score-badge" id="ai-score">得分计算中...</div>
-          <div id="ai-reasoning-title" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:4px; display:none;">🧠 阅卷思考链：</div>
-          <div class="reasoning-box" id="ai-reasoning" style="display:none;"></div>
-          <div class="critique-text" id="ai-critique"></div>
+        <!-- 左右并排区域：左侧批改报告，右侧独立 AI 追问框 -->
+        <div class="qa-layout" id="qa-layout">
+          <!-- 左侧框：AI 批改报告 -->
+          <div class="result-box" id="result-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px;">
+              <span style="font-weight:700; font-size:0.92rem; color:var(--text); display:flex; align-items:center; gap:6px;">
+                <span>📊</span> <span>AI 阅卷批改报告</span>
+              </span>
+              <div class="score-badge" id="ai-score" style="margin-bottom:0; font-size:0.86rem;">待批改</div>
+            </div>
+            <div id="ai-reasoning-title" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:4px; display:none;">🧠 阅卷思考链：</div>
+            <div class="reasoning-box" id="ai-reasoning" style="display:none;"></div>
+            <div class="critique-text" id="ai-critique">
+              <div style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:35px 12px; line-height:1.6;">
+                ✍️ 作答后点击上方【🤖 AI 批改】<br>即可生成针对本题的精准阅卷诊断与高阶提分建议
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧框：AI 私教智能追问（独立不挤在批改框里） -->
+          <div class="followup-box" id="followup-box">
+            <div class="followup-header">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span>💬</span>
+                <span style="font-weight:700; font-size:0.92rem;">AI 私教智能追问</span>
+                <span id="followup-badge" class="chat-badge" style="display:none;">已追问</span>
+              </div>
+              <button class="btn-clear-chat" onclick="clearFollowupChat()" title="清空本题所有追问记录">🧹 清空</button>
+            </div>
+
+            <!-- 快捷高频追问胶囊 -->
+            <div class="quick-chips">
+              <span class="chip-item" onclick="quickAsk('本题如果换用倒装句该怎么写？请给出具体范例与考点拆解。')">💡 换倒装句</span>
+              <span class="chip-item" onclick="quickAsk('本题如果改用无灵主语（物称主语）升维，该如何重构？')">🧱 无灵主语</span>
+              <span class="chip-item" onclick="quickAsk('本题的核心靶向词有哪些最具学术质感的高分近义替换？')">🎯 核心词替换</span>
+              <span class="chip-item" onclick="quickAsk('请深度剖析本题原句的语法骨架与考场避坑细节。')">📝 句法避坑</span>
+            </div>
+
+            <!-- 对话流容器 -->
+            <div class="followup-messages" id="followup-messages"></div>
+
+            <!-- 底部输入栏 -->
+            <div class="followup-input-bar">
+              <input type="text" id="followup-input" class="followup-input" placeholder="输入追问（如：倒装怎么写？两词区别？）按 Enter 发送..." onkeydown="if(event.key==='Enter') sendFollowupQuestion()">
+              <button id="followup-send-btn" class="followup-send-btn" onclick="sendFollowupQuestion()">发送</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1169,7 +1381,162 @@
       closeDrawerModal();
     }
 
-    async function submitForAI() {
+    async 
+    // ========================================================
+    // AI 独立追问系统 (每题独立追问流，位于右侧独立框)
+    // ========================================================
+    let userFollowups = JSON.parse(localStorage.getItem('kaoyan_followups') || '{}');
+
+    function renderFollowupChat() {
+      const q = currentQuestions[currentIndex];
+      if (!q) return;
+      const key = `${currentMode}_${q.id}`;
+      const history = userFollowups[key] || [];
+      const container = document.getElementById('followup-messages');
+      const badge = document.getElementById('followup-badge');
+
+      if (badge) {
+        badge.style.display = history.length > 0 ? 'inline-block' : 'none';
+      }
+
+      if (!container) return;
+
+      if (history.length === 0) {
+        container.innerHTML = `
+          <div class="chat-welcome">
+            <p style="margin:0 0 6px 0; font-weight:700; color:var(--primary);">🤖 遇到疑惑随时问：</p>
+            <p style="margin:0; font-size:0.82rem; color:var(--text-muted); line-height:1.5;">你可以就本题的词块搭配、句法变体、中式英语纠偏或批改建议在此追问，AI 私教将直接解答。</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = history.map(msg => {
+        if (msg.role === 'user') {
+          return `<div class="msg-bubble msg-user">${msg.content}</div>`;
+        } else {
+          return `<div class="msg-bubble msg-ai">${renderMarkdownContent(msg.content)}</div>`;
+        }
+      }).join('');
+
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function quickAsk(text) {
+      const input = document.getElementById('followup-input');
+      if (input) input.value = text;
+      sendFollowupQuestion(text);
+    }
+
+    async function sendFollowupQuestion(customText) {
+      const inputEl = document.getElementById('followup-input');
+      const query = (customText || (inputEl ? inputEl.value : '')).trim();
+      if (!query) return;
+
+      if (!userSettings.apiKey) {
+        alert("请先点击右上角【⚙️ 设置】配置您的 API Key！");
+        toggleSettingsModal();
+        return;
+      }
+
+      const q = currentQuestions[currentIndex];
+      if (!q) return;
+      const recordKey = `${currentMode}_${q.id}`;
+      if (!userFollowups[recordKey]) userFollowups[recordKey] = [];
+
+      // 加入用户消息
+      userFollowups[recordKey].push({ role: 'user', content: query, time: new Date().toLocaleTimeString() });
+      if (inputEl) inputEl.value = '';
+      renderFollowupChat();
+
+      const container = document.getElementById('followup-messages');
+      const tempId = 'ai-loading-' + Date.now();
+      container.innerHTML += `<div class="msg-bubble msg-ai" id="${tempId}" style="color:var(--text-muted); font-style:italic;">🤖 私教正在思考解答中...</div>`;
+      container.scrollTop = container.scrollHeight;
+
+      const sendBtn = document.getElementById('followup-send-btn');
+      if (sendBtn) sendBtn.disabled = true;
+
+      // 提取作答与批改上下文
+      const userInput = (userRecords[recordKey] && userRecords[recordKey].input) || '';
+      const userCritique = (userRecords[recordKey] && userRecords[recordKey].critique) || '';
+
+      const systemPrompt = `你是一位精通考研英语一（写作与翻译）的私教导师。你的回答直接、严谨、平视、专业，杜绝“你好/非常棒/希望对你有帮助”等客服腔与心理按摩。
+请根据当前正在练习的试题意图、词网搭配、考生的作答与批改建议，直接针对考生提出的追问进行深度解析，给出切实可落地的范例、句法重构或同义辨析。
+输出采用整洁紧凑的 Markdown 格式。`;
+
+      const userPrompt = `【当前试题】：${q.category_name} - ${q.label || ''}
+【题目意图】：${q.chinese || q.english}
+【核心词网/要求】：${q.constraint || JSON.stringify(q.assembly || {})}
+【考生当前作答】：${userInput || '（考生尚未输入作答）'}
+【AI 历史批改结论】：${userCritique ? userCritique.slice(0, 300) + '...' : '（暂无批改）'}
+【考生追问问题】：${query}`;
+
+      let endpoint = userSettings.endpoint.trim().replace(/\/+$/, '');
+      if (!endpoint.includes('/chat/completions')) {
+        endpoint += '/chat/completions';
+      }
+
+      try {
+        const resp = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userSettings.apiKey.trim()}`
+          },
+          body: JSON.stringify({
+            model: userSettings.model.trim().toLowerCase(),
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.3
+          })
+        });
+
+        const rawText = await resp.text();
+        let data;
+        try {
+          data = JSON.parse(rawText);
+        } catch(e) {
+          throw new Error(`API 接口返回非 JSON 内容 (HTTP ${resp.status}): ${rawText.slice(0, 150)}`);
+        }
+
+        if (data.error) {
+          throw new Error(data.error.message || JSON.stringify(data.error));
+        }
+
+        const choice = data.choices && data.choices[0];
+        const aiAnswer = choice.message.content;
+
+        userFollowups[recordKey].push({ role: 'assistant', content: aiAnswer, time: new Date().toLocaleTimeString() });
+        localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
+        renderFollowupChat();
+        triggerAutoSync();
+      } catch (err) {
+        const loadingEl = document.getElementById(tempId);
+        if (loadingEl) {
+          loadingEl.style.color = '#ef4444';
+          loadingEl.innerText = `❌ 解答失败: ${err.message}`;
+        }
+      } finally {
+        if (sendBtn) sendBtn.disabled = false;
+      }
+    }
+
+    function clearFollowupChat() {
+      const q = currentQuestions[currentIndex];
+      if (!q) return;
+      const key = `${currentMode}_${q.id}`;
+      if (!userFollowups[key] || userFollowups[key].length === 0) return;
+      if (!confirm("确定清空本题的所有追问记录吗？")) return;
+      delete userFollowups[key];
+      localStorage.setItem('kaoyan_followups', JSON.stringify(userFollowups));
+      renderFollowupChat();
+      triggerAutoSync();
+    }
+
+    function submitForAI() {
       const inputVal = document.getElementById('user-input').value.trim();
       if (!inputVal) {
         alert("请先输入您的作答内容！");
@@ -1574,7 +1941,7 @@
         records: userRecords,
         favorites: userFavorites,
         errors: userErrors,
-        notes: userNotes,
+        notes: userNotes, followups: userFollowups,
         drafts: JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}'),
         write_idx: localStorage.getItem('kaoyan_write_idx'),
         trans_idx: localStorage.getItem('kaoyan_trans_idx'),
@@ -1682,7 +2049,7 @@
         records: userRecords,
         favorites: userFavorites,
         errors: userErrors,
-        notes: userNotes,
+        notes: userNotes, followups: userFollowups,
         drafts: JSON.parse(localStorage.getItem('kaoyan_drafts') || '{}'),
         write_idx: localStorage.getItem('kaoyan_write_idx'),
         trans_idx: localStorage.getItem('kaoyan_trans_idx')
